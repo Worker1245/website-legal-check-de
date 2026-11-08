@@ -1,0 +1,53 @@
+<!doctype html>
+<!--
+  Mock-up of ONE corrected spot (decision 7a): plain and neutral, current state as
+  screenshot on the left, the correction on the right. No extra features, no design ideas.
+  Fill {{TITEL}}, {{SITE}}, {{FUNDSTELLE}}, {{VORSCHRIFT}}, {{BELEG_BILD}} (path below "belege/"),
+  {{BELEG_TEXT}}, {{KORREKTUR_HTML}} (one component from references/mockup-components.md)
+  and {{ERLAEUTERUNG}} (1–3 sentences: what changed and why). Escape website text.
+  Save next to the report so that "belege/…" resolves.
+-->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock-up: {{TITEL}}</title>
+<style>
+  :root { --ink: #1a1a1a; --muted: #555; --line: #c8c8c8; --accent: #1d4ed8; --bg: #f6f6f6; --card: #fff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px 16px; font: 15px/1.5 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); }
+  header, .grid, footer { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .meta { color: var(--muted); margin: 0 0 16px; }
+  .notice { border: 1px solid #b45309; background: #fff7ed; padding: 8px 12px; margin-bottom: 20px; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .pane { background: var(--card); border: 1px solid var(--line); padding: 16px; min-width: 0; }
+  .pane h2 { font-size: 15px; margin: 0 0 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .pane img { max-width: 100%; border: 1px solid var(--line); }
+  .stage { position: relative; min-height: 240px; border: 1px dashed var(--line); padding: 16px; background: #fff; }
+  footer { margin-top: 16px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Mock-up: {{TITEL}}</h1>
+    <p class="meta">{{SITE}} · Fundstelle: {{FUNDSTELLE}} · Vorschrift: {{VORSCHRIFT}}</p>
+    <div class="notice">Entwurf – keine Rechtsberatung, vor Veröffentlichung prüfen lassen. Das Mock-up zeigt nur die korrigierte Stelle in neutraler Gestaltung; Farben und Schrift passt die Website selbst an.</div>
+  </header>
+  <div class="grid">
+    <section class="pane">
+      <h2>Ist-Zustand</h2>
+      <img src="belege/{{BELEG_BILD}}" alt="Bildschirmfoto des Ist-Zustands: {{BELEG_TEXT}}">
+      <p>{{BELEG_TEXT}}</p>
+    </section>
+    <section class="pane">
+      <h2>Vorschlag</h2>
+      <div class="stage">
+{{KORREKTUR_HTML}}
+      </div>
+    </section>
+  </div>
+  <footer>{{ERLAEUTERUNG}}</footer>
+</body>
+</html>

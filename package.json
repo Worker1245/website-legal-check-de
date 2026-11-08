@@ -1,0 +1,26 @@
+{
+  "name": "website-legal-check-de",
+  "version": "1.9.5",
+  "private": true,
+  "description": "Claude skill: technical check of a website against core German and EU legal duties, with fix help.",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@fontsource/source-sans-3": "^5.3.1",
+    "axe-core": "^4.14.0",
+    "pagedjs": "^0.4.3",
+    "pdf-lib": "^1.17.1",
+    "playwright": "^1.65.0"
+  },
+  "homepage": "https://github.com/Worker1245/website-legal-check-de",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Worker1245/website-legal-check-de"
+  }
+}

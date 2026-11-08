@@ -1,0 +1,120 @@
+{
+  "_comment": "Abbreviations for the long report. Only entries whose 'short' occurs in the report text are listed. 'longEn' is used in English reports.",
+  "entries": [
+    {
+      "short": "Abs.",
+      "long": "Absatz",
+      "longEn": "Absatz (paragraph)"
+    },
+    {
+      "short": "Art.",
+      "long": "Artikel",
+      "longEn": "Artikel (article)"
+    },
+    {
+      "short": "BFSG",
+      "long": "Barrierefreiheitsstärkungsgesetz",
+      "longEn": "Barrierefreiheitsstärkungsgesetz (German Accessibility Act)"
+    },
+    {
+      "short": "BGB",
+      "long": "Bürgerliches Gesetzbuch",
+      "longEn": "Bürgerliches Gesetzbuch (German Civil Code)"
+    },
+    {
+      "short": "DDG",
+      "long": "Digitale-Dienste-Gesetz",
+      "longEn": "Digitale-Dienste-Gesetz (German Digital Services Act)"
+    },
+    {
+      "short": "DSA",
+      "long": "Digital Services Act, Verordnung (EU) 2022/2065",
+      "longEn": "Digital Services Act, Regulation (EU) 2022/2065"
+    },
+    {
+      "short": "DSGVO",
+      "long": "Datenschutz-Grundverordnung, Verordnung (EU) 2016/679",
+      "longEn": "Datenschutz-Grundverordnung (GDPR), Regulation (EU) 2016/679"
+    },
+    {
+      "short": "DSK",
+      "long": "Datenschutzkonferenz der unabhängigen Datenschutzaufsichtsbehörden des Bundes und der Länder",
+      "longEn": "Datenschutzkonferenz (German data protection authorities’ conference)"
+    },
+    {
+      "short": "EDSA",
+      "long": "Europäischer Datenschutzausschuss",
+      "longEn": "Europäischer Datenschutzausschuss (European Data Protection Board, EDPB)"
+    },
+    {
+      "short": "EGBGB",
+      "long": "Einführungsgesetz zum Bürgerlichen Gesetzbuche",
+      "longEn": "Einführungsgesetz zum BGB (Introductory Act to the Civil Code)"
+    },
+    {
+      "short": "EWR",
+      "long": "Europäischer Wirtschaftsraum",
+      "longEn": "Europäischer Wirtschaftsraum (European Economic Area)"
+    },
+    {
+      "short": "GPSR",
+      "long": "Allgemeine Produktsicherheitsverordnung, Verordnung (EU) 2023/988",
+      "longEn": "General Product Safety Regulation, Regulation (EU) 2023/988"
+    },
+    {
+      "short": "HRB",
+      "long": "Handelsregister Abteilung B",
+      "longEn": "Handelsregister Abteilung B (commercial register, section B)"
+    },
+    {
+      "short": "KI-VO",
+      "long": "KI-Verordnung, Verordnung (EU) 2024/1689",
+      "longEn": "KI-Verordnung (AI Act), Regulation (EU) 2024/1689"
+    },
+    {
+      "short": "LG",
+      "long": "Landgericht",
+      "longEn": "Landgericht (regional court)"
+    },
+    {
+      "short": "MwSt.",
+      "long": "Mehrwertsteuer (Umsatzsteuer)",
+      "longEn": "Mehrwertsteuer (value added tax, VAT)"
+    },
+    {
+      "short": "PAngV",
+      "long": "Preisangabenverordnung",
+      "longEn": "Preisangabenverordnung (German Price Indication Ordinance)"
+    },
+    {
+      "short": "RDG",
+      "long": "Rechtsdienstleistungsgesetz",
+      "longEn": "Rechtsdienstleistungsgesetz (German Legal Services Act)"
+    },
+    {
+      "short": "TDDDG",
+      "long": "Telekommunikation-Digitale-Dienste-Datenschutz-Gesetz",
+      "longEn": "Telekommunikation-Digitale-Dienste-Datenschutz-Gesetz (German telecom and digital services data protection act)"
+    },
+    {
+      "short": "USt-IdNr.",
+      "long": "Umsatzsteuer-Identifikationsnummer",
+      "longEn": "Umsatzsteuer-Identifikationsnummer (VAT ID)"
+    },
+    {
+      "short": "UWG",
+      "long": "Gesetz gegen den unlauteren Wettbewerb",
+      "longEn": "Gesetz gegen den unlauteren Wettbewerb (German Act against Unfair Competition)"
+    },
+    {
+      "short": "VSBG",
+      "long": "Verbraucherstreitbeilegungsgesetz",
+      "longEn": "Verbraucherstreitbeilegungsgesetz"
+    },
+    {
+      "short": "WCAG",
+      "long": "Web Content Accessibility Guidelines (W3C)",
+      "longEn": "Web Content Accessibility Guidelines (W3C)"
+    }
+  ]
+}
