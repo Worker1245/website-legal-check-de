@@ -36,6 +36,9 @@ test('finds the newest earlier scan of the same site within 30 days', async () =
     await fakeRun(parent, '20261108_beispiel-app', 'beispiel.app', '2026-11-08T08:00:00.000Z');
     await fakeRun(parent, '20261108_beispiel-app_Ref2', 'beispiel.app', '2026-11-08T09:00:00.000Z');
     assert.equal(path.basename((await findPreviousScan(parent, new URL('https://beispiel.app'), now)).dir), '20261108_beispiel-app_Ref2');
+    // Language code since v1.9.6 (decision 44a), in any language.
+    await fakeRun(parent, '20261108_beispiel-app_FR_Ref3', 'beispiel.app', '2026-11-08T10:00:00.000Z');
+    assert.equal(path.basename((await findPreviousScan(parent, new URL('https://beispiel.app'), now)).dir), '20261108_beispiel-app_FR_Ref3');
   } finally {
     await rm(parent, { recursive: true, force: true });
   }

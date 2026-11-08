@@ -101,3 +101,16 @@ test('U without detected system writes the prompt file', async () => {
     await rm(run, { recursive: true, force: true });
   }
 });
+
+test('language code and revision follow the kind of file (decisions 44a, 45a)', async () => {
+  const { run, report } = await fixtureRun();
+  try {
+    await buildReports(report, '20261107_example', { short: true, long: true, kiPrompt: true, suffix: '_DE_Ref2' });
+    assert.deepEqual((await readdir(run)).sort(), [
+      '20261107_example_KI-Prompt_DE_Ref2.txt', '20261107_example_Kurzbericht_DE_Ref2.pdf', '20261107_example_Langfassung_DE_Ref2.pdf', 'daten',
+    ]);
+    await assert.rejects(buildReports(report, '20261107_example', { short: true, suffix: '_Ref2_DE' }), /--suffix/);
+  } finally {
+    await rm(run, { recursive: true, force: true });
+  }
+});

@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-**Document version:** v15
+**Document version:** v16
 **Last updated:** 2026-11-08
 
 Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(Annahme)“ markierte Punkte sind nicht durch Nutzerbefragungen belegt.
@@ -137,6 +137,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v16 (2026-11-08) — v1.9.6: separate document language (German, English or any other language translated by AI with a note); description says "PDF-Berichte in jeder Sprache".
 - v15 (2026-11-08) — Older versions removed from GitHub (history squashed); licence note on earlier Apache-2.0 versions dropped.
 - v14 (2026-11-08) — No positioning change; v1.9.5 asks at the end whether the files should also be sent to the chat (download on a smartphone).
 - v13 (2026-11-08) — Objection „Wo bleibt die Nutzererfahrung?“ from the first LinkedIn comment added (Objections, Customer Language, Learnings); README and description now say that the cookie fix is also clearer for visitors.

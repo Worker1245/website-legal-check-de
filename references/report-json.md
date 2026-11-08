@@ -55,7 +55,7 @@ Input for `scripts/build-reports.mjs`, which builds the requested PDFs and the p
 
 Rules:
 - `time`: HH:MM of the scan (local time), shown after the date; if missing, taken from `daten/scan.json`.
-- `language`: `de` or `en` (question 1). All texts in the chosen language except `draft`, which stays German.
+- `language`: ISO 639-1 code of the document language (question 1a), e.g. `de`, `en`, `fr`. All texts in that language except `draft`, which stays German. For languages other than `de` and `en` the fixed texts come from the translated file passed with `--texts`.
 - `platform`: copied from `findings.json` → `siteProfile.platform`; shown on the cover and used in the AI prompt.
 - `summary`: shown in the fact sheet of the long report right after the location; written for laypeople (no jargon, no paragraph numbers, say what happens and why it matters). Falls back to `what` if missing.
 - `plain`: one short everyday-language sentence each for `where`, `law` and `evidence`, shown as a second line in the same row, without a label (the priority row gets its explanation automatically). Name what the law requires, not the paragraph; translate technical evidence (requests, cookie names) into what it means for visitors.

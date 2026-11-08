@@ -6,7 +6,7 @@
 - **Klare Wahl für Besucher:** Bei der Cookie-Abfrage zählt nicht nur, dass es sie gibt. Der Skill meldet, wenn „Ablehnen“ fehlt oder schwerer erreichbar ist als „Akzeptieren“. Das Mock-up zeigt eine Abfrage mit gleichwertigen Knöpfen, kurzem Text zum Zweck und dem Weg zum Widerruf. Farben, Ton und Platzierung bestimmt der Betreiber.
 - **Priorisiert:** Priorität 1 heißt sofort erledigen. ⚠ markiert Pflichten, die häufig abgemahnt werden.
 - **Direkt umsetzbar:** Schritt-für-Schritt-Anleitungen für Laien, zugeschnitten auf das erkannte System (z. B. WordPress, Shopify, Wix), dazu Textentwürfe, Mock-ups der korrigierten Stelle, amtliche Quellen und auf Wunsch ein Prompt, mit dem Claude Code oder Codex die Lücken im Code behebt.
-- **Deutsch oder Englisch, eine oder mehrere Websites:** Die Berichte gibt es auf Deutsch oder Englisch; mehrere Websites lassen sich in einem Aufruf prüfen.
+- **Berichte in jeder Sprache, eine oder mehrere Websites:** Deutsch und Englisch sind fest eingebaut. Andere Sprachen übersetzt Claude bei der Prüfung, mit einem Hinweis im Bericht. Mehrere Websites lassen sich in einem Aufruf prüfen.
 - **Kostenlos und lokal:** Open Source (GPL-3.0). Die Prüfung läuft auf dem eigenen Rechner.
 
 **Technische Prüfung, keine Rechtsberatung.**
@@ -31,7 +31,8 @@ Dann in Claude Code:
 
 Vor der Prüfung fragt der Skill je Website kurz nach, was entstehen soll:
 
-1. `Analyse auf Deutsch oder Englisch? / Analysis in German or English? (G/E)`: Bei E sind alle weiteren Fragen, Berichte und der Prompt englisch; Textentwürfe für die Website bleiben deutsch.
+1. `Fragen und Antworten auf Deutsch oder Englisch? / Questions and answers in German or English? (G/E)`: Sprache der weiteren Fragen und der Antwort.
+   Danach: `In welcher Sprache sollen die Dokumente erstellt werden? (G = Deutsch, E = Englisch oder Sprache eingeben, z. B. Französisch)`: Sprache der PDFs und des Prompts. Bei einer anderen Sprache übersetzt Claude die festen Texte aus der englischen Fassung; die PDFs tragen dann einen Hinweis, dass die Übersetzung von einer KI stammt und nicht von einem Menschen geprüft wurde. Die Dateinamen bleiben englisch. Textentwürfe für die Website bleiben immer deutsch.
 2. `PDF Kurzfassung gewünscht? (Y/N)`
 3. `PDF Langfassung gewünscht? (Y/N)`
    Danach: `Uhrzeit der Prüfung im Dokument angeben? (Y/N)`: Bei Y steht hinter dem Datum die Uhrzeit (HH:MM).
@@ -39,7 +40,7 @@ Vor der Prüfung fragt der Skill je Website kurz nach, was entstehen soll:
 5. Nur bei KI = Y oder U: `Den Prompt zur Behebung mit KI (Auftrag für Claude Code, Codex o. Ä., steht in der Langfassung) zusätzlich als Textdatei (.txt) speichern? (Y/N)`
 6. Nur bei Langfassung, als letzte Frage: `Mock-ups mit erstellen? (Mock-ups sind Bilder, die zeigen, wie eine korrigierte Stelle aussehen kann …) (Y/N)`
 
-Gibt es im Arbeitsordner einen höchstens 30 Tage alten früheren Scan derselben Website, fragt der Skill, ob er ihn wiederverwenden soll: Dann prüft er jede Seite kurz auf Änderungen, übernimmt unveränderte Seiten samt Belegfotos und bereits geprüften Befunden, ohne die Fotos zu kopieren oder erneut anzusehen, und scannt nur geänderte Seiten neu. Ist für eine Website keine PDF gewünscht, wird sie übersprungen. Bei mehreren Websites stellt der Skill zuerst alle Fragen und prüft danach eine Website nach der anderen; ist eine nicht erreichbar, macht er mit der nächsten weiter. Bei mehr als fünf Websites fragt er die Sprache einmal für alle und dann, ob alle gleich untersucht werden sollen. Bei Ja gelten die übrigen Antworten für alle Websites. Nach der Prüfung fragt er nur noch, ob die Dateien (PDF, Textdatei) auch in den Chat sollen; dann lassen sie sich z. B. direkt auf dem Smartphone herunterladen. Weitere Fragen stellt er nicht: Ob eine Website an Verbraucher verkauft oder wie groß das Unternehmen ist, leitet er aus der Website ab und nennt seine Annahmen im Bericht.
+Gibt es im Arbeitsordner einen höchstens 30 Tage alten früheren Scan derselben Website, fragt der Skill, ob er ihn wiederverwenden soll: Dann prüft er jede Seite kurz auf Änderungen, übernimmt unveränderte Seiten samt Belegfotos und bereits geprüften Befunden, ohne die Fotos zu kopieren oder erneut anzusehen, und scannt nur geänderte Seiten neu. Ist für eine Website keine PDF gewünscht, wird sie übersprungen. Bei mehreren Websites stellt der Skill zuerst alle Fragen und prüft danach eine Website nach der anderen; ist eine nicht erreichbar, macht er mit der nächsten weiter. Bei mehr als fünf Websites fragt er beide Sprachen einmal für alle und dann, ob alle gleich untersucht werden sollen. Bei Ja gelten die übrigen Antworten für alle Websites. Nach der Prüfung fragt er nur noch, ob die Dateien (PDF, Textdatei) auch in den Chat sollen; dann lassen sie sich z. B. direkt auf dem Smartphone herunterladen. Weitere Fragen stellt er nicht: Ob eine Website an Verbraucher verkauft oder wie groß das Unternehmen ist, leitet er aus der Website ab und nennt seine Annahmen im Bericht.
 
 | Eingabe | Wirkung |
 |---|---|
@@ -52,13 +53,13 @@ Gibt es im Arbeitsordner einen höchstens 30 Tage alten früheren Scan derselben
 
 ## Was Sie bekommen
 
-Jede Prüfung erhält einen eigenen Ordner im aktuellen Verzeichnis, `JJJJMMTT_<website>/`, mit Bindestrichen statt Punkten, z. B. `20261108_beispiel-de/`. Sonst zeigt macOS Ordner wie `…_beispiel.app` als Programm an. Weitere Prüfungen derselben Website am selben Tag sind Revisionen: `JJJJMMTT_<website>_Ref2/`, `JJJJMMTT_<website>_Ref3/` …; die Dateinamen tragen die Revision hinter dem Datum, z. B. `20261108_Ref2_beispiel_Kurzbericht.pdf`.
+Jede Prüfung erhält einen eigenen Ordner im aktuellen Verzeichnis, `JJJJMMTT_<website>_<SPRACHE>/`, mit Bindestrichen statt Punkten und dem Kürzel der Dokumentsprache, z. B. `20261108_beispiel-de_DE/`. Sonst zeigt macOS Ordner wie `…_beispiel.app` als Programm an. Weitere Prüfungen derselben Website am selben Tag sind Revisionen, auch in einer anderen Sprache: `20261108_beispiel-de_FR_Ref2/`. Die Dateinamen folgen derselben Reihenfolge, z. B. `20261108_beispiel_Kurzbericht_DE.pdf` oder `20261108_beispiel_ShortReport_FR_Ref2.pdf`.
 
 | Datei | Inhalt |
 |---|---|
-| `JJJJMMTT_<projekt>_Kurzbericht.pdf` | Zum Weiterleiten an die Betreiber der Website: alle Befunde je eine Zeile, nach Priorität gegliedert, mit ⚠-Markierung, Annahmen und kommenden Regeln |
-| `JJJJMMTT_<projekt>_Langfassung.pdf` | Klickbares Inhaltsverzeichnis, je Befund eine Seite mit Steckbrief (Priorität, Fundstelle, Kurzbeschreibung, Vorschrift, Beleg, jeweils mit einer Erklärung in einfachen Worten), Beleg, Schritt-für-Schritt-Anleitung, Textentwurf und Mock-up, Prüfumfang, kommende und diskutierte Regeln, Abbildungs-, Tabellen- und Quellenverzeichnis, Rechtshinweis |
-| `JJJJMMTT_<projekt>_KI-Prompt.txt` | Nur auf Wunsch bei KI-erstellten Websites: Auftrag für Claude Code oder Codex, der alle Befunde ohne Rückfragen im Code behebt; Unbekanntes wird als sichtbarer Platzhalter gesetzt |
+| `JJJJMMTT_<projekt>_Kurzbericht_<SPRACHE>.pdf` | Zum Weiterleiten an die Betreiber der Website: alle Befunde je eine Zeile, nach Priorität gegliedert, mit ⚠-Markierung, Annahmen und kommenden Regeln |
+| `JJJJMMTT_<projekt>_Langfassung_<SPRACHE>.pdf` | Klickbares Inhaltsverzeichnis, je Befund eine Seite mit Steckbrief (Priorität, Fundstelle, Kurzbeschreibung, Vorschrift, Beleg, jeweils mit einer Erklärung in einfachen Worten), Beleg, Schritt-für-Schritt-Anleitung, Textentwurf und Mock-up, Prüfumfang, kommende und diskutierte Regeln, Abbildungs-, Tabellen- und Quellenverzeichnis, Rechtshinweis |
+| `JJJJMMTT_<projekt>_KI-Prompt_<SPRACHE>.txt` | Nur auf Wunsch bei KI-erstellten Websites: Auftrag für Claude Code oder Codex, der alle Befunde ohne Rückfragen im Code behebt; Unbekanntes wird als sichtbarer Platzhalter gesetzt |
 | `daten/` | Rohdaten und Belege (Bildschirmfotos, Messwerte), damit sich Befunde nachvollziehen lassen |
 
 Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und `…_AI-Prompt.txt`. Beide PDFs beginnen mit einer festen Kurzerklärung, was im Dokument steht, und folgen recherchierten Formatierungsregeln (Tabellenüberschrift oben, Abbildungsunterschrift unten, 11 pt mit 1,5-fachem Zeilenabstand, Flattersatz, Schreibweisen nach DIN 5008). Sie nennen das erkannte System, Skill, Version und dieses Repository, nutzen nur die frei lizenzierte Schrift Source Sans 3 und betten Bildschirmfotos verkleinert ein.

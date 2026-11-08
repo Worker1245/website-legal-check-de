@@ -12,7 +12,7 @@ const stripWww = (host) => host.toLowerCase().replace(/^www\./, '');
 const escapeRe = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /**
- * Newest earlier scan of the site in parent (folders JJJJMMTT[_RefN]_<website> with daten/scan.json; legacy suffix _n accepted).
+ * Newest earlier scan of the site in parent (folders JJJJMMTT_<website>_<SPRACHE>[_RefN] with daten/scan.json; older schemes accepted).
  * @param {string} parent
  * @param {URL} start
  * @param {Date} [now]
@@ -22,7 +22,8 @@ export async function findPreviousScan(parent, start, now = new Date(), maxAgeDa
   const host = stripWww(start.hostname);
   // Old scheme keeps the dots ("xyz.de"), the new one uses hyphens ("xyz-de", decision 36a).
   const hostPattern = host.split('.').map(escapeRe).join('[.-]');
-  const pattern = new RegExp(`^\\d{8}(_Ref\\d+)?_${hostPattern}(_Ref\\d+|_\\d+)?$`, 'i');
+  // Language code since v1.9.6 (decision 44a), e.g. 20261108_xyz-de_FR_Ref2.
+  const pattern = new RegExp(`^\\d{8}(_Ref\\d+)?_${hostPattern}(_[a-z]{2,3}(-[a-z0-9]{2,8})?)?(_Ref\\d+|_\\d+)?$`, 'i');
   let best = null;
   for (const entry of await readdir(parent, { withFileTypes: true })) {
     if (!entry.isDirectory() || !pattern.test(entry.name)) continue;

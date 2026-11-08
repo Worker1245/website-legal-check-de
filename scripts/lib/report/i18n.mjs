@@ -25,6 +25,7 @@ const DE = {
   meta: (date, time, pages, status) => `Geprüft am ${date}${time ? ` ${time} Uhr` : ''} · ${pages} Seiten untersucht · Rechtsstand: ${status}`,
   platform: (name, extras) => `Erkanntes System: ${name}${extras ? ` (${extras})` : ''}`,
   platformUnknown: 'Erkanntes System: nicht eindeutig erkennbar',
+  translatedNote: 'Dieses Dokument wurde von einer KI aus der englischen Fassung übersetzt; die Übersetzung hat kein Mensch geprüft.',
   // Answer U ("unbekannt") to the AI question (decision 38a): the detected system decides.
   aiUnknown: {
     question: 'Website mit KI (Vibe-Coding) erstellt?',
@@ -125,6 +126,7 @@ const EN = {
   meta: (date, time, pages, status) => `Checked on ${date}${time ? ` ${time}` : ''} · ${pages} pages examined · Legal status: ${status}`,
   platform: (name, extras) => `Detected system: ${name}${extras ? ` (${extras})` : ''}`,
   platformUnknown: 'Detected system: not clearly identifiable',
+  translatedNote: 'This document was translated by AI from the English version; the translation was not reviewed by a person.',
   aiUnknown: {
     question: 'Website built with AI (vibe coding)?',
     yes: 'Probably yes, or custom-coded.', no: 'Probably not.',

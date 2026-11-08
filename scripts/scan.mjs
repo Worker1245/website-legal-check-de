@@ -8,7 +8,7 @@ import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { runChecks } from './lib/checks/index.mjs';
-import { createRunDir, filePrefix } from './lib/run-dir.mjs';
+import { createRunDir, filePrefix, fileSuffix, LANG_CODE } from './lib/run-dir.mjs';
 import { findPreviousScan } from './lib/reuse.mjs';
 import { DEFAULTS, scanSite } from './lib/scanner.mjs';
 import { normalizeStartUrl } from './lib/url.mjs';
@@ -16,7 +16,7 @@ import { normalizeStartUrl } from './lib/url.mjs';
 const DATA_DIR = 'daten';
 
 const USAGE = [
-  'Usage: node scripts/scan.mjs --url <website> (--parent <folder> | --out <folder>) [--max-extra <n>] [--no-deep] [--reuse <earlier run folder>]',
+  'Usage: node scripts/scan.mjs --url <website> (--parent <folder> | --out <folder>) [--max-extra <n>] [--no-deep] [--reuse <earlier run folder>] [--lang <document language, e.g. de>]',
   '       node scripts/scan.mjs --url <website> --parent <folder> --find-previous',
 ].join('\n');
 
@@ -25,7 +25,7 @@ function parseOptions() {
     options: {
       url: { type: 'string' }, out: { type: 'string' }, parent: { type: 'string' },
       'max-extra': { type: 'string' }, 'no-deep': { type: 'boolean', default: false },
-      reuse: { type: 'string' }, 'find-previous': { type: 'boolean', default: false },
+      reuse: { type: 'string' }, 'find-previous': { type: 'boolean', default: false }, lang: { type: 'string', default: 'de' },
       help: { type: 'boolean', default: false },
     },
   });
@@ -39,21 +39,27 @@ function parseOptions() {
     console.error('--max-extra must be an integer between 0 and 200');
     process.exit(2);
   }
+  if (!LANG_CODE.test(values.lang)) {
+    console.error('--lang must be an ISO 639-1 code such as de, en or fr');
+    process.exit(2);
+  }
   return {
     startUrl: values.url, out: values.out, parent: values.parent, maxExtraPages: maxExtra, deep: !values['no-deep'],
-    reuseFrom: values.reuse ? path.resolve(values.reuse) : undefined, findPrevious: values['find-previous'],
+    reuseFrom: values.reuse ? path.resolve(values.reuse) : undefined, findPrevious: values['find-previous'], lang: values.lang,
   };
 }
 
 async function main() {
-  const { out, parent, findPrevious, ...options } = parseOptions();
+  const { out, parent, findPrevious, lang, ...options } = parseOptions();
   if (findPrevious) {
     // Only reports the candidate; the skill asks the user before reusing it (decision 31b).
     console.log(JSON.stringify({ previous: await findPreviousScan(path.resolve(parent ?? '.'), normalizeStartUrl(options.startUrl)) }));
     return;
   }
   const start = normalizeStartUrl(options.startUrl);
-  const run = out ? { dir: path.resolve(out), prefix: filePrefix(start, new Date()) } : await createRunDir(path.resolve(parent), start);
+  const run = out
+    ? { dir: path.resolve(out), prefix: filePrefix(start, new Date()), suffix: fileSuffix(lang) }
+    : await createRunDir(path.resolve(parent), start, new Date(), lang);
   const runDir = run.dir;
   // Raw data and evidence go to daten/; the run folder itself only holds the PDFs and the prompt.
   options.outDir = path.join(runDir, DATA_DIR);
@@ -62,7 +68,7 @@ async function main() {
   await writeFile(path.join(options.outDir, 'findings.json'), JSON.stringify(checks, null, 2));
   const counts = checks.findings.reduce((acc, f) => ({ ...acc, [f.status]: (acc[f.status] ?? 0) + 1 }), {});
   console.log(JSON.stringify({
-    runDir, dataDir: options.outDir, filePrefix: run.prefix, pagesScanned: checks.siteProfile.pagesScanned,
+    runDir, dataDir: options.outDir, filePrefix: run.prefix, fileSuffix: run.suffix, pagesScanned: checks.siteProfile.pagesScanned,
     deepCheck: scan.deepCheck.decision ?? 'skipped', reuse: scan.reuse, counts,
   }));
 }

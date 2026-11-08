@@ -7,7 +7,7 @@ import { renderKiPrompt } from './ki-prompt.mjs';
 import { ABMAHN_ICON, collectSources, esc, link, platformLine, toolLine } from './model.mjs';
 
 const ABBREVIATIONS = JSON.parse(readFileSync(new URL('../../../data/abbreviations.json', import.meta.url), 'utf8')).entries;
-const longOf = (a, lang) => (lang === 'en' && a.longEn ? a.longEn : a.long);
+const longOf = (a, t) => t.abbreviations?.[a.short] ?? (t.lang === 'en' && a.longEn ? a.longEn : a.long);
 
 const css = (t, site) => `
   @page { size: A4; margin: 20mm 20mm 20mm 25mm;
@@ -176,7 +176,7 @@ function abbreviationChapter(t, text, counters) {
   const used = ABBREVIATIONS.filter((a) => new RegExp(`(^|[^\\p{L}])${escapeRe(a.short)}(?![\\p{L}])`, 'u').test(text));
   const rows = [`<tr><td>${ABMAHN_ICON}</td><td>${esc(t.abmahnNote)}</td></tr>`,
     `<tr><td>Prio 1–3</td><td>${t.long.prioLegend}</td></tr>`,
-    ...used.map((a) => `<tr><td>${esc(a.short)}</td><td>${esc(longOf(a, t.lang))}</td></tr>`)].join('');
+    ...used.map((a) => `<tr><td>${esc(a.short)}</td><td>${esc(longOf(a, t))}</td></tr>`)].join('');
   const head = `<thead><tr><th>${t.long.abbrevHead[0]}</th><th>${t.long.abbrevHead[1]}</th></tr></thead>`;
   return `<section class="chapter" id="kurzzeichen"><h1>${t.long.abbreviations}</h1>${counters.table(t.long.abbrevCaption, rows, head)}</section>`;
 }
@@ -211,7 +211,7 @@ export function renderLangfassung(model, { promptChapter: withPrompt = false, pr
 <p class="meta">${esc(t.meta(model.date, model.time, model.pagesScanned, model.checklistStatus))}</p>
 <p class="meta">${esc(platformLine(model))}</p>
 <p class="meta">${toolLine(t)}</p>
-<div class="notice">${t.long.notice}</div>
+<div class="notice">${t.long.notice}</div>${t.translated ? `<div class="notice">${esc(t.translatedNote)}</div>` : ''}
 <p class="intro">${esc(t.long.intro).replace('⚠', ABMAHN_ICON)}</p>
 <section class="toc" id="inhalt"><h2>${t.long.toc}</h2>${tocEntries(model, showPrompt)}</section></section>
 ${abbrev}

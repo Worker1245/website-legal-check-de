@@ -60,7 +60,7 @@ export function renderKurzbericht(model) {
 <p class="meta">${esc(t.meta(model.date, model.time, model.pagesScanned, model.checklistStatus))}</p>
 <p class="meta">${esc(platformLine(model))}</p>
 <p class="meta tool">${toolLine(t)}</p>
-<div class="notice">${t.short.notice}</div>
+<div class="notice">${t.short.notice}</div>${t.translated ? `<div class="notice">${esc(t.translatedNote)}</div>` : ''}
 <p class="intro">${esc(t.short.intro).replace('⚠', ABMAHN_ICON)}</p>
 <div class="summary"><div><strong>${gaps}</strong>${t.short.gaps}</div><div><strong>${checks}</strong>${t.short.checks}</div></div>
 <p class="meta"><strong>${t.short.assumptions}:</strong> ${assumptions}</p>

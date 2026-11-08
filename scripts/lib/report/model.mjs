@@ -54,15 +54,16 @@ function checkFinding(f, index) {
  * Validate and normalise report data. Findings are sorted by priority, keeping the
  * given order within a priority, and numbered 1..n.
  * @param {object} data parsed report.json
+ * @param {object} [customTexts] translated text set for another document language (decision 41a)
  */
-export function buildModel(data) {
+export function buildModel(data, customTexts) {
   requireFields(data, ['site', 'date', 'pagesScanned', 'checklistStatus', 'findings'], 'report');
   data.findings.forEach(checkFinding);
   const findings = PRIORITIES.flatMap((prio) => data.findings.filter((f) => f.prio === prio))
     .map((f, i) => ({ ...f, no: i + 1, steps: f.steps ?? [], figures: f.figures ?? [], sources: f.sources ?? [], abmahnung: Boolean(f.abmahnung) }));
-  const language = data.language === 'en' ? 'en' : 'de';
+  const language = customTexts ? customTexts.lang : (data.language === 'en' ? 'en' : 'de');
   return {
-    language, t: texts(language), platform: data.platform ?? null,
+    language, t: customTexts ?? texts(language), platform: data.platform ?? null,
     site: data.site, date: data.date, time: data.time ?? null, pagesScanned: data.pagesScanned, checklistStatus: data.checklistStatus,
     assumptions: data.assumptions ?? [], manualChecks: data.manualChecks ?? [], upcoming: data.upcoming ?? [],
     scanNotes: data.scanNotes ?? [], okChecks: data.okChecks ?? [], dropped: data.dropped ?? [], sourceUpdate: data.sourceUpdate ?? null,
