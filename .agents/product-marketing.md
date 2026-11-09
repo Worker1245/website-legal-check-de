@@ -1,13 +1,13 @@
 # Product Marketing Context
 
-**Document version:** v16
-**Last updated:** 2026-11-08
+**Document version:** v17
+**Last updated:** 2026-11-09
 
 Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(Annahme)“ markierte Punkte sind nicht durch Nutzerbefragungen belegt.
 
 ## Product Overview
 **One-liner:** Claude-Code-Skill, der deutsche Websites auf DSGVO-, Cookie-, Impressum- und Shop-Pflichten prüft und zu jeder Lücke die Behebung gleich mitliefert.
-**What it does:** Lädt eine Website wie ein Erstbesucher ohne Einwilligung, findet technische Lücken bei zentralen Pflichten nach deutschem und EU-Recht und belegt sie mit Anfragen, Cookies und Bildschirmfotos. Priorisiert die Lücken, markiert häufige Abmahngründe und liefert Textentwürfe, Mock-ups, amtliche Quellen und auf Wunsch einen KI-Prompt, der die Lücken im Code behebt.
+**What it does:** Lädt eine Website wie ein Erstbesucher, der in der Cookie-Abfrage noch nichts angeklickt hat, klickt danach selbst auf „Ablehnen“ und „Akzeptieren“ und prüft, was jeweils lädt. Findet technische Lücken bei zentralen Pflichten nach deutschem und EU-Recht und belegt sie mit Anfragen, Cookies und Bildschirmfotos. Priorisiert die Lücken, markiert häufige Abmahngründe und liefert Textentwürfe, Mock-ups, amtliche Quellen und auf Wunsch einen KI-Prompt, der die Lücken im Code behebt.
 **Product category:** Website-Compliance-Check / Datenschutz- und Impressum-Prüfung für Websites (Regal: „Website DSGVO Check“, „Cookie-Banner prüfen“, „Abmahnung vermeiden“).
 **Product type:** Open-Source-Skill für Claude Code (lokal ausgeführt, Node.js + Playwright).
 **Business model:** Kostenlos, GPL-3.0-or-later. Kein Bezahlangebot.
@@ -57,7 +57,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 - Erkennt das System der Website (z. B. WordPress, Shopify, Wix) und schreibt Anleitungen für Laien; jeder Befund ist zusätzlich in einfachen Worten erklärt.
 - Berichte auf Deutsch oder Englisch; mehrere Websites in einem Aufruf; wiederholte Prüfungen übernehmen unveränderte Seiten aus dem letzten Scan.
 - Lokal, Open Source, kostenlos.
-**How we do it differently:** Technische Messung plus gepflegte Prüfliste mit 29 automatischen und 22 manuellen Prüfpunkten, 94 Quellen und 14 beobachteten kommenden Regeln.
+**How we do it differently:** Technische Messung plus gepflegte Prüfliste mit 31 automatischen und 22 manuellen Prüfpunkten, 94 Quellen und 14 beobachteten kommenden Regeln.
 **Why that's better:** Belegte Befunde statt Vermutungen und direkt umsetzbare Hilfe.
 **Why customers choose us:** Schnell, gratis, nachvollziehbar, und das Ergebnis lässt sich direkt weitergeben (Annahme).
 
@@ -113,7 +113,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 **Never use (and why):** „rechtssicher“, „abmahnsicher“ – nicht einlösbar und RDG-heikel.
 
 ## Proof Points
-**Metrics:** 29 automatische und 22 manuelle Prüfpunkte, Klickwege für 8 Website-Systeme aus deren offizieller Hilfe, 94 Quellen (abgerufen), 14 kommende Regeln, 12 Textentwürfe, automatische Tests auf lokalen Testseiten.
+**Metrics:** 31 automatische und 22 manuelle Prüfpunkte, Klickwege für 8 Website-Systeme aus deren offizieller Hilfe, 94 Quellen (abgerufen), 14 kommende Regeln, 12 Textentwürfe, automatische Tests auf lokalen Testseiten.
 **Customers:** —
 **Testimonials:** —
 **Value themes:**
@@ -132,11 +132,14 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 *Decisions and tested lessons. Newest first. Keep it to about 20 active entries.*
 | Date | Learning | Evidence | Applies to | Status |
 |------|----------|----------|------------|--------|
+| 2026-11-09 | „ohne Einwilligung“ wird als „ohne Erlaubnis des Betreibers“ missverstanden; besser „wie ein Erstbesucher, der in der Cookie-Abfrage noch nichts angeklickt hat“ | Rückfrage des Nutzers zum LinkedIn-Text | README, Beschreibung, Social | watch |
+| 2026-11-09 | Fachleser fragen nach dem Verhalten nach „Ablehnen“ (Tag Manager ohne Consent-Bedingung, Consent Mode gcs=G100); die Funktion ist ein Argument für Fachpublikum | ein LinkedIn-Kommentar, daraus v1.10.0 | Social, README | watch |
 | 2026-11-08 | Leser lesen „Cookie-Abfrage prüfen“ als rein rechtlich; Texte sollen zeigen, dass die Behebung auch für Besucher klarer ist (gleichwertiges Ablehnen, Zweck, Widerruf) | ein LinkedIn-Kommentar zur Nutzererfahrung | README, Beschreibung, Social | watch |
 | 2026-11-08 | GitHub-Texte auf Deutsch, weil der Skill deutsche Websites prüft | Entscheidung des Betreibers | README, Beschreibung | active |
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v17 (2026-11-09) — v1.10.0 after a LinkedIn comment („nach der Ablehnung feuern trotzdem Tags“): reject and accept runs, tracking after reject, Consent Mode pings as hint; "ohne Einwilligung" reworded because it read like "without the owner's permission"; 31 automatic checks.
 - v16 (2026-11-08) — v1.9.6: separate document language (German, English or any other language translated by AI with a note); description says "PDF-Berichte in jeder Sprache".
 - v15 (2026-11-08) — Older versions removed from GitHub (history squashed); licence note on earlier Apache-2.0 versions dropped.
 - v14 (2026-11-08) — No positioning change; v1.9.5 asks at the end whether the files should also be sent to the chat (download on a smartphone).

@@ -5,6 +5,8 @@ import { classifyPage, selectDeepCheckUrls } from '../scripts/lib/page-types.mjs
 import { parseSitemap, sitemapsFromRobots } from '../scripts/lib/sitemap.mjs';
 import { matchService, policyMentions } from '../scripts/lib/third-parties.mjs';
 import { PATTERNS } from '../scripts/lib/checks/helpers.mjs';
+import { matchesChoice } from '../scripts/lib/consent-runs.mjs';
+import { checkConsentChoice, consentModeState } from '../scripts/lib/checks/consent-choice.mjs';
 
 test('normalizeStartUrl adds https and rejects unsafe input', () => {
   assert.equal(normalizeStartUrl('www.xyz.de').toString(), 'https://www.xyz.de/');
@@ -80,4 +82,38 @@ test('contact forms with a reply wording are not treated as user content', async
   const { COMMENT_TEXT } = await import('../scripts/lib/checks/site.mjs');
   assert.ok(!COMMENT_TEXT.test('Wir antworten innerhalb von 24 Stunden. Nachricht senden'));
   assert.ok(COMMENT_TEXT.test('Kommentar schreiben'));
+});
+
+test('consent buttons: reject wins over accept, settings are not clicked, strict accept outside the banner', () => {
+  assert.equal(matchesChoice('Alle ablehnen', 'reject'), true);
+  assert.equal(matchesChoice('Nur notwendige akzeptieren', 'reject'), true);
+  assert.equal(matchesChoice('Nur notwendige akzeptieren', 'accept'), false);
+  assert.equal(matchesChoice('Alle akzeptieren', 'accept'), true);
+  assert.equal(matchesChoice('Einstellungen', 'accept'), false);
+  assert.equal(matchesChoice('Einwilligen und weiter', 'accept', true), true);
+  assert.equal(matchesChoice('OK', 'accept'), true);
+  assert.equal(matchesChoice('OK', 'accept', true), false);
+  assert.equal(matchesChoice('', 'reject'), false);
+});
+
+test('Google Consent Mode state from the gcs parameter', () => {
+  assert.equal(consentModeState('https://www.google-analytics.com/g/collect?v=2&gcs=G100'), 'denied');
+  assert.equal(consentModeState('https://www.google-analytics.com/g/collect?gcs=G101'), 'granted');
+  assert.equal(consentModeState('https://www.google-analytics.com/g/collect?gcs=G111'), 'granted');
+  assert.equal(consentModeState('https://www.google-analytics.com/g/collect?v=2'), null);
+  assert.equal(consentModeState('not a url'), null);
+});
+
+test('reject run: not clickable is a hint only when a dialog is known; granted Consent Mode after reject is a gap', () => {
+  const page = { index: 1, url: 'https://x.de/', finalUrl: 'https://x.de/', facts: { banner: null } };
+  const scan = (consentRuns) => ({ pages: [page], consentRuns });
+  const notClicked = { clicked: false, reason: 'no matching button found' };
+  assert.deepEqual(checkConsentChoice(scan({ reject: notClicked, accept: { clicked: false } })), []);
+  assert.equal(checkConsentChoice(scan({ reject: notClicked, accept: { clicked: true } }))[0].status, 'hint');
+  const ga = (gcs) => ({ url: `https://www.google-analytics.com/g/collect?gcs=${gcs}`, thirdParty: true, service: 'Google Analytics', category: 'analytics' });
+  const reject = (requests) => ({ reject: { clicked: true, button: 'Ablehnen', bannerGone: true, visited: ['https://x.de/'], requests, newCookies: [] } });
+  const [granted] = checkConsentChoice(scan(reject([ga('G100'), ga('G111')])));
+  assert.equal(granted.check, 'TDD-06');
+  assert.match(granted.title, /consent granted/);
+  assert.equal(checkConsentChoice(scan(reject([ga('G100')])))[0].check, 'TDD-07');
 });

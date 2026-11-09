@@ -1,4 +1,4 @@
-<!-- Use for checks DSE-01, DSE-02 (privacy policy missing/incomplete, detected services not named) and TDD-01, TDD-02, TDD-03, TDD-04 (consent, third-party content, fonts, withdrawal). Insert one third-party block per detected service. -->
+<!-- Use for checks DSE-01, DSE-02 (privacy policy missing/incomplete, detected services not named) and TDD-01, TDD-02, TDD-03, TDD-04, TDD-06, TDD-07 (consent, third-party content, fonts, withdrawal, tracking after reject). Insert one third-party block per detected service. -->
 
 # Textentwurf: Bausteine für die Datenschutzerklärung (Art. 13 DSGVO)
 

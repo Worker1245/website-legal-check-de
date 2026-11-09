@@ -10,7 +10,7 @@ Sources status: 2026-11-07. Every source below was fetched successfully on 2026-
 
 | ID | Title | URL | Retrieved | Helps with |
 |---|---|---|---|---|
-| SRC-01 | § 25 TDDDG (consent for storage and access on the device; exceptions Abs. 2) | https://www.gesetze-im-internet.de/ttdsg/__25.html | 2026-11-07 | TDD-01, TDD-03, TDD-04, TDD-05: wording of the consent duty and the two exceptions |
+| SRC-01 | § 25 TDDDG (consent for storage and access on the device; exceptions Abs. 2) | https://www.gesetze-im-internet.de/ttdsg/__25.html | 2026-11-07 | TDD-01, TDD-03, TDD-04, TDD-05, TDD-06: wording of the consent duty and the two exceptions |
 | SRC-02 | § 19 TDDDG (technical and organisational measures, encryption) | https://www.gesetze-im-internet.de/ttdsg/__19.html | 2026-11-07 | SEC-01, SEC-02, SEC-03: § 19 Abs. 4 |
 | SRC-03 | TDDDG full text (shows "Stand" of the law) | https://www.gesetze-im-internet.de/ttdsg/BJNR198210021.html | 2026-11-07 | Maintenance: last amendment 10.03.2026 (BGBl. 2026 I Nr. 64); content of that amendment UNVERIFIED |
 | SRC-04 | Regulation (EU) 2016/679 (DSGVO / GDPR), EUR-Lex | https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng | 2026-11-07 | DSE-01, DSE-02 (Art. 12, 13, 21(4)); TDD-02 (Art. 6(1)); TDD-04 (Art. 4 Nr. 11, Art. 7); SEC-* (Art. 25, 32); UWG-01 (Art. 7); MAN-01, MAN-02, MAN-03 (Art. 26, 28, 30, 44–49) |

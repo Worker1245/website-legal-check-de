@@ -45,6 +45,13 @@ describe('shop with built-in gaps', () => {
     assert.deepEqual(statusOf(findings, 'TDD-04'), ['gap']);
   });
 
+  test('without a reject button the reject run is reported as not possible; accept is clicked', () => {
+    assert.equal(result.scan.consentRuns.reject.clicked, false);
+    assert.deepEqual(statusOf(result.checks.findings, 'TDD-06'), ['hint']);
+    assert.equal(result.scan.consentRuns.accept.clicked, true);
+    assert.equal(result.scan.consentRuns.accept.button, 'Akzeptieren');
+  });
+
   test('finds shop duties: VAT note, order button, outdated ODR link', () => {
     const { findings } = result.checks;
     assert.ok(statusOf(findings, 'PRC-01').includes('gap'));
@@ -78,6 +85,8 @@ describe('site without gaps in the checked areas', () => {
     assert.deepEqual(statusOf(findings, 'IMP-01'), ['ok']);
     assert.deepEqual(statusOf(findings, 'DSE-01'), ['ok']);
     assert.deepEqual(statusOf(findings, 'TDD-04'), ['ok']);
+    assert.deepEqual(statusOf(findings, 'TDD-06'), ['ok']);
+    assert.equal(result.scan.consentRuns.reject.button, 'Ablehnen');
   });
 
   test('raises no gap except missing HTTPS on the local test server', () => {
@@ -85,6 +94,37 @@ describe('site without gaps in the checked areas', () => {
     assert.deepEqual(gaps, ['SEC-01']);
     assert.equal(result.checks.siteProfile.shopSignals, false);
     assert.equal(result.checks.siteProfile.platform.name, 'WordPress');
+  });
+});
+
+describe('consent tool that keeps tracking after reject', () => {
+  let result;
+  before(async () => { result = await scanFixture('consent-choice'); });
+  after(() => rm(result.outDir, { recursive: true, force: true }));
+
+  test('the main scan sees nothing before consent', () => {
+    const before = result.checks.findings.filter((f) => ['TDD-01', 'TDD-03'].includes(f.check) && f.status === 'gap');
+    assert.deepEqual(before, []);
+  });
+
+  test('after reject: Meta pixel and its cookie are gaps, the gcs=G100 ping is a hint', () => {
+    const { findings } = result.checks;
+    const reject = result.scan.consentRuns.reject;
+    assert.equal(reject.button, 'Alle ablehnen');
+    assert.equal(reject.bannerGone, true);
+    assert.ok(findings.some((f) => f.check === 'TDD-06' && f.status === 'gap' && f.title.startsWith('Meta Pixel')));
+    assert.ok(findings.some((f) => f.check === 'TDD-06' && f.status === 'gap' && f.evidence.cookies?.some((c) => c.name === '_fbp')));
+    const ping = findings.filter((f) => f.check === 'TDD-07');
+    assert.equal(ping.length, 1);
+    assert.equal(ping[0].status, 'hint');
+    assert.ok(ping[0].title.startsWith('Google Analytics'));
+    assert.ok(!findings.some((f) => f.check === 'TDD-06' && f.title.startsWith('Google Analytics')));
+  });
+
+  test('after accept: services missing in the privacy policy are listed with when they loaded', () => {
+    const policy = result.checks.findings.find((f) => f.check === 'DSE-02');
+    assert.deepEqual(policy.evidence.services.sort(), ['Google Tag Manager', 'Meta Pixel / Facebook']);
+    assert.equal(policy.evidence.loaded['Google Tag Manager'], 'after accept');
   });
 });
 

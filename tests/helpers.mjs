@@ -7,8 +7,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const FIXTURES = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures');
-const TYPES = { '.html': 'text/html; charset=utf-8', '.xml': 'application/xml', '.txt': 'text/plain' };
-export const MAPPED_HOSTS = ['fonts.googleapis.com', 'www.google-analytics.com'];
+const TYPES = { '.html': 'text/html; charset=utf-8', '.xml': 'application/xml', '.txt': 'text/plain', '.js': 'text/javascript' };
+export const MAPPED_HOSTS = ['fonts.googleapis.com', 'www.google-analytics.com', 'www.googletagmanager.com', 'connect.facebook.net'];
 
 /** Start a server for one fixture site. Returns base URL, browser launch args and close(). */
 export async function serveFixture(name) {

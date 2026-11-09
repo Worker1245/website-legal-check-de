@@ -3,8 +3,8 @@
 
 import { finding, okPages, PATTERNS } from './helpers.mjs';
 
-const TRACKING_CATEGORIES = new Set(['analytics', 'ads', 'tagmanager', 'social', 'video', 'maps', 'chat', 'captcha']);
-const TRACKER_COOKIE = /^(_ga|_gid|_gat|_gcl_|_fbp|_fbc|_hj|_clck|_clsk|_uetsid|_uetvid|_pk_|_tt_|_pin_|IDE$|NID$|fr$|li_|bcookie|_ttp)/i;
+export const TRACKING_CATEGORIES = new Set(['analytics', 'ads', 'tagmanager', 'social', 'video', 'maps', 'chat', 'captcha']);
+export const TRACKER_COOKIE = /^(_ga|_gid|_gat|_gcl_|_fbp|_fbc|_hj|_clck|_clsk|_uetsid|_uetvid|_pk_|_tt_|_pin_|IDE$|NID$|fr$|li_|bcookie|_ttp)/i;
 const MAX_EXAMPLES = 3;
 
 function groupByService(requests) {

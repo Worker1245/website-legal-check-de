@@ -1,6 +1,6 @@
 // Orchestrates a scan: sample pages (decision 3a), then a short deep check (15a).
-// The browser context never interacts with consent dialogs, so everything recorded
-// happened before any consent.
+// The main browser context never interacts with consent dialogs, so everything recorded
+// there happened before any consent; afterwards fresh contexts click reject and accept.
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -12,6 +12,9 @@ import { matchService } from './third-parties.mjs';
 import { checkTransport } from './transport.mjs';
 import { linkScreenshots, pageFingerprint } from './reuse.mjs';
 import { visitPage } from './visit-page.mjs';
+import { runConsentChoices } from './consent-runs.mjs';
+
+const CONTEXT_OPTIONS = { bypassCSP: true, locale: 'de-DE', viewport: { width: 1366, height: 900 } };
 
 export const DEFAULTS = {
   maxNavPages: 40, maxExtraPages: 20, deepPerType: 3, deep: true,
@@ -33,7 +36,7 @@ export async function scanSite(options) {
   const browser = await chromium.launch({ args: opts.launchArgs });
   const state = { pages: [], requests: [], cookieFirstSeen: new Map(), visited: new Set(), notes: [] };
   try {
-    const context = await browser.newContext({ bypassCSP: true, locale: 'de-DE', viewport: { width: 1366, height: 900 } });
+    const context = await browser.newContext(CONTEXT_OPTIONS);
     context.on('request', (request) => recordRequest(state, request.url(), request.resourceType(), start));
     const crawl = (url) => crawlPage(context, url, state, opts, evidenceDir, startedAt);
 
@@ -50,7 +53,13 @@ export async function scanSite(options) {
     }
 
     const cookies = (await context.cookies()).map((c) => describeCookie(c, start, state.cookieFirstSeen));
-    const result = buildResult({ start, transport, state, cookies, deepCheck, startedAt });
+    await context.close();
+    const pageUrls = state.pages.filter((p) => !p.error && !p.skipped).map((p) => p.finalUrl ?? p.url);
+    opts.log('Consent choices: reject and accept');
+    const consentRuns = pageUrls.length > 0
+      ? await runConsentChoices(browser, start, pageUrls, { contextOptions: CONTEXT_OPTIONS, timeoutMs: opts.pageTimeoutMs, settleMs: opts.settleMs })
+      : null;
+    const result = buildResult({ start, transport, state, cookies, deepCheck, consentRuns, startedAt });
     await writeFile(path.join(opts.outDir, 'scan.json'), JSON.stringify(result, null, 2));
     return result;
   } finally {
@@ -167,12 +176,12 @@ async function runDeepCheck(state, start, opts, crawl) {
   };
 }
 
-function buildResult({ start, transport, state, cookies, deepCheck, startedAt }) {
+function buildResult({ start, transport, state, cookies, deepCheck, consentRuns, startedAt }) {
   return {
     tool: 'website-legal-check-de', scannedAt: new Date(startedAt).toISOString(),
     durationSeconds: Math.round((Date.now() - startedAt) / 1000),
     startUrl: start.toString(), host: start.hostname, consentGiven: false,
     transport, deepCheck, reuse: state.reuse ?? null, notes: state.notes, cookies,
-    requests: state.requests, pages: state.pages,
+    requests: state.requests, pages: state.pages, consentRuns,
   };
 }

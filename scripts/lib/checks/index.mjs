@@ -2,6 +2,7 @@
 // that Claude verifies against the evidence before writing the report.
 
 import { checkConsent } from './consent.mjs';
+import { checkConsentChoice } from './consent-choice.mjs';
 import { checkLegalPages } from './legal-pages.mjs';
 import { checkShop } from './shop.mjs';
 import { checkSite } from './site.mjs';
@@ -18,6 +19,7 @@ export function runChecks(scan) {
   const findings = [
     ...checkLegalPages(scan),
     ...checkConsent(scan),
+    ...checkConsentChoice(scan),
     ...checkShop(scan),
     ...checkSite(scan),
   ].sort((a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status]);

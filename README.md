@@ -2,8 +2,8 @@
 
 **Website-Check für deutsches Recht als Skill für [Claude Code](https://claude.com/claude-code):** findet Lücken bei Datenschutz, Cookies, Impressum, Preisangaben, Widerruf und Barrierefreiheit. Zu jeder Lücke gibt es Beleg, Priorität und die Behebung gleich dazu.
 
-- **Belegt statt vermutet:** Der Skill lädt die Website wie ein Erstbesucher ohne Einwilligung und hält fest, was wirklich geladen wird: Tracker, Schriften, Cookies, Speicher.
-- **Klare Wahl für Besucher:** Bei der Cookie-Abfrage zählt nicht nur, dass es sie gibt. Der Skill meldet, wenn „Ablehnen“ fehlt oder schwerer erreichbar ist als „Akzeptieren“. Das Mock-up zeigt eine Abfrage mit gleichwertigen Knöpfen, kurzem Text zum Zweck und dem Weg zum Widerruf. Farben, Ton und Platzierung bestimmt der Betreiber.
+- **Belegt statt vermutet:** Der Skill lädt die Website wie ein Erstbesucher, der in der Cookie-Abfrage noch nichts angeklickt hat, und hält fest, was wirklich geladen wird: Tracker, Schriften, Cookies, Speicher.
+- **Klare Wahl für Besucher:** Bei der Cookie-Abfrage zählt nicht nur, dass es sie gibt. Der Skill meldet, wenn „Ablehnen“ fehlt oder schwerer erreichbar ist als „Akzeptieren“. Er klickt außerdem selbst auf „Ablehnen“ und prüft, ob danach trotzdem Tracker laden, etwa weil im Tag Manager eine Einwilligungsbedingung fehlt. Das Mock-up zeigt eine Abfrage mit gleichwertigen Knöpfen, kurzem Text zum Zweck und dem Weg zum Widerruf. Farben, Ton und Platzierung bestimmt der Betreiber.
 - **Priorisiert:** Priorität 1 heißt sofort erledigen. ⚠ markiert Pflichten, die häufig abgemahnt werden.
 - **Direkt umsetzbar:** Schritt-für-Schritt-Anleitungen für Laien, zugeschnitten auf das erkannte System (z. B. WordPress, Shopify, Wix), dazu Textentwürfe, Mock-ups der korrigierten Stelle, amtliche Quellen und auf Wunsch ein Prompt, mit dem Claude Code oder Codex die Lücken im Code behebt.
 - **Berichte in jeder Sprache, eine oder mehrere Websites:** Deutsch und Englisch sind fest eingebaut. Andere Sprachen übersetzt Claude bei der Prüfung, mit einem Hinweis im Bericht. Mehrere Websites lassen sich in einem Aufruf prüfen.
@@ -67,8 +67,8 @@ Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und
 ## Wie er arbeitet
 
 1. **Aktualität:** Sind die Rechtsquellen älter als einen Monat, ruft der Skill sie neu ab und sucht nach Änderungen bei Gesetzen, Rechtsprechung und Leitlinien. Relevantes fließt in den Bericht ein.
-2. **Scan:** Ein Browser ohne Fenster (Playwright/Chromium) lädt die Startseite, alle Seiten aus Kopf, Fuß und Navigation, die Rechtsseiten und bis zu 20 weitere Seiten. Danach ergänzt er aus der Sitemap Seitentypen, die noch fehlen (Produkt, Warenkorb, Kasse, Konto, Kontakt, Blog). Die Barrierefreiheit prüft er mit axe-core.
-3. **Automatische Prüfung und System-Erkennung:** 29 Prüfpunkte aus einer gepflegten Prüfliste liefern Kandidaten für Befunde. Zusätzlich erkennt der Skill, womit die Website gebaut ist (WordPress mit WooCommerce, Divi oder Elementor, Shopify, Wix, Jimdo, Squarespace, Webflow, TYPO3, Shopware).
+2. **Scan:** Ein Browser ohne Fenster (Playwright/Chromium) lädt die Startseite, alle Seiten aus Kopf, Fuß und Navigation, die Rechtsseiten und bis zu 20 weitere Seiten. Danach ergänzt er aus der Sitemap Seitentypen, die noch fehlen (Produkt, Warenkorb, Kasse, Konto, Kontakt, Blog). Die Barrierefreiheit prüft er mit axe-core. Zum Schluss öffnet er die Startseite zweimal in einem frischen Browser, klickt einmal auf „Ablehnen“ und einmal auf „Akzeptieren“ und zeichnet auf, was danach auf drei Seiten geladen wird.
+3. **Automatische Prüfung und System-Erkennung:** 31 Prüfpunkte aus einer gepflegten Prüfliste liefern Kandidaten für Befunde. Zusätzlich erkennt der Skill, womit die Website gebaut ist (WordPress mit WooCommerce, Divi oder Elementor, Shopify, Wix, Jimdo, Squarespace, Webflow, TYPO3, Shopware).
 4. **Kontrolle:** Claude prüft jeden Kandidaten anhand der Belege, verwirft Fehlalarme, vergibt Priorität und ⚠-Markierung, trifft Annahmen zum Geltungsbereich und schreibt die Anleitungen so, dass Laien sie umsetzen können, für das erkannte System mit Klickwegen aus dessen offizieller Hilfe (Stand und Quelle je System in `references/platforms.md`); wo die Hilfe nichts belegt, bleiben die Schritte allgemein.
 5. **Quellen:** Jede zitierte amtliche Quelle wird während der Prüfung erneut abgerufen; nicht erreichbare werden nicht zitiert.
 6. **Berichte:** Ein Skript erzeugt aus einer Datendatei die gewünschten PDFs und den Prompt, alle in derselben Reihenfolge.
@@ -77,6 +77,8 @@ Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und
 
 - Impressum und Datenschutzerklärung auf jeder Seite erreichbar (§ 5 DDG, Art. 13 DSGVO)
 - Tracker, Schriften, Videos, Cookies und Speicher vor der Einwilligung; Cookie-Banner ohne gleichwertiges „Ablehnen“ (§ 25 TDDDG)
+- Tracker und Cookies nach dem Klick auf „Ablehnen“ (§ 25 TDDDG); Pings von Google Consent Mode nach dem Ablehnen (`gcs=G100`) als Hinweis zum Prüfen, weil ihre Bewertung nicht abschließend geklärt ist
+- Dienste, die nach dem Klick auf „Akzeptieren“ laden, aber in der Datenschutzerklärung fehlen (Art. 13 DSGVO)
 - HTTPS, gemischte Inhalte, Formulare über http
 - Preisangaben mit Mehrwertsteuer und Versand (PAngV), Bestellknopf (§ 312j BGB), Kündigungsknopf (§ 312k BGB), Online-Widerrufsfunktion (§ 356a BGB), Verbraucherstreitbeilegung (VSBG), veraltete Links zur EU-OS-Plattform, Herstellerangaben (GPSR)
 - Barrierefreiheit (WCAG 2.1 A/AA) und Erklärung zur Barrierefreiheit (BFSG)

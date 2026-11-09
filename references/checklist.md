@@ -97,7 +97,7 @@ Scope of the scanner for all checks: "scanned pages" are the pages that loaded w
 - **Obligation:** Name recipients, purposes, legal bases, third-country transfers and safeguards, storage period for each processing.
 - **Legal basis:** Art. 13 Abs. 1 lit. c, e, f DSGVO.
 - **Applies to:** Sites embedding third-party services.
-- **Scanner observation:** Privacy page = first page classified as privacy, else a page whose URL or title matches `datenschutz|privacy`. Every third-party request matched to a service in `data/third-parties.json` (consent tools excluded) whose keywords do not appear in the policy text → one `hint` listing the services. No policy page → no finding.
+- **Scanner observation:** Privacy page = first page classified as privacy, else a page whose URL or title matches `datenschutz|privacy`. Every third-party request matched to a service in `data/third-parties.json` (consent tools excluded) whose keywords do not appear in the policy text → one `hint` listing the services. Requests of the accept run (fresh browser, click on accept) are included; `evidence.loaded` says per service „before consent“ or „after accept“. No policy page → no finding.
 - **How Claude verifies:** Search the policy text in `scan.json` for the provider under other names (parent company, product name); policies split into sub-pages or PDFs; policy on another host not scanned.
 - **Default priority:** 2. Move to 1 if tracking or advertising services are loaded and the policy names no third party at all.
 - **Common reason for a warning letter:** uncertain.
@@ -170,6 +170,32 @@ Scope of the scanner for all checks: "scanned pages" are the pages that loaded w
 - **Fix steps:** Identify each host; self-host or load after consent; name remaining services in the privacy policy.
 - **Help:** draft `datenschutz-bausteine.md`; sources SRC-01, SRC-06.
 - **Confidence:** detection high; purpose unknown by design.
+
+### TDD-06 – Tracking after the visitor rejected consent
+- **Obligation:** After „reject“ nothing that needs consent may be stored, read or loaded; a reject that changes nothing is no choice at all.
+- **Legal basis:** § 25 Abs. 1 TDDDG (no consent given); Art. 6 Abs. 1 DSGVO for the IP transfer.
+- **Applies to:** Sites with a consent dialog.
+- **Scanner observation:** Reject run (fresh browser, click on the reject control in the banner, then reload and two more pages): one `gap` per known service of the TDD-01 categories contacted after the click whose requests do not all carry Google Consent Mode `gcs=G100` (those go to TDD-07); „(Consent Mode reports consent granted)“ is added when a request carries `gcs` with a granted digit; one `gap` for tracker or third-party cookies newly set after the click; `ok` when nothing of that kind appears; `hint` when a banner exists but no reject control could be clicked (reason in the evidence). Evidence: clicked label, `bannerGone`, pages visited, up to 3 request URLs or the cookie names.
+- **How Claude verifies:** Check `consentRuns.reject.button`: if the clicked control was not a reject (e.g. „Einstellungen speichern“ with pre-ticked boxes), downgrade to „Bitte prüfen“. `bannerGone: false` means the click may not have registered → „Bitte prüfen“. Requests of the consent tool itself are excluded by category. Typical cause to name in the fix: a tag in the tag manager without a consent trigger, or a hard-coded snippet. The `hint` „not clickable“ also appears for pay-or-consent banners („Pur-Abo“) without a reject control, for reject only on a second layer and for dialogs in closed shadow DOM: open the `-ansicht` screenshot and name the actual case.
+- **Default priority:** 1 (analytics, ads, tag manager, social); 2 (captcha, chat, video, maps); 3 for the `hint` „not clickable“.
+- **Common reason for a warning letter:** uncertain.
+- **Report:** Was fehlt: „Auch nachdem ein Besucher in der Cookie-Abfrage auf [Ablehnen] geklickt hat, wird [Dienst] geladen.“ Vorschrift: „§ 25 Abs. 1 TDDDG“.
+- **Fix steps:** In the tag manager give every tag a consent trigger or consent check; remove hard-coded snippets from the theme; test with the browser's network tab: click reject, reload, no request to the service.
+- **Help:** draft `datenschutz-bausteine.md`; mock-up none; sources SRC-01, SRC-05, SRC-06.
+- **Confidence:** detection high for listed hosts once the click registered; legal basis verified (reject = no consent).
+
+### TDD-07 – Google Consent Mode pings after reject
+- **Obligation:** UNVERIFIED. With Consent Mode „advanced“, Google tags send cookieless pings even after reject; the request still reaches Google with the IP address and page data. Whether this needs consent under § 25 TDDDG or a legal basis under Art. 6 DSGVO is not settled by a source fetched so far (decision 48a): report as „Bitte prüfen“ only.
+- **Legal basis:** UNVERIFIED (candidates: § 25 Abs. 1 TDDDG, Art. 6 Abs. 1 DSGVO).
+- **Applies to:** Sites using Google tags with Consent Mode.
+- **Scanner observation:** One `hint` per Google service whose requests after the reject click all carry `gcs=G100`. Decoding of `gcs` (G1 + ad_storage + analytics_storage, 1 = granted, 0 = denied) follows third-party guides; Google's own documentation fetched so far names the parameter without the value table (UNVERIFIED).
+- **How Claude verifies:** Read the request URLs; G100 means both storage types denied. Any other value after reject is a TDD-06 `gap`, not this hint.
+- **Default priority:** 3.
+- **Common reason for a warning letter:** uncertain.
+- **Report:** Was fehlt: „Nach dem Klick auf [Ablehnen] sendet [Dienst] weiter Messdaten ohne Cookies an Google (Consent Mode, gcs=G100). Ob das ohne Einwilligung zulässig ist, ist nicht abschließend geklärt.“ Vorschrift: „§ 25 Abs. 1 TDDDG (Anwendbarkeit offen)“.
+- **Fix steps:** Switch Consent Mode to „basic“ (tags load only after consent) or document the decision for „advanced“ with the data protection officer; name the pings in the privacy policy.
+- **Help:** draft `datenschutz-bausteine.md`; no mock-up; no source until one is fetched and added to `references/sources.md`.
+- **Confidence:** detection high; legal assessment UNVERIFIED.
 
 ### SEC-01 – HTTPS and redirect
 - **Obligation:** State-of-the-art technical measures, with recognised encryption named as an example; appropriate security of processing.

@@ -41,15 +41,20 @@ function servicesMissingInPolicy(scan) {
   // The privacy policy may share a page with the imprint (e.g. "Impressum & Datenschutz").
   const policy = pageOfType(scan, 'privacy') ?? okPages(scan).find((p) => PATTERNS.privacy.test(`${p.finalUrl} ${p.facts.title}`));
   if (!policy) return [];
+  // Before consent and after "accept" (decision 47b): everything that loads must be named.
   const services = new Map();
-  for (const request of scan.requests) {
-    const service = request.thirdParty ? matchService(request.url) : null;
-    if (service && service.category !== 'consent') services.set(service.name, service);
-  }
-  const missing = [...services.values()].filter((s) => !policyMentions(s, policy.facts.bodyText));
+  const collect = (requests, when) => {
+    for (const request of requests) {
+      const service = request.thirdParty ? matchService(request.url) : null;
+      if (service && service.category !== 'consent' && !services.has(service.name)) services.set(service.name, { service, when });
+    }
+  };
+  collect(scan.requests, 'before consent');
+  collect(scan.consentRuns?.accept?.requests ?? [], 'after accept');
+  const missing = [...services.values()].filter(({ service }) => !policyMentions(service, policy.facts.bodyText));
   if (missing.length === 0) return [];
   return [finding('DSE-02', 'hint', 'Third-party services loaded but not named in the privacy policy',
-    [url(policy)], { services: missing.map((s) => s.name) })];
+    [url(policy)], { services: missing.map(({ service }) => service.name), loaded: Object.fromEntries(missing.map(({ service, when }) => [service.name, when])) })];
 }
 
 function shopLegalPages(scan) {
