@@ -190,6 +190,13 @@ function tocEntries(model, withPrompt) {
 ${simple('abbildungen', t.long.figures)}${simple('tabellen', t.long.tables)}${simple('quellen', t.long.sources)}${simple('rechtshinweis', t.long.disclaimer)}</ol>`;
 }
 
+/** Fixed intro; the sentences on mock-ups and the prompt appear only when the report has them. */
+function introText(model, showPrompt) {
+  const { long } = model.t;
+  const hasMockups = model.findings.some((f) => f.mockupImage);
+  return [long.intro, hasMockups ? long.introMockups : '', showPrompt ? long.introPrompt : '', long.introRest].filter(Boolean).join(' ');
+}
+
 /**
  * @param {ReturnType<import('./model.mjs').buildModel>} model
  * @param {{promptChapter?: boolean, promptFile?: string}} [options] chapter with the AI prompt; file name of the separate prompt file
@@ -212,7 +219,7 @@ export function renderLangfassung(model, { promptChapter: withPrompt = false, pr
 <p class="meta">${esc(platformLine(model))}</p>
 <p class="meta">${toolLine(t)}</p>
 <div class="notice">${t.long.notice}</div>${t.translated ? `<div class="notice">${esc(t.translatedNote)}</div>` : ''}
-<p class="intro">${esc(t.long.intro).replace('⚠', ABMAHN_ICON)}</p>
+<p class="intro">${esc(introText(model, showPrompt)).replace('⚠', ABMAHN_ICON)}</p>
 <section class="toc" id="inhalt"><h2>${t.long.toc}</h2>${tocEntries(model, showPrompt)}</section></section>
 ${abbrev}
 ${body}

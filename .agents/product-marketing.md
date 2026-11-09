@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-**Document version:** v18
+**Document version:** v19
 **Last updated:** 2026-11-09
 
 Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(Annahme)“ markierte Punkte sind nicht durch Nutzerbefragungen belegt.
@@ -139,6 +139,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v19 (2026-11-09) — v1.10.2: PDF intros mention mock-ups, prompt and long report only when present; AI question shortened to "(U = unbekannt)". No positioning change, description and topics unchanged.
 - v18 (2026-11-09) — v1.10.1: consent runs visit content pages before legal pages; no positioning change, GitHub description and topics unchanged.
 - v17 (2026-11-09) — v1.10.0 after a LinkedIn comment („nach der Ablehnung feuern trotzdem Tags“): reject and accept runs, tracking after reject, Consent Mode pings as hint; "ohne Einwilligung" reworded because it read like "without the owner's permission"; 31 automatic checks.
 - v16 (2026-11-08) — v1.9.6: separate document language (German, English or any other language translated by AI with a note); description says "PDF-Berichte in jeder Sprache".

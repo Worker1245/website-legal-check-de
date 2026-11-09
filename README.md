@@ -36,7 +36,7 @@ Vor der Prüfung fragt der Skill je Website kurz nach, was entstehen soll:
 2. `PDF Kurzfassung gewünscht? (Y/N)`
 3. `PDF Langfassung gewünscht? (Y/N)`
    Danach: `Uhrzeit der Prüfung im Dokument angeben? (Y/N)`: Bei Y steht hinter dem Datum die Uhrzeit (HH:MM).
-4. Nur bei Langfassung: `Wurde die Website mit KI (Vibe-Coding) erstellt? (Y = ja, N = nein, U = unbekannt)`: Bei Y enthält die Langfassung einen Prompt zur Behebung. Bei U entscheidet das erkannte System: Bei einem Baukasten oder CMS gibt es keinen Prompt, sonst schon; die Langfassung nennt das als Annahme.
+4. Nur bei Langfassung: `Wurde die Website mit KI (Vibe-Coding) erstellt? (U = unbekannt)`, Antwort Y, N oder U: Bei Y enthält die Langfassung einen Prompt zur Behebung. Bei U entscheidet das erkannte System: Bei einem Baukasten oder CMS gibt es keinen Prompt, sonst schon; die Langfassung nennt das als Annahme.
 5. Nur bei KI = Y oder U: `Den Prompt zur Behebung mit KI (Auftrag für Claude Code, Codex o. Ä., steht in der Langfassung) zusätzlich als Textdatei (.txt) speichern? (Y/N)`
 6. Nur bei Langfassung, als letzte Frage: `Mock-ups mit erstellen? (Mock-ups sind Bilder, die zeigen, wie eine korrigierte Stelle aussehen kann …) (Y/N)`
 
@@ -62,7 +62,7 @@ Jede Prüfung erhält einen eigenen Ordner im aktuellen Verzeichnis, `JJJJMMTT_<
 | `JJJJMMTT_<projekt>_KI-Prompt_<SPRACHE>.txt` | Nur auf Wunsch bei KI-erstellten Websites: Auftrag für Claude Code oder Codex, der alle Befunde ohne Rückfragen im Code behebt; Unbekanntes wird als sichtbarer Platzhalter gesetzt |
 | `daten/` | Rohdaten und Belege (Bildschirmfotos, Messwerte), damit sich Befunde nachvollziehen lassen |
 
-Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und `…_AI-Prompt.txt`. Beide PDFs beginnen mit einer festen Kurzerklärung, was im Dokument steht, und folgen recherchierten Formatierungsregeln (Tabellenüberschrift oben, Abbildungsunterschrift unten, 11 pt mit 1,5-fachem Zeilenabstand, Flattersatz, Schreibweisen nach DIN 5008). Sie nennen das erkannte System, Skill, Version und dieses Repository, nutzen nur die frei lizenzierte Schrift Source Sans 3 und betten Bildschirmfotos verkleinert ein.
+Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und `…_AI-Prompt.txt`. Beide PDFs beginnen mit einer festen Kurzerklärung, was im Dokument steht (Sätze zu abgewählten Teilen wie Mock-ups, Prompt oder Langfassung entfallen), und folgen recherchierten Formatierungsregeln (Tabellenüberschrift oben, Abbildungsunterschrift unten, 11 pt mit 1,5-fachem Zeilenabstand, Flattersatz, Schreibweisen nach DIN 5008). Sie nennen das erkannte System, Skill, Version und dieses Repository, nutzen nur die frei lizenzierte Schrift Source Sans 3 und betten Bildschirmfotos verkleinert ein.
 
 ## Wie er arbeitet
 

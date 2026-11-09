@@ -178,6 +178,24 @@ test('without the time (answer N) only the date is shown', async () => {
   }
 });
 
+test('intro names mock-ups, prompt and long report only when the reader gets them', async () => {
+  const { texts } = await import('../scripts/lib/report/i18n.mjs');
+  for (const language of ['de', 'en']) {
+    const t = texts(language);
+    const plain = buildModel({ ...data([finding({})]), language });
+    const long = renderLangfassung(plain);
+    assert.ok(!long.includes(t.long.introMockups) && !long.includes(t.long.introPrompt), `${language}: nothing announced that is missing`);
+    assert.ok(long.includes(t.long.introRest), `${language}: rest of the intro stays`);
+    const full = buildModel({ ...data([finding({})]), language });
+    Object.assign(full.findings[0], { mockup: { description: 'Cookie-Abfrage' }, mockupImage: 'data:image/png;base64,AA==' });
+    const withAll = renderLangfassung(full, { promptChapter: true });
+    assert.ok(withAll.includes(t.long.introMockups) && withAll.includes(t.long.introPrompt), `${language}: mock-ups and prompt announced`);
+    assert.ok(renderKurzbericht(plain).includes(t.short.introLong), `${language}: long report announced by default`);
+    const shortOnly = renderKurzbericht(plain, { withLong: false });
+    assert.ok(!shortOnly.includes(t.short.introLong) && shortOnly.includes(t.short.introStatus), `${language}: short report without long report`);
+  }
+});
+
 test('legal status is named "Rechtsstand" and explained on page 1', () => {
   const de = buildModel({ ...data([finding({})]), time: null });
   for (const html of [renderKurzbericht(de), renderLangfassung(de)]) {

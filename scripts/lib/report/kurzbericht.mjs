@@ -47,7 +47,7 @@ function upcomingSection(t, upcoming) {
 }
 
 /** @param {ReturnType<import('./model.mjs').buildModel>} model */
-export function renderKurzbericht(model) {
+export function renderKurzbericht(model, { withLong = true } = {}) {
   const { t } = model;
   const gaps = model.findings.filter((f) => f.kind === 'gap').length;
   const checks = model.findings.length - gaps;
@@ -61,7 +61,7 @@ export function renderKurzbericht(model) {
 <p class="meta">${esc(platformLine(model))}</p>
 <p class="meta tool">${toolLine(t)}</p>
 <div class="notice">${t.short.notice}</div>${t.translated ? `<div class="notice">${esc(t.translatedNote)}</div>` : ''}
-<p class="intro">${esc(t.short.intro).replace('⚠', ABMAHN_ICON)}</p>
+<p class="intro">${esc([t.short.intro, withLong ? t.short.introLong : '', t.short.introStatus].filter(Boolean).join(' ')).replace('⚠', ABMAHN_ICON)}</p>
 <div class="summary"><div><strong>${gaps}</strong>${t.short.gaps}</div><div><strong>${checks}</strong>${t.short.checks}</div></div>
 <p class="meta"><strong>${t.short.assumptions}:</strong> ${assumptions}</p>
 ${model.byPrio.map((g) => prioSection(t, g)).join('\n')}

@@ -122,7 +122,7 @@ export async function buildReports(dataFile, prefix, { short = false, long = fal
       await writeFile(htmlFile, html);
       results[name] = { pdf: pdfFile, pages: await renderPdf(htmlFile, pdfFile, { paged: true }) };
     };
-    if (short) await build('Kurzbericht', renderKurzbericht(model));
+    if (short) await build('Kurzbericht', renderKurzbericht(model, { withLong: Boolean(long) }));
     if (long) {
       const mockupFiles = await withImages(model, dataDir);
       const promptFile = ki.kiPrompt && withFile ? `${prefix}_${model.t.files.prompt}${suffix}.txt` : undefined;
