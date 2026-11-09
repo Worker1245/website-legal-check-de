@@ -119,6 +119,7 @@ Doc version: current Help Center (2026-11); desktop admin paths, the Shopify app
 ### Detection signals
 - ND in help.shopify.com. UNVERIFIED conventions: assets from `cdn.shopify.com`, JS global `window.Shopify`, `myshopify.com` domains. (shopify.dev not fetched.)
 - Documented: Shopify cookie banner / Customer Privacy API exist; pixels run sandboxed (see d).
+- Script tags (TDD-08): inline `function asyncLoad` with `var urls = [...]`, observed on 7 live shops on 2026-11-09, not documented by Shopify (UNVERIFIED). Dates and replacements: shopify.dev, SRC-95 in `sources.md`.
 
 ### a. Pages and menu/footer
 1. **Online Store > Pages** → **Add page** → title + content → **Visibility: Visible** → **Save**. DE: **Onlineshop > Seiten** → **Seite hinzufügen** → **Sichtbarkeit** → **Speichern**. [add-edit-pages]

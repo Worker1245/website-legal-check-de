@@ -52,6 +52,12 @@ describe('shop with built-in gaps', () => {
     assert.equal(result.scan.consentRuns.accept.button, 'Akzeptieren');
   });
 
+  test('Shopify script tags: the consent tool and the other app are reported separately (decision 52a)', () => {
+    const tags = result.checks.findings.filter((f) => f.check === 'TDD-08');
+    assert.deepEqual(tags.map((f) => [f.status, f.evidence.consentTool]), [['hint', true], ['hint', false]]);
+    assert.deepEqual(tags[1].evidence.scriptTags, ['https://widgets.example-reviews.test/loader.js?shop=teeladen.myshopify.com']);
+  });
+
   test('finds shop duties: VAT note, order button, outdated ODR link', () => {
     const { findings } = result.checks;
     assert.ok(statusOf(findings, 'PRC-01').includes('gap'));

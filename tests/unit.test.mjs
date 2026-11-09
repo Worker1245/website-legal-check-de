@@ -7,6 +7,7 @@ import { matchService, policyMentions } from '../scripts/lib/third-parties.mjs';
 import { PATTERNS } from '../scripts/lib/checks/helpers.mjs';
 import { consentRunUrls, matchesChoice } from '../scripts/lib/consent-runs.mjs';
 import { checkConsentChoice, consentModeState } from '../scripts/lib/checks/consent-choice.mjs';
+import { checkScriptTags, parseScriptTagUrls } from '../scripts/lib/checks/script-tags.mjs';
 
 test('normalizeStartUrl adds https and rejects unsafe input', () => {
   assert.equal(normalizeStartUrl('www.xyz.de').toString(), 'https://www.xyz.de/');
@@ -124,4 +125,29 @@ test('consent runs prefer content pages over legal pages; legal pages only as a 
   assert.deepEqual(consentRunUrls(pages), ['/', '/angebot', '/blog', '/impressum', '/datenschutz']);
   assert.deepEqual(consentRunUrls([page('/', 'home'), page('/impressum', 'imprint')]), ['/', '/impressum']);
   assert.deepEqual(consentRunUrls([]), []);
+});
+
+test('Shopify script tag URLs: JSON escapes, protocol-relative URLs and the Shopify proxy are resolved', () => {
+  const source = 'function asyncLoad() { var urls = ["https:\\/\\/cdn.example-reviews.com\\/w.js?a=1\\u0026shop=x.myshopify.com",'
+    + '"//cdn.shopify.com/proxy/0a1b2c/api.example-affiliate.com/loader.js?shop=x.myshopify.com","//beacon.example.com/?shop=x"]; }';
+  assert.deepEqual(parseScriptTagUrls(source), [
+    'https://cdn.example-reviews.com/w.js?a=1&shop=x.myshopify.com',
+    'https://api.example-affiliate.com/loader.js?shop=x.myshopify.com',
+    'https://beacon.example.com/?shop=x',
+  ]);
+  assert.deepEqual(parseScriptTagUrls('var other = 1;'), []);
+  assert.deepEqual(parseScriptTagUrls(null), []);
+});
+
+test('Shopify script tags: a consent tool is reported separately; wording depends on the scan date (decisions 52a, 54a)', () => {
+  const source = 'var urls = ["https://cdn.example-consent.com/cookie-banner.js?shop=x","https://cdn.example-reviews.com/w.js?shop=x"];';
+  const scan = (scannedAt, script = source) => ({ scannedAt, pages: [{ url: 'https://x.de/', finalUrl: 'https://x.de/', facts: { asyncLoadScript: script } }] });
+  const before = checkScriptTags(scan('2026-11-09T10:00:00.000Z'));
+  assert.deepEqual(before.map((f) => [f.check, f.status]), [['TDD-08', 'hint'], ['TDD-08', 'hint']]);
+  assert.deepEqual(before[0].evidence.scriptTags, ['https://cdn.example-consent.com/cookie-banner.js?shop=x']);
+  assert.equal(before[0].evidence.consentTool, true);
+  assert.equal(before[0].evidence.afterCutoff, false);
+  assert.deepEqual(before[1].evidence.scriptTags, ['https://cdn.example-reviews.com/w.js?shop=x']);
+  assert.equal(checkScriptTags(scan('2027-03-01T08:00:00.000Z'))[0].evidence.afterCutoff, true);
+  assert.deepEqual(checkScriptTags(scan('2026-11-09T10:00:00.000Z', null)), []);
 });

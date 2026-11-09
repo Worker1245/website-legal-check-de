@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-**Document version:** v19
+**Document version:** v20
 **Last updated:** 2026-11-09
 
 Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(Annahme)“ markierte Punkte sind nicht durch Nutzerbefragungen belegt.
@@ -57,7 +57,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 - Erkennt das System der Website (z. B. WordPress, Shopify, Wix) und schreibt Anleitungen für Laien; jeder Befund ist zusätzlich in einfachen Worten erklärt.
 - Berichte auf Deutsch oder Englisch; mehrere Websites in einem Aufruf; wiederholte Prüfungen übernehmen unveränderte Seiten aus dem letzten Scan.
 - Lokal, Open Source, kostenlos.
-**How we do it differently:** Technische Messung plus gepflegte Prüfliste mit 31 automatischen und 22 manuellen Prüfpunkten, 94 Quellen und 14 beobachteten kommenden Regeln.
+**How we do it differently:** Technische Messung plus gepflegte Prüfliste mit 32 automatischen und 22 manuellen Prüfpunkten, 95 Quellen und 14 beobachteten kommenden Regeln.
 **Why that's better:** Belegte Befunde statt Vermutungen und direkt umsetzbare Hilfe.
 **Why customers choose us:** Schnell, gratis, nachvollziehbar, und das Ergebnis lässt sich direkt weitergeben (Annahme).
 
@@ -113,7 +113,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 **Never use (and why):** „rechtssicher“, „abmahnsicher“ – nicht einlösbar und RDG-heikel.
 
 ## Proof Points
-**Metrics:** 31 automatische und 22 manuelle Prüfpunkte, Klickwege für 8 Website-Systeme aus deren offizieller Hilfe, 94 Quellen (abgerufen), 14 kommende Regeln, 12 Textentwürfe, automatische Tests auf lokalen Testseiten.
+**Metrics:** 32 automatische und 22 manuelle Prüfpunkte, Klickwege für 8 Website-Systeme aus deren offizieller Hilfe, 95 Quellen (abgerufen), 14 kommende Regeln, 12 Textentwürfe, automatische Tests auf lokalen Testseiten.
 **Customers:** —
 **Testimonials:** —
 **Value themes:**
@@ -133,12 +133,14 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 | Date | Learning | Evidence | Applies to | Status |
 |------|----------|----------|------------|--------|
 | 2026-11-09 | „ohne Einwilligung“ wird als „ohne Erlaubnis des Betreibers“ missverstanden; besser „wie ein Erstbesucher, der in der Cookie-Abfrage noch nichts angeklickt hat“ | Rückfrage des Nutzers zum LinkedIn-Text | README, Beschreibung, Social | watch |
+| 2026-11-09 | Fachleser bringen Plattform-Fristen ein (Shopify Script Tags ab 1. März 2027); zugkräftig ist die Folge für die Einwilligung (Cookie-Abfrage fällt weg, Tracker bleiben), nicht die technische Umstellung | ein Hinweis aus der Leserschaft, umgesetzt in v1.11.0 | Shopify-Zielgruppe, LinkedIn | watch |
 | 2026-11-09 | Fachleser fragen nach dem Verhalten nach „Ablehnen“ (Tag Manager ohne Consent-Bedingung, Consent Mode gcs=G100); die Funktion ist ein Argument für Fachpublikum | ein LinkedIn-Kommentar, daraus v1.10.0 | Social, README | watch |
 | 2026-11-08 | Leser lesen „Cookie-Abfrage prüfen“ als rein rechtlich; Texte sollen zeigen, dass die Behebung auch für Besucher klarer ist (gleichwertiges Ablehnen, Zweck, Widerruf) | ein LinkedIn-Kommentar zur Nutzererfahrung | README, Beschreibung, Social | watch |
 | 2026-11-08 | GitHub-Texte auf Deutsch, weil der Skill deutsche Websites prüft | Entscheidung des Betreibers | README, Beschreibung | active |
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v20 (2026-11-09) — v1.11.0 after a reader hint: TDD-08 Shopify script tags (no longer injected from 1 March 2027), consent tool loaded that way at priority 1; 32 automatic checks, 95 sources; GitHub description gains one sentence, topics unchanged (20 is the maximum).
 - v19 (2026-11-09) — v1.10.2: PDF intros mention mock-ups, prompt and long report only when present; AI question shortened to "(U = unbekannt)". No positioning change, description and topics unchanged.
 - v18 (2026-11-09) — v1.10.1: consent runs visit content pages before legal pages; no positioning change, GitHub description and topics unchanged.
 - v17 (2026-11-09) — v1.10.0 after a LinkedIn comment („nach der Ablehnung feuern trotzdem Tags“): reject and accept runs, tracking after reject, Consent Mode pings as hint; "ohne Einwilligung" reworded because it read like "without the owner's permission"; 31 automatic checks.

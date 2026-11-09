@@ -68,7 +68,7 @@ Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und
 
 1. **Aktualität:** Sind die Rechtsquellen älter als einen Monat, ruft der Skill sie neu ab und sucht nach Änderungen bei Gesetzen, Rechtsprechung und Leitlinien. Relevantes fließt in den Bericht ein.
 2. **Scan:** Ein Browser ohne Fenster (Playwright/Chromium) lädt die Startseite, alle Seiten aus Kopf, Fuß und Navigation, die Rechtsseiten und bis zu 20 weitere Seiten. Danach ergänzt er aus der Sitemap Seitentypen, die noch fehlen (Produkt, Warenkorb, Kasse, Konto, Kontakt, Blog). Die Barrierefreiheit prüft er mit axe-core. Zum Schluss öffnet er die Startseite zweimal in einem frischen Browser, klickt einmal auf „Ablehnen“ und einmal auf „Akzeptieren“ und zeichnet auf, was danach auf der Startseite und zwei Unterseiten geladen wird, bevorzugt Inhaltsseiten statt Impressum oder Datenschutz.
-3. **Automatische Prüfung und System-Erkennung:** 31 Prüfpunkte aus einer gepflegten Prüfliste liefern Kandidaten für Befunde. Zusätzlich erkennt der Skill, womit die Website gebaut ist (WordPress mit WooCommerce, Divi oder Elementor, Shopify, Wix, Jimdo, Squarespace, Webflow, TYPO3, Shopware).
+3. **Automatische Prüfung und System-Erkennung:** 32 Prüfpunkte aus einer gepflegten Prüfliste liefern Kandidaten für Befunde. Zusätzlich erkennt der Skill, womit die Website gebaut ist (WordPress mit WooCommerce, Divi oder Elementor, Shopify, Wix, Jimdo, Squarespace, Webflow, TYPO3, Shopware).
 4. **Kontrolle:** Claude prüft jeden Kandidaten anhand der Belege, verwirft Fehlalarme, vergibt Priorität und ⚠-Markierung, trifft Annahmen zum Geltungsbereich und schreibt die Anleitungen so, dass Laien sie umsetzen können, für das erkannte System mit Klickwegen aus dessen offizieller Hilfe (Stand und Quelle je System in `references/platforms.md`); wo die Hilfe nichts belegt, bleiben die Schritte allgemein.
 5. **Quellen:** Jede zitierte amtliche Quelle wird während der Prüfung erneut abgerufen; nicht erreichbare werden nicht zitiert.
 6. **Berichte:** Ein Skript erzeugt aus einer Datendatei die gewünschten PDFs und den Prompt, alle in derselben Reihenfolge.
@@ -78,6 +78,7 @@ Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und
 - Impressum und Datenschutzerklärung auf jeder Seite erreichbar (§ 5 DDG, Art. 13 DSGVO)
 - Tracker, Schriften, Videos, Cookies und Speicher vor der Einwilligung; Cookie-Banner ohne gleichwertiges „Ablehnen“ (§ 25 TDDDG)
 - Tracker und Cookies nach dem Klick auf „Ablehnen“ (§ 25 TDDDG); Pings von Google Consent Mode nach dem Ablehnen (`gcs=G100`) als Hinweis zum Prüfen, weil ihre Bewertung nicht abschließend geklärt ist
+- Shopify-Shops: Apps, die noch als Script Tag laden und ab 1. März 2027 still wegfallen; Vorrang hat eine Cookie-Abfrage, die so eingebunden ist, weil Tracker im Theme dann ohne Einwilligung laden würden
 - Dienste, die nach dem Klick auf „Akzeptieren“ laden, aber in der Datenschutzerklärung fehlen (Art. 13 DSGVO)
 - HTTPS, gemischte Inhalte, Formulare über http
 - Preisangaben mit Mehrwertsteuer und Versand (PAngV), Bestellknopf (§ 312j BGB), Kündigungsknopf (§ 312k BGB), Online-Widerrufsfunktion (§ 356a BGB), Verbraucherstreitbeilegung (VSBG), veraltete Links zur EU-OS-Plattform, Herstellerangaben (GPSR)

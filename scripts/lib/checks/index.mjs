@@ -4,6 +4,7 @@
 import { checkConsent } from './consent.mjs';
 import { checkConsentChoice } from './consent-choice.mjs';
 import { checkLegalPages } from './legal-pages.mjs';
+import { checkScriptTags } from './script-tags.mjs';
 import { checkShop } from './shop.mjs';
 import { checkSite } from './site.mjs';
 import { looksLikeShop } from './helpers.mjs';
@@ -21,6 +22,7 @@ export function runChecks(scan) {
     ...checkConsent(scan),
     ...checkConsentChoice(scan),
     ...checkShop(scan),
+    ...checkScriptTags(scan),
     ...checkSite(scan),
   ].sort((a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status]);
   const pages = scan.pages.filter((p) => !p.error && !p.skipped);

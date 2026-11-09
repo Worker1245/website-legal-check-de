@@ -197,6 +197,19 @@ Scope of the scanner for all checks: "scanned pages" are the pages that loaded w
 - **Help:** draft `datenschutz-bausteine.md`; no mock-up; no source until one is fetched and added to `references/sources.md`.
 - **Confidence:** detection high; legal assessment UNVERIFIED.
 
+### TDD-08 – Shopify script tags (no longer injected from 1 March 2027)
+- **Obligation:** No legal duty of its own. Shopify stops injecting script tags into storefronts on 1 March 2027; since 1 October 2026 apps can no longer create or update them (SRC-95). Legally relevant when the consent tool itself is loaded as a script tag: it disappears while tracking hard-coded in the theme keeps loading, which then violates § 25 Abs. 1 TDDDG. Other apps (reviews, loyalty, affiliate, tracking) stop silently.
+- **Legal basis:** § 25 Abs. 1 TDDDG for the consent case only (consequence, not the script tag itself); otherwise none.
+- **Applies to:** Shopify shops whose pages contain the inline `asyncLoad` script list.
+- **Scanner observation:** Every scanned page: inline script containing `function asyncLoad`, URLs from its `var urls = [...]` list (protocol-relative URLs made absolute, Shopify proxy `cdn.shopify.com/proxy/<hash>/<host>/…` unwrapped). One `hint` for URLs of a consent tool (category consent in `data/third-parties.json` or the words consent, cookie, gdpr, dsgvo, cmp in host or path), one `hint` for all others. Evidence: `scriptTags`, `consentTool`, `cutoff`, `afterCutoff` (scan date on or after 1 March 2027). That Shopify renders script tags this way is observed on 7 live shops (2026-11-09), not documented by Shopify (UNVERIFIED).
+- **How Claude verifies:** Name the app behind each host (e.g. from the host name or the app's website); drop URLs that are clearly not an app. Consent case: check that the start page's consent dialog is really this tool (screenshot `-cookieabfrage`) and whether TDD-01 services are hard-coded in the theme rather than managed by the tool; if the tool also runs as an app embed, downgrade to priority 3.
+- **Default priority:** 1 for the consent tool; 3 for other apps.
+- **Common reason for a warning letter:** no (only the consequence in the consent case, see TDD-01).
+- **Report:** Status „Bitte prüfen“. Was fehlt, before the cutoff: „Die Cookie-Abfrage [bzw. die Apps [Namen]] wird über ein Shopify-Script-Tag geladen. Shopify spielt Script Tags ab dem 1. März 2027 nicht mehr aus; danach fehlt sie ohne Vorwarnung.“ On or after the cutoff (`afterCutoff: true`): „… wird über ein Shopify-Script-Tag eingebunden, das Shopify seit dem 1. März 2027 nicht mehr ausspielt.“ Vorschrift: consent case „§ 25 Abs. 1 TDDDG (Folge, wenn die Cookie-Abfrage fehlt)“; otherwise „keine (technische Umstellung von Shopify)“.
+- **Fix steps:** For each app ask the provider or check its update notes whether it now ships as an app embed (theme app extension); update or replace apps that do not. Consent case first: switch to a consent app that runs as an app embed or to Shopify's own cookie banner (platform click paths, Shopify section d), then check that the dialog still appears and tracking waits for consent. Custom apps of the shop itself have no extension replacement; their script moves into the theme (SRC-95).
+- **Help:** no draft; no mock-up; sources SRC-95.
+- **Confidence:** detection high for the list itself (observed pattern); consent classification medium (words and listed tools); dates verified.
+
 ### SEC-01 – HTTPS and redirect
 - **Obligation:** State-of-the-art technical measures, with recognised encryption named as an example; appropriate security of processing.
 - **Legal basis:** § 19 Abs. 4 TDDDG; Art. 32 Abs. 1 lit. a, Art. 25 DSGVO.

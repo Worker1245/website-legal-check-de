@@ -3,7 +3,7 @@
 
 /* global document, window, NodeFilter */
 export function collectPageFacts() {
-  const LIMITS = { text: 30000, footer: 3000, linkText: 120, prices: 30, banner: 800 };
+  const LIMITS = { text: 30000, footer: 3000, linkText: 120, prices: 30, banner: 800, asyncLoad: 20000 };
   const REGION_SELECTOR = 'header, footer, nav, [role="banner"], [role="contentinfo"], [role="navigation"]';
   const BANNER_SELECTORS = [
     '#CybotCookiebotDialog', '#onetrust-banner-sdk', '#usercentrics-root', '#usercentrics-cmp-ui',
@@ -99,6 +99,10 @@ export function collectPageFacts() {
   const htmlClasses = clean(`${document.documentElement.className} ${document.body?.className ?? ''}`, 600);
   const htmlDataAttributes = [...document.documentElement.attributes].map((a) => a.name).filter((n) => n.startsWith('data-'));
 
+  // Shopify script tags are listed in an inline asyncLoad function (checks/script-tags.mjs).
+  const asyncLoadScript = [...document.scripts].find((s) => !s.src && s.text.includes('function asyncLoad'))
+    ?.text.slice(0, LIMITS.asyncLoad) ?? null;
+
   return {
     title: clean(document.title, 200),
     generator: meta('generator'),
@@ -108,6 +112,6 @@ export function collectPageFacts() {
     hasFooterElement: footers.length > 0,
     footerText: clean(footers.map((f) => f.innerText).join(' '), LIMITS.footer),
     bodyText: clean(document.body?.innerText, LIMITS.text),
-    links, buttons, forms, iframes, banner, prices,
+    links, buttons, forms, iframes, banner, prices, asyncLoadScript,
   };
 }
