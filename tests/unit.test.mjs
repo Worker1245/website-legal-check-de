@@ -5,7 +5,7 @@ import { classifyPage, selectDeepCheckUrls } from '../scripts/lib/page-types.mjs
 import { parseSitemap, sitemapsFromRobots } from '../scripts/lib/sitemap.mjs';
 import { matchService, policyMentions } from '../scripts/lib/third-parties.mjs';
 import { PATTERNS } from '../scripts/lib/checks/helpers.mjs';
-import { matchesChoice } from '../scripts/lib/consent-runs.mjs';
+import { consentRunUrls, matchesChoice } from '../scripts/lib/consent-runs.mjs';
 import { checkConsentChoice, consentModeState } from '../scripts/lib/checks/consent-choice.mjs';
 
 test('normalizeStartUrl adds https and rejects unsafe input', () => {
@@ -116,4 +116,12 @@ test('reject run: not clickable is a hint only when a dialog is known; granted C
   assert.equal(granted.check, 'TDD-06');
   assert.match(granted.title, /consent granted/);
   assert.equal(checkConsentChoice(scan(reject([ga('G100')])))[0].check, 'TDD-07');
+});
+
+test('consent runs prefer content pages over legal pages; legal pages only as a fallback (decision 50a)', () => {
+  const page = (url, pageType, extra = {}) => ({ url, finalUrl: url, pageType, ...extra });
+  const pages = [page('/', 'home'), page('/impressum', 'imprint'), page('/datenschutz', 'privacy'), page('/kaputt', 'other', { error: 'x' }), page('/angebot', 'other'), page('/blog', 'blog')];
+  assert.deepEqual(consentRunUrls(pages), ['/', '/angebot', '/blog', '/impressum', '/datenschutz']);
+  assert.deepEqual(consentRunUrls([page('/', 'home'), page('/impressum', 'imprint')]), ['/', '/impressum']);
+  assert.deepEqual(consentRunUrls([]), []);
 });

@@ -4,6 +4,7 @@
 // more pages. Many tags only fire on the next page view, hence the extra pages.
 
 import { collectPageFacts } from './collect-page.mjs';
+import { LEGAL_TYPES } from './page-types.mjs';
 import { matchService } from './third-parties.mjs';
 import { isThirdParty } from './url.mjs';
 import { PATTERNS } from './checks/helpers.mjs';
@@ -52,6 +53,19 @@ async function findChoiceButton(page, choice) {
     if (found) return found;
   }
   return null;
+}
+
+/**
+ * URLs for the runs: the start page, then content pages; legal pages (imprint, privacy …)
+ * only as a fallback, because they often load fewer tags (decision 50a).
+ * @param {{url: string, finalUrl?: string, pageType?: string, error?: string, skipped?: string}[]} pages scanned pages, start page first
+ */
+export function consentRunUrls(pages) {
+  const ok = pages.filter((p) => !p.error && !p.skipped);
+  const [first, ...rest] = ok;
+  if (!first) return [];
+  const isLegal = (p) => LEGAL_TYPES.includes(p.pageType);
+  return [first, ...rest.filter((p) => !isLegal(p)), ...rest.filter(isLegal)].map((p) => p.finalUrl ?? p.url);
 }
 
 /**

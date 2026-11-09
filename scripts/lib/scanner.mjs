@@ -12,7 +12,7 @@ import { matchService } from './third-parties.mjs';
 import { checkTransport } from './transport.mjs';
 import { linkScreenshots, pageFingerprint } from './reuse.mjs';
 import { visitPage } from './visit-page.mjs';
-import { runConsentChoices } from './consent-runs.mjs';
+import { consentRunUrls, runConsentChoices } from './consent-runs.mjs';
 
 const CONTEXT_OPTIONS = { bypassCSP: true, locale: 'de-DE', viewport: { width: 1366, height: 900 } };
 
@@ -54,7 +54,7 @@ export async function scanSite(options) {
 
     const cookies = (await context.cookies()).map((c) => describeCookie(c, start, state.cookieFirstSeen));
     await context.close();
-    const pageUrls = state.pages.filter((p) => !p.error && !p.skipped).map((p) => p.finalUrl ?? p.url);
+    const pageUrls = consentRunUrls(state.pages);
     opts.log('Consent choices: reject and accept');
     const consentRuns = pageUrls.length > 0
       ? await runConsentChoices(browser, start, pageUrls, { contextOptions: CONTEXT_OPTIONS, timeoutMs: opts.pageTimeoutMs, settleMs: opts.settleMs })
