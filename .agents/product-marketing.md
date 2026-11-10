@@ -1,7 +1,7 @@
 # Product Marketing Context
 
-**Document version:** v20
-**Last updated:** 2026-11-09
+**Document version:** v21
+**Last updated:** 2026-11-10
 
 Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(Annahme)“ markierte Punkte sind nicht durch Nutzerbefragungen belegt.
 
@@ -140,6 +140,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v21 (2026-11-10) — v1.11.1: all intake questions follow one answer pattern, (Y/N), (Y/N, U = unbekannt) for the AI questions and (G/E, …) for languages. No positioning change, description and topics unchanged.
 - v20 (2026-11-09) — v1.11.0 after a reader hint: TDD-08 Shopify script tags (no longer injected from 1 March 2027), consent tool loaded that way at priority 1; 32 automatic checks, 95 sources; GitHub description gains one sentence, topics unchanged (20 is the maximum).
 - v19 (2026-11-09) — v1.10.2: PDF intros mention mock-ups, prompt and long report only when present; AI question shortened to "(U = unbekannt)". No positioning change, description and topics unchanged.
 - v18 (2026-11-09) — v1.10.1: consent runs visit content pages before legal pages; no positioning change, GitHub description and topics unchanged.

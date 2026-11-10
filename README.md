@@ -32,11 +32,11 @@ Dann in Claude Code:
 Vor der Prüfung fragt der Skill je Website kurz nach, was entstehen soll:
 
 1. `Fragen und Antworten auf Deutsch oder Englisch? / Questions and answers in German or English? (G/E)`: Sprache der weiteren Fragen und der Antwort.
-   Danach: `In welcher Sprache sollen die Dokumente erstellt werden? (G = Deutsch, E = Englisch oder Sprache eingeben, z. B. Französisch)`: Sprache der PDFs und des Prompts. Bei einer anderen Sprache übersetzt Claude die festen Texte aus der englischen Fassung; die PDFs tragen dann einen Hinweis, dass die Übersetzung von einer KI stammt und nicht von einem Menschen geprüft wurde. Die Dateinamen bleiben englisch. Textentwürfe für die Website bleiben immer deutsch.
+   Danach: `In welcher Sprache sollen die Dokumente erstellt werden? (G/E, andere Sprache eintippen, z. B. Französisch)`: Sprache der PDFs und des Prompts. Bei einer anderen Sprache übersetzt Claude die festen Texte aus der englischen Fassung; die PDFs tragen dann einen Hinweis, dass die Übersetzung von einer KI stammt und nicht von einem Menschen geprüft wurde. Die Dateinamen bleiben englisch. Textentwürfe für die Website bleiben immer deutsch.
 2. `PDF Kurzfassung gewünscht? (Y/N)`
 3. `PDF Langfassung gewünscht? (Y/N)`
    Danach: `Uhrzeit der Prüfung im Dokument angeben? (Y/N)`: Bei Y steht hinter dem Datum die Uhrzeit (HH:MM).
-4. Nur bei Langfassung: `Wurde die Website mit KI (Vibe-Coding) erstellt? (U = unbekannt)`, Antwort Y, N oder U: Bei Y enthält die Langfassung einen Prompt zur Behebung. Bei U entscheidet das erkannte System: Bei einem Baukasten oder CMS gibt es keinen Prompt, sonst schon; die Langfassung nennt das als Annahme.
+4. Nur bei Langfassung: `Wurde die Website mit KI (Vibe-Coding) erstellt? (Y/N, U = unbekannt)`, Antwort Y, N oder U: Bei Y enthält die Langfassung einen Prompt zur Behebung. Bei U entscheidet das erkannte System: Bei einem Baukasten oder CMS gibt es keinen Prompt, sonst schon; die Langfassung nennt das als Annahme.
 5. Nur bei KI = Y oder U: `Den Prompt zur Behebung mit KI (Auftrag für Claude Code, Codex o. Ä., steht in der Langfassung) zusätzlich als Textdatei (.txt) speichern? (Y/N)`
 6. Nur bei Langfassung, als letzte Frage: `Mock-ups mit erstellen? (Mock-ups sind Bilder, die zeigen, wie eine korrigierte Stelle aussehen kann …) (Y/N)`
 
