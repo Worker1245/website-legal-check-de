@@ -26,6 +26,10 @@ export function hasLink(page, pattern) {
 /** Find the first scanned page of a type. */
 export const pageOfType = (scan, type) => okPages(scan).find((p) => p.pageType === type) ?? null;
 
+/** The privacy policy page; it may share a page with the imprint (e.g. "Impressum & Datenschutz"). */
+export const policyPage = (scan) => pageOfType(scan, 'privacy')
+  ?? okPages(scan).find((p) => PATTERNS.privacy.test(`${p.finalUrl} ${p.facts.title}`)) ?? null;
+
 export function safePath(href) {
   try {
     const url = new URL(href);

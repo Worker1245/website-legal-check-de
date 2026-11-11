@@ -35,6 +35,8 @@ describe('shop with built-in gaps', () => {
     assert.deepEqual(statusOf(findings, 'DSE-01'), ['gap']);
     assert.ok(statusOf(findings, 'IMP-02').includes('gap'));
     assert.deepEqual(statusOf(findings, 'WID-01'), ['gap']);
+    const imp04 = findings.filter((f) => f.check === 'IMP-04').map((f) => f.evidence.missing ?? f.evidence.outdated);
+    assert.deepEqual(imp04, ['representative', 'register', '§ 5 TMG']);
   });
 
   test('finds trackers, fonts and cookies before consent and a missing reject button', () => {
@@ -95,6 +97,13 @@ describe('site without gaps in the checked areas', () => {
     assert.equal(result.scan.consentRuns.reject.button, 'Ablehnen');
   });
 
+  test('reads legal pages beyond 30,000 characters; imprint and policy content complete (IMP-04, DSE-03)', () => {
+    const policy = result.scan.pages.find((p) => p.pageType === 'privacy');
+    assert.ok(policy.facts.bodyText.length > 30000);
+    assert.deepEqual(statusOf(result.checks.findings, 'DSE-03'), []);
+    assert.deepEqual(statusOf(result.checks.findings, 'IMP-04'), []);
+  });
+
   test('raises no gap except missing HTTPS on the local test server', () => {
     const gaps = result.checks.findings.filter((f) => f.status === 'gap').map((f) => f.check);
     assert.deepEqual(gaps, ['SEC-01']);
@@ -131,6 +140,7 @@ describe('consent tool that keeps tracking after reject', () => {
     const policy = result.checks.findings.find((f) => f.check === 'DSE-02');
     assert.deepEqual(policy.evidence.services.sort(), ['Google Tag Manager', 'Meta Pixel / Facebook']);
     assert.equal(policy.evidence.loaded['Google Tag Manager'], 'after accept');
+    assert.equal(policy.evidence.providers['Google Tag Manager'].entity, 'Google Ireland Limited');
   });
 });
 

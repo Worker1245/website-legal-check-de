@@ -3,6 +3,7 @@
 
 import { checkConsent } from './consent.mjs';
 import { checkConsentChoice } from './consent-choice.mjs';
+import { checkImprintDetails, checkPolicyContent } from './legal-content.mjs';
 import { checkLegalPages } from './legal-pages.mjs';
 import { checkScriptTags } from './script-tags.mjs';
 import { checkShop } from './shop.mjs';
@@ -19,6 +20,8 @@ const STATUS_ORDER = { gap: 0, hint: 1, ok: 2 };
 export function runChecks(scan) {
   const findings = [
     ...checkLegalPages(scan),
+    ...checkImprintDetails(scan),
+    ...checkPolicyContent(scan),
     ...checkConsent(scan),
     ...checkConsentChoice(scan),
     ...checkShop(scan),

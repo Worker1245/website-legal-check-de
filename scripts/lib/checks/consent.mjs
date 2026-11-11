@@ -1,9 +1,14 @@
 // § 25 TDDDG: nothing non-essential may be stored, read or loaded from third parties
 // before consent; the consent dialog must offer reject as easily as accept.
 
+import { serviceByName } from '../third-parties.mjs';
 import { finding, okPages, PATTERNS } from './helpers.mjs';
 
-export const TRACKING_CATEGORIES = new Set(['analytics', 'ads', 'tagmanager', 'social', 'video', 'maps', 'chat', 'captcha']);
+export const TRACKING_CATEGORIES = new Set(['analytics', 'ads', 'tagmanager', 'social', 'video', 'audio', 'maps', 'chat', 'captcha']);
+/** Embedded third-party widgets: loading them before consent is a TDD-01 finding (priority 2), not tracking after reject. */
+export const EMBED_CATEGORIES = new Set(['booking', 'forms', 'newsletter', 'reviews']);
+/** Known services that are neither tracking nor embeds (e.g. payment): named in TDD-05, judged by Claude. */
+const SPECIAL_CATEGORIES = new Set(['fonts', 'cdn', 'consent']);
 export const TRACKER_COOKIE = /^(_ga|_gid|_gat|_gcl_|_fbp|_fbc|_hj|_clck|_clsk|_uetsid|_uetvid|_pk_|_tt_|_pin_|IDE$|NID$|fr$|li_|bcookie|_ttp)/i;
 const MAX_EXAMPLES = 3;
 
@@ -22,13 +27,16 @@ const pageUrls = (scan, indexes) => indexes.map((i) => scan.pages.find((p) => p.
 
 function trackersBeforeConsent(scan) {
   const known = scan.requests.filter((r) => r.thirdParty && r.service);
-  const tracking = groupByService(known.filter((r) => TRACKING_CATEGORIES.has(r.category)));
+  const beforeConsent = (r) => TRACKING_CATEGORIES.has(r.category) || EMBED_CATEGORIES.has(r.category);
+  const tracking = groupByService(known.filter(beforeConsent));
+  const otherKnown = groupByService(known.filter((r) => !beforeConsent(r) && !SPECIAL_CATEGORIES.has(r.category)));
   const fonts = groupByService(known.filter((r) => r.category === 'fonts'));
   const cdn = groupByService(known.filter((r) => r.category === 'cdn'));
   const unknownHosts = [...new Set(scan.requests.filter((r) => r.thirdParty && !r.service).map((r) => new URL(r.url).hostname))];
   const results = [];
   for (const g of tracking) {
-    results.push(finding('TDD-01', 'gap', `${g.service} loaded before consent`, pageUrls(scan, g.pages), { requests: g.examples }));
+    results.push(finding('TDD-01', 'gap', `${g.service} loaded before consent`, pageUrls(scan, g.pages),
+      { service: g.service, category: g.category, provider: serviceByName(g.service)?.provider ?? null, requests: g.examples }));
   }
   for (const g of fonts) {
     results.push(finding('TDD-02', 'gap', `${g.service} loaded from a third-party server before consent`, pageUrls(scan, g.pages), { requests: g.examples }));
@@ -36,8 +44,9 @@ function trackersBeforeConsent(scan) {
   for (const g of cdn) {
     results.push(finding('TDD-02', 'hint', `Files loaded from ${g.service} (IP address goes to a third party)`, pageUrls(scan, g.pages), { requests: g.examples }));
   }
-  if (unknownHosts.length > 0) {
-    results.push(finding('TDD-05', 'hint', 'Other third-party hosts contacted before consent (purpose unknown)', [], { hosts: unknownHosts.slice(0, 30) }));
+  if (unknownHosts.length > 0 || otherKnown.length > 0) {
+    const services = otherKnown.map((g) => ({ name: g.service, category: g.category, provider: serviceByName(g.service)?.provider ?? null, requests: g.examples }));
+    results.push(finding('TDD-05', 'hint', 'Other third-party hosts contacted before consent', [], { hosts: unknownHosts.slice(0, 30), services }));
   }
   return results;
 }

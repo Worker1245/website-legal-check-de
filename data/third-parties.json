@@ -1,37 +1,1643 @@
 {
-  "_comment": "Well-known third-party services. 'hosts' match the request hostname or any subdomain; 'paths' optionally restrict to URL path prefixes. 'keywords' are searched (case-insensitive) in the privacy policy text. 'category': fonts | analytics | ads | tagmanager | video | maps | social | chat | captcha | cdn | consent | other. Consent tools are listed so they are not reported as trackers.",
+  "_comment": "Well-known third-party services. 'hosts' match the request hostname or any subdomain; 'paths' optionally restrict to URL path prefixes. 'keywords' are searched (case-insensitive) in the privacy policy text. 'category': fonts | analytics | ads | tagmanager | video | audio | maps | social | chat | captcha | booking | forms | newsletter | reviews | payment | monitoring | cdn | consent | other. Consent tools are listed so they are not reported as trackers. 'provider': legal entity and country from the vendor's own imprint, privacy or legal page ('source', fetched 2026-11-11); null where not verified. Hosts come from vendor documentation or are vendor-owned domains (list of 2026-11-11, decision 57a).",
   "services": [
-    { "name": "Google Fonts", "category": "fonts", "hosts": ["fonts.googleapis.com", "fonts.gstatic.com"], "keywords": ["google fonts", "fonts.googleapis"] },
-    { "name": "Adobe Fonts (Typekit)", "category": "fonts", "hosts": ["use.typekit.net", "p.typekit.net"], "keywords": ["adobe fonts", "typekit"] },
-    { "name": "Font Awesome CDN", "category": "fonts", "hosts": ["use.fontawesome.com", "kit.fontawesome.com", "ka-f.fontawesome.com"], "keywords": ["font awesome", "fontawesome"] },
-    { "name": "Google Analytics", "category": "analytics", "hosts": ["google-analytics.com", "analytics.google.com"], "keywords": ["google analytics"] },
-    { "name": "Google Tag Manager", "category": "tagmanager", "hosts": ["googletagmanager.com"], "keywords": ["tag manager"] },
-    { "name": "Google Ads / DoubleClick", "category": "ads", "hosts": ["doubleclick.net", "googleadservices.com", "googlesyndication.com", "adservice.google.com"], "keywords": ["google ads", "doubleclick", "adsense", "google adwords"] },
-    { "name": "YouTube", "category": "video", "hosts": ["youtube.com", "youtube-nocookie.com", "ytimg.com", "googlevideo.com"], "keywords": ["youtube"] },
-    { "name": "Vimeo", "category": "video", "hosts": ["player.vimeo.com", "vimeocdn.com", "f.vimeocdn.com"], "keywords": ["vimeo"] },
-    { "name": "Google Maps", "category": "maps", "hosts": ["maps.googleapis.com", "maps.gstatic.com"], "paths": [], "keywords": ["google maps"] },
-    { "name": "Google reCAPTCHA", "category": "captcha", "hosts": ["recaptcha.net", "www.google.com", "www.gstatic.com"], "paths": ["/recaptcha"], "keywords": ["recaptcha"] },
-    { "name": "Meta Pixel / Facebook", "category": "social", "hosts": ["connect.facebook.net", "facebook.com", "facebook.net"], "keywords": ["facebook", "meta pixel", "meta platforms"] },
-    { "name": "Instagram", "category": "social", "hosts": ["instagram.com", "cdninstagram.com"], "keywords": ["instagram"] },
-    { "name": "LinkedIn Insight", "category": "ads", "hosts": ["snap.licdn.com", "px.ads.linkedin.com"], "keywords": ["linkedin"] },
-    { "name": "TikTok Pixel", "category": "ads", "hosts": ["analytics.tiktok.com"], "keywords": ["tiktok"] },
-    { "name": "Pinterest Tag", "category": "ads", "hosts": ["ct.pinterest.com", "s.pinimg.com"], "keywords": ["pinterest"] },
-    { "name": "X (Twitter)", "category": "social", "hosts": ["platform.twitter.com", "static.ads-twitter.com", "analytics.twitter.com"], "keywords": ["twitter"] },
-    { "name": "Microsoft Clarity", "category": "analytics", "hosts": ["clarity.ms"], "keywords": ["clarity"] },
-    { "name": "Microsoft Advertising (Bing UET)", "category": "ads", "hosts": ["bat.bing.com"], "keywords": ["bing", "microsoft advertising"] },
-    { "name": "Hotjar", "category": "analytics", "hosts": ["hotjar.com", "hotjar.io"], "keywords": ["hotjar"] },
-    { "name": "Matomo Cloud", "category": "analytics", "hosts": ["matomo.cloud"], "keywords": ["matomo"] },
-    { "name": "HubSpot", "category": "analytics", "hosts": ["hs-scripts.com", "hs-analytics.net", "hsforms.net", "hubspot.com"], "keywords": ["hubspot"] },
-    { "name": "Intercom", "category": "chat", "hosts": ["intercom.io", "intercomcdn.com"], "keywords": ["intercom"] },
-    { "name": "Tidio", "category": "chat", "hosts": ["tidio.co", "tidiochat.com"], "keywords": ["tidio"] },
-    { "name": "Zendesk Chat", "category": "chat", "hosts": ["zdassets.com", "zopim.com"], "keywords": ["zendesk"] },
-    { "name": "Crisp", "category": "chat", "hosts": ["crisp.chat"], "keywords": ["crisp"] },
-    { "name": "jsDelivr", "category": "cdn", "hosts": ["cdn.jsdelivr.net"], "keywords": ["jsdelivr"] },
-    { "name": "cdnjs (Cloudflare)", "category": "cdn", "hosts": ["cdnjs.cloudflare.com"], "keywords": ["cdnjs", "cloudflare"] },
-    { "name": "unpkg", "category": "cdn", "hosts": ["unpkg.com"], "keywords": ["unpkg"] },
-    { "name": "Google Hosted Libraries", "category": "cdn", "hosts": ["ajax.googleapis.com"], "keywords": ["google hosted libraries", "ajax.googleapis"] },
-    { "name": "Cookiebot", "category": "consent", "hosts": ["consent.cookiebot.com", "consentcdn.cookiebot.com"], "keywords": ["cookiebot"] },
-    { "name": "Usercentrics", "category": "consent", "hosts": ["usercentrics.eu", "app.usercentrics.eu"], "keywords": ["usercentrics"] },
-    { "name": "OneTrust", "category": "consent", "hosts": ["cdn.cookielaw.org", "onetrust.com"], "keywords": ["onetrust"] }
+    {
+      "name": "Google Fonts",
+      "category": "fonts",
+      "hosts": [
+        "fonts.googleapis.com",
+        "fonts.gstatic.com"
+      ],
+      "keywords": [
+        "google fonts",
+        "fonts.googleapis"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://policies.google.com/terms?hl=en-GB"
+      }
+    },
+    {
+      "name": "Adobe Fonts (Typekit)",
+      "category": "fonts",
+      "hosts": [
+        "use.typekit.net",
+        "p.typekit.net"
+      ],
+      "keywords": [
+        "adobe fonts",
+        "typekit"
+      ],
+      "provider": {
+        "entity": "Adobe Systems Software Ireland Limited",
+        "country": "Irland",
+        "source": "https://www.adobe.com/privacy/policy.html"
+      }
+    },
+    {
+      "name": "Font Awesome CDN",
+      "category": "fonts",
+      "hosts": [
+        "use.fontawesome.com",
+        "kit.fontawesome.com",
+        "ka-f.fontawesome.com"
+      ],
+      "keywords": [
+        "font awesome",
+        "fontawesome"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Google Analytics",
+      "category": "analytics",
+      "hosts": [
+        "google-analytics.com",
+        "analytics.google.com"
+      ],
+      "keywords": [
+        "google analytics"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://policies.google.com/terms?hl=en-GB"
+      }
+    },
+    {
+      "name": "Google Tag Manager",
+      "category": "tagmanager",
+      "hosts": [
+        "googletagmanager.com"
+      ],
+      "keywords": [
+        "tag manager"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://policies.google.com/terms?hl=en-GB"
+      }
+    },
+    {
+      "name": "Google Ads / DoubleClick",
+      "category": "ads",
+      "hosts": [
+        "doubleclick.net",
+        "googleadservices.com",
+        "googlesyndication.com",
+        "adservice.google.com"
+      ],
+      "keywords": [
+        "google ads",
+        "doubleclick",
+        "adsense",
+        "google adwords"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://policies.google.com/terms?hl=en-GB"
+      }
+    },
+    {
+      "name": "YouTube",
+      "category": "video",
+      "hosts": [
+        "youtube.com",
+        "youtube-nocookie.com",
+        "ytimg.com",
+        "googlevideo.com"
+      ],
+      "keywords": [
+        "youtube"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://www.youtube.com/t/terms"
+      }
+    },
+    {
+      "name": "Vimeo",
+      "category": "video",
+      "hosts": [
+        "player.vimeo.com",
+        "vimeocdn.com",
+        "f.vimeocdn.com"
+      ],
+      "keywords": [
+        "vimeo"
+      ],
+      "provider": {
+        "entity": "Vimeo.com, Inc. (EU-Vertreter Bending Spoons S.p.A.)",
+        "country": "USA",
+        "source": "https://vimeo.com/legal/privacy/policy.md"
+      }
+    },
+    {
+      "name": "Google Maps",
+      "category": "maps",
+      "hosts": [
+        "maps.googleapis.com",
+        "maps.gstatic.com"
+      ],
+      "paths": [],
+      "keywords": [
+        "google maps"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://policies.google.com/terms?hl=en-GB"
+      }
+    },
+    {
+      "name": "Google reCAPTCHA",
+      "category": "captcha",
+      "hosts": [
+        "recaptcha.net",
+        "www.google.com",
+        "www.gstatic.com"
+      ],
+      "paths": [
+        "/recaptcha"
+      ],
+      "keywords": [
+        "recaptcha"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://policies.google.com/terms?hl=en-GB"
+      }
+    },
+    {
+      "name": "Meta Pixel / Facebook",
+      "category": "social",
+      "hosts": [
+        "connect.facebook.net",
+        "facebook.com",
+        "facebook.net"
+      ],
+      "keywords": [
+        "facebook",
+        "meta pixel",
+        "meta platforms"
+      ],
+      "provider": {
+        "entity": "Meta Platforms Ireland Limited",
+        "country": "Irland",
+        "source": "https://www.facebook.com/legal/terms/businesstools"
+      }
+    },
+    {
+      "name": "Instagram",
+      "category": "social",
+      "hosts": [
+        "instagram.com",
+        "cdninstagram.com"
+      ],
+      "keywords": [
+        "instagram"
+      ],
+      "provider": null
+    },
+    {
+      "name": "LinkedIn Insight",
+      "category": "ads",
+      "hosts": [
+        "snap.licdn.com",
+        "px.ads.linkedin.com"
+      ],
+      "keywords": [
+        "linkedin"
+      ],
+      "provider": {
+        "entity": "LinkedIn Ireland Unlimited Company",
+        "country": "Irland",
+        "source": "https://www.linkedin.com/legal/privacy-policy"
+      }
+    },
+    {
+      "name": "TikTok Pixel",
+      "category": "ads",
+      "hosts": [
+        "analytics.tiktok.com"
+      ],
+      "keywords": [
+        "tiktok"
+      ],
+      "provider": {
+        "entity": "TikTok Technology Limited",
+        "country": "Irland",
+        "source": "https://www.tiktok.com/legal/page/eea/privacy-policy/en"
+      }
+    },
+    {
+      "name": "Pinterest Tag",
+      "category": "ads",
+      "hosts": [
+        "ct.pinterest.com",
+        "s.pinimg.com"
+      ],
+      "keywords": [
+        "pinterest"
+      ],
+      "provider": {
+        "entity": "Pinterest Europe Ltd.",
+        "country": "Irland",
+        "source": "https://policy.pinterest.com/en/privacy-policy"
+      }
+    },
+    {
+      "name": "X (Twitter)",
+      "category": "social",
+      "hosts": [
+        "platform.twitter.com",
+        "static.ads-twitter.com",
+        "analytics.twitter.com"
+      ],
+      "keywords": [
+        "twitter"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Microsoft Clarity",
+      "category": "analytics",
+      "hosts": [
+        "clarity.ms"
+      ],
+      "keywords": [
+        "clarity"
+      ],
+      "provider": {
+        "entity": "Microsoft Ireland Operations Limited",
+        "country": "Irland",
+        "source": "https://www.microsoft.com/en-us/privacy/privacystatement"
+      }
+    },
+    {
+      "name": "Microsoft Advertising (Bing UET)",
+      "category": "ads",
+      "hosts": [
+        "bat.bing.com"
+      ],
+      "keywords": [
+        "bing",
+        "microsoft advertising"
+      ],
+      "provider": {
+        "entity": "Microsoft Ireland Operations Limited",
+        "country": "Irland",
+        "source": "https://www.microsoft.com/en-us/privacy/privacystatement"
+      }
+    },
+    {
+      "name": "Hotjar",
+      "category": "analytics",
+      "hosts": [
+        "hotjar.com",
+        "hotjar.io"
+      ],
+      "keywords": [
+        "hotjar"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Matomo Cloud",
+      "category": "analytics",
+      "hosts": [
+        "matomo.cloud"
+      ],
+      "keywords": [
+        "matomo"
+      ],
+      "provider": {
+        "entity": "InnoCraft Limited",
+        "country": "Neuseeland",
+        "source": "https://matomo.org/privacy-policy/"
+      }
+    },
+    {
+      "name": "HubSpot",
+      "category": "analytics",
+      "hosts": [
+        "hs-scripts.com",
+        "hs-analytics.net",
+        "hsforms.net",
+        "hubspot.com"
+      ],
+      "keywords": [
+        "hubspot"
+      ],
+      "provider": {
+        "entity": "HubSpot Ireland Limited",
+        "country": "Irland",
+        "source": "https://legal.hubspot.com/privacy-policy"
+      }
+    },
+    {
+      "name": "Intercom",
+      "category": "chat",
+      "hosts": [
+        "intercom.io",
+        "intercomcdn.com"
+      ],
+      "keywords": [
+        "intercom"
+      ],
+      "provider": {
+        "entity": "Intercom R&D Unlimited Company (einer von mehreren Verantwortlichen der Gruppe)",
+        "country": "Irland",
+        "source": "https://www.intercom.com/legal/privacy"
+      }
+    },
+    {
+      "name": "Tidio",
+      "category": "chat",
+      "hosts": [
+        "tidio.co",
+        "tidiochat.com"
+      ],
+      "keywords": [
+        "tidio"
+      ],
+      "provider": {
+        "entity": "Tidio LLC und Tidio Poland Sp. z o.o.",
+        "country": "USA / Polen",
+        "source": "https://www.tidio.com/privacy-policy/"
+      }
+    },
+    {
+      "name": "Zendesk Chat",
+      "category": "chat",
+      "hosts": [
+        "zdassets.com",
+        "zopim.com"
+      ],
+      "keywords": [
+        "zendesk"
+      ],
+      "provider": {
+        "entity": "Zendesk, Inc.",
+        "country": "USA",
+        "source": "https://www.zendesk.de/company/agreements-and-terms/privacy-notice/"
+      }
+    },
+    {
+      "name": "Crisp",
+      "category": "chat",
+      "hosts": [
+        "crisp.chat"
+      ],
+      "keywords": [
+        "crisp"
+      ],
+      "provider": {
+        "entity": "Crisp IM SAS",
+        "country": "Frankreich",
+        "source": "https://crisp.chat/en/privacy/"
+      }
+    },
+    {
+      "name": "jsDelivr",
+      "category": "cdn",
+      "hosts": [
+        "cdn.jsdelivr.net"
+      ],
+      "keywords": [
+        "jsdelivr"
+      ],
+      "provider": null
+    },
+    {
+      "name": "cdnjs (Cloudflare)",
+      "category": "cdn",
+      "hosts": [
+        "cdnjs.cloudflare.com"
+      ],
+      "keywords": [
+        "cdnjs",
+        "cloudflare"
+      ],
+      "provider": null
+    },
+    {
+      "name": "unpkg",
+      "category": "cdn",
+      "hosts": [
+        "unpkg.com"
+      ],
+      "keywords": [
+        "unpkg"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Google Hosted Libraries",
+      "category": "cdn",
+      "hosts": [
+        "ajax.googleapis.com"
+      ],
+      "keywords": [
+        "google hosted libraries",
+        "ajax.googleapis"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://policies.google.com/terms?hl=en-GB"
+      }
+    },
+    {
+      "name": "Cookiebot",
+      "category": "consent",
+      "hosts": [
+        "consent.cookiebot.com",
+        "consentcdn.cookiebot.com"
+      ],
+      "keywords": [
+        "cookiebot"
+      ],
+      "provider": {
+        "entity": "Usercentrics A/S",
+        "country": "Dänemark",
+        "source": "https://www.cookiebot.com/en/developer"
+      }
+    },
+    {
+      "name": "Usercentrics",
+      "category": "consent",
+      "hosts": [
+        "usercentrics.eu",
+        "app.usercentrics.eu"
+      ],
+      "keywords": [
+        "usercentrics"
+      ],
+      "provider": {
+        "entity": "Usercentrics GmbH",
+        "country": "Deutschland",
+        "source": "https://usercentrics.com/privacy-policy/"
+      }
+    },
+    {
+      "name": "OneTrust",
+      "category": "consent",
+      "hosts": [
+        "cdn.cookielaw.org",
+        "onetrust.com"
+      ],
+      "keywords": [
+        "onetrust"
+      ],
+      "provider": {
+        "entity": "OT Technology Spain S.L.U.",
+        "country": "Spanien",
+        "source": "https://legal.onetrust.com/"
+      }
+    },
+    {
+      "name": "etracker",
+      "category": "analytics",
+      "hosts": [
+        "etracker.com",
+        "etracker.de"
+      ],
+      "keywords": [
+        "etracker"
+      ],
+      "provider": {
+        "entity": "JustRelate Deutschland GmbH",
+        "country": "Deutschland",
+        "source": "https://www.etracker.com/impressum/"
+      }
+    },
+    {
+      "name": "Plausible Analytics",
+      "category": "analytics",
+      "hosts": [
+        "plausible.io"
+      ],
+      "keywords": [
+        "plausible"
+      ],
+      "provider": {
+        "entity": "Plausible Insights OÜ",
+        "country": "Estland",
+        "source": "https://plausible.io/imprint"
+      }
+    },
+    {
+      "name": "Fathom Analytics",
+      "category": "analytics",
+      "hosts": [
+        "usefathom.com"
+      ],
+      "keywords": [
+        "fathom"
+      ],
+      "provider": {
+        "entity": "Conva Ventures Inc.",
+        "country": "Kanada",
+        "source": "https://usefathom.com/privacy"
+      }
+    },
+    {
+      "name": "Piwik PRO",
+      "category": "analytics",
+      "hosts": [
+        "piwik.pro"
+      ],
+      "keywords": [
+        "piwik pro",
+        "piwik.pro"
+      ],
+      "provider": {
+        "entity": "Piwik PRO SA / Piwik PRO GmbH",
+        "country": "Polen / Deutschland",
+        "source": "https://piwik.pro/privacy-policy/"
+      }
+    },
+    {
+      "name": "Mouseflow",
+      "category": "analytics",
+      "hosts": [
+        "mouseflow.com"
+      ],
+      "keywords": [
+        "mouseflow"
+      ],
+      "provider": {
+        "entity": "Mouseflow ApS",
+        "country": "Dänemark",
+        "source": "https://mouseflow.com/legal/company/privacy-policy/"
+      }
+    },
+    {
+      "name": "Leadinfo",
+      "category": "analytics",
+      "hosts": [
+        "leadinfo.net",
+        "leadinfo.com",
+        "ldnfrpl.com"
+      ],
+      "keywords": [
+        "leadinfo"
+      ],
+      "provider": {
+        "entity": "Leadinfo B.V.",
+        "country": "Niederlande",
+        "source": "https://www.leadinfo.com/en/legal/privacy/"
+      }
+    },
+    {
+      "name": "Leadfeeder (Dealfront)",
+      "category": "analytics",
+      "hosts": [
+        "leadfeeder.com",
+        "lfeeder.com"
+      ],
+      "keywords": [
+        "leadfeeder",
+        "dealfront"
+      ],
+      "provider": null
+    },
+    {
+      "name": "SalesViewer",
+      "category": "analytics",
+      "hosts": [
+        "salesviewer.com"
+      ],
+      "keywords": [
+        "salesviewer"
+      ],
+      "provider": {
+        "entity": "SalesViewer GmbH",
+        "country": "Deutschland",
+        "source": "https://www.salesviewer.com/en/imprint"
+      }
+    },
+    {
+      "name": "Lead Forensics",
+      "category": "analytics",
+      "hosts": [
+        "leadforensics.com"
+      ],
+      "keywords": [
+        "lead forensics",
+        "leadforensics"
+      ],
+      "provider": null
+    },
+    {
+      "name": "LeadLab (WiredMinds)",
+      "category": "analytics",
+      "hosts": [
+        "leadlab.click",
+        "wiredminds.de"
+      ],
+      "keywords": [
+        "leadlab",
+        "wiredminds"
+      ],
+      "provider": {
+        "entity": "WiredMinds GmbH",
+        "country": "Deutschland",
+        "source": "https://www.wiredminds.de/impressum/"
+      }
+    },
+    {
+      "name": "Trackboxx",
+      "category": "analytics",
+      "hosts": [
+        "trackboxx.info"
+      ],
+      "keywords": [
+        "trackboxx"
+      ],
+      "provider": {
+        "entity": "Trackboxx (Christian Pust)",
+        "country": "Deutschland",
+        "source": "https://trackboxx.com/impressum"
+      }
+    },
+    {
+      "name": "ABlyft",
+      "category": "analytics",
+      "hosts": [
+        "ablyft.com"
+      ],
+      "keywords": [
+        "ablyft"
+      ],
+      "provider": {
+        "entity": "Conversion Expert GmbH",
+        "country": "Deutschland",
+        "source": "https://ablyft.com/de/impressum"
+      }
+    },
+    {
+      "name": "Jetpack / WordPress.com Stats",
+      "category": "analytics",
+      "hosts": [
+        "stats.wp.com",
+        "pixel.wp.com"
+      ],
+      "keywords": [
+        "jetpack",
+        "wordpress.com stats",
+        "wordpress stats",
+        "automattic"
+      ],
+      "provider": {
+        "entity": "Aut O'Mattic A8C Ireland Ltd.",
+        "country": "Irland",
+        "source": "https://automattic.com/privacy/"
+      }
+    },
+    {
+      "name": "VG Wort Zählpixel",
+      "category": "analytics",
+      "hosts": [
+        "met.vgwort.de"
+      ],
+      "keywords": [
+        "vg wort",
+        "vgwort",
+        "zählpixel",
+        "zählmarke"
+      ],
+      "provider": {
+        "entity": "Verwertungsgesellschaft WORT",
+        "country": "Deutschland",
+        "source": "https://www.vgwort.de/impressum.html"
+      }
+    },
+    {
+      "name": "Criteo",
+      "category": "ads",
+      "hosts": [
+        "criteo.com",
+        "criteo.net"
+      ],
+      "keywords": [
+        "criteo"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Outbrain",
+      "category": "ads",
+      "hosts": [
+        "outbrain.com"
+      ],
+      "keywords": [
+        "outbrain",
+        "teads"
+      ],
+      "provider": {
+        "entity": "Outbrain UK Limited",
+        "country": "Vereinigtes Königreich",
+        "source": "https://www.outbrain.com/privacy/"
+      }
+    },
+    {
+      "name": "AWIN",
+      "category": "ads",
+      "hosts": [
+        "dwin1.com",
+        "awin1.com"
+      ],
+      "keywords": [
+        "awin",
+        "zanox"
+      ],
+      "provider": {
+        "entity": "AWIN AG",
+        "country": "Deutschland",
+        "source": "https://www.awin.com/de/impressum"
+      }
+    },
+    {
+      "name": "Amazon Ads / Partnerprogramm",
+      "category": "ads",
+      "hosts": [
+        "amazon-adsystem.com"
+      ],
+      "keywords": [
+        "amazon partnerprogramm",
+        "amazon associates",
+        "amazon-partnerprogramm",
+        "amazon ads",
+        "amazon-adsystem"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Sentry",
+      "category": "monitoring",
+      "hosts": [
+        "sentry-cdn.com",
+        "ingest.sentry.io",
+        "ingest.de.sentry.io"
+      ],
+      "keywords": [
+        "sentry",
+        "functional software"
+      ],
+      "provider": {
+        "entity": "Functional Software, Inc.",
+        "country": "USA",
+        "source": "https://sentry.io/legal/dpa/"
+      }
+    },
+    {
+      "name": "CookieFirst",
+      "category": "consent",
+      "hosts": [
+        "consent.cookiefirst.com"
+      ],
+      "keywords": [
+        "cookiefirst"
+      ],
+      "provider": {
+        "entity": "Digital Data Solutions B.V.",
+        "country": "Niederlande",
+        "source": "https://cookiefirst.com/privacy-policy/"
+      }
+    },
+    {
+      "name": "Osano",
+      "category": "consent",
+      "hosts": [
+        "cmp.osano.com"
+      ],
+      "keywords": [
+        "osano"
+      ],
+      "provider": null
+    },
+    {
+      "name": "consentmanager",
+      "category": "consent",
+      "hosts": [
+        "consentmanager.net"
+      ],
+      "keywords": [
+        "consentmanager",
+        "consent manager"
+      ],
+      "provider": {
+        "entity": "consentmanager AB",
+        "country": "Schweden",
+        "source": "https://www.consentmanager.net/en/imprint/"
+      }
+    },
+    {
+      "name": "PayPal",
+      "category": "payment",
+      "hosts": [
+        "www.paypal.com"
+      ],
+      "paths": [
+        "/sdk/js"
+      ],
+      "keywords": [
+        "paypal"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Stripe",
+      "category": "payment",
+      "hosts": [
+        "js.stripe.com",
+        "hooks.stripe.com",
+        "api.stripe.com",
+        "checkout.stripe.com",
+        "connect-js.stripe.com"
+      ],
+      "keywords": [
+        "stripe"
+      ],
+      "provider": {
+        "entity": "Stripe Payments Europe, Limited",
+        "country": "Irland",
+        "source": "https://stripe.com/legal/privacy-center"
+      }
+    },
+    {
+      "name": "Klarna",
+      "category": "payment",
+      "hosts": [
+        "js.klarna.com",
+        "klarnaservices.com"
+      ],
+      "keywords": [
+        "klarna"
+      ],
+      "provider": {
+        "entity": "Klarna Bank AB (publ)",
+        "country": "Schweden",
+        "source": "https://www.klarna.com/international/privacy-policy/"
+      }
+    },
+    {
+      "name": "Amazon Pay",
+      "category": "payment",
+      "hosts": [
+        "payments-amazon.com"
+      ],
+      "keywords": [
+        "amazon pay",
+        "amazon payments"
+      ],
+      "provider": {
+        "entity": "Amazon Payments Europe S.C.A.",
+        "country": "Luxemburg",
+        "source": "https://pay.amazon.de/help/201212490"
+      }
+    },
+    {
+      "name": "Mollie",
+      "category": "payment",
+      "hosts": [
+        "js.mollie.com"
+      ],
+      "keywords": [
+        "mollie"
+      ],
+      "provider": {
+        "entity": "Mollie B.V.",
+        "country": "Niederlande",
+        "source": "https://www.mollie.com/en/imprint"
+      }
+    },
+    {
+      "name": "Unzer",
+      "category": "payment",
+      "hosts": [
+        "static.unzer.com",
+        "static-v2.unzer.com"
+      ],
+      "keywords": [
+        "unzer",
+        "heidelpay"
+      ],
+      "provider": {
+        "entity": "Unzer Group GmbH (Vertragspartner kann eine andere Unzer-Gesellschaft sein)",
+        "country": "Deutschland",
+        "source": "https://www.unzer.com/de/impressum/"
+      }
+    },
+    {
+      "name": "PAYONE",
+      "category": "payment",
+      "hosts": [
+        "secure.pay1.de"
+      ],
+      "keywords": [
+        "payone"
+      ],
+      "provider": {
+        "entity": "PAYONE GmbH",
+        "country": "Deutschland",
+        "source": "https://www.payone.com/impressum/"
+      }
+    },
+    {
+      "name": "Apple Pay",
+      "category": "payment",
+      "hosts": [
+        "applepay.cdn-apple.com"
+      ],
+      "keywords": [
+        "apple pay"
+      ],
+      "provider": {
+        "entity": "Apple Distribution International Limited",
+        "country": "Irland",
+        "source": "https://www.apple.com/legal/privacy/de-ww/"
+      }
+    },
+    {
+      "name": "Calendly",
+      "category": "booking",
+      "hosts": [
+        "calendly.com"
+      ],
+      "keywords": [
+        "calendly"
+      ],
+      "provider": {
+        "entity": "Calendly, LLC",
+        "country": "USA",
+        "source": "https://calendly.com/legal/privacy-notice"
+      }
+    },
+    {
+      "name": "eTermin",
+      "category": "booking",
+      "hosts": [
+        "etermin.net"
+      ],
+      "keywords": [
+        "etermin"
+      ],
+      "provider": {
+        "entity": "eTermin GmbH",
+        "country": "Schweiz",
+        "source": "https://www.etermin.net/impressum"
+      }
+    },
+    {
+      "name": "cituro",
+      "category": "booking",
+      "hosts": [
+        "cituro.com"
+      ],
+      "keywords": [
+        "cituro"
+      ],
+      "provider": {
+        "entity": "cituro GmbH",
+        "country": "Deutschland",
+        "source": "https://cituro.com/impressum"
+      }
+    },
+    {
+      "name": "TuCalendi",
+      "category": "booking",
+      "hosts": [
+        "meetfy.me",
+        "tucalendi.com"
+      ],
+      "keywords": [
+        "tucalendi"
+      ],
+      "provider": {
+        "entity": "Appload Solutions S.L.",
+        "country": "Spanien",
+        "source": "https://www.tucalendi.com/en/privacy"
+      }
+    },
+    {
+      "name": "YouCanBookMe",
+      "category": "booking",
+      "hosts": [
+        "youcanbook.me"
+      ],
+      "keywords": [
+        "youcanbook",
+        "ycbm"
+      ],
+      "provider": {
+        "entity": "AI Software (Capacity) UK Ltd",
+        "country": "Vereinigtes Königreich",
+        "source": "https://youcanbook.me/privacy"
+      }
+    },
+    {
+      "name": "meetergo",
+      "category": "booking",
+      "hosts": [
+        "meetergo.com"
+      ],
+      "keywords": [
+        "meetergo"
+      ],
+      "provider": {
+        "entity": "meetergo GmbH",
+        "country": "Deutschland",
+        "source": "https://meetergo.com/impressum"
+      }
+    },
+    {
+      "name": "Zeeg",
+      "category": "booking",
+      "hosts": [
+        "zeeg.me"
+      ],
+      "keywords": [
+        "zeeg"
+      ],
+      "provider": {
+        "entity": "Zeeg GmbH",
+        "country": "Deutschland",
+        "source": "https://zeeg.me/en/legal/gdpr"
+      }
+    },
+    {
+      "name": "Mailchimp",
+      "category": "newsletter",
+      "hosts": [
+        "chimpstatic.com",
+        "list-manage.com"
+      ],
+      "keywords": [
+        "mailchimp",
+        "rocket science group"
+      ],
+      "provider": {
+        "entity": "The Rocket Science Group LLC (Mailchimp); EU-Vertreter Intuit Ireland Software Limited",
+        "country": "USA",
+        "source": "https://www.intuit.com/privacy/statement/"
+      }
+    },
+    {
+      "name": "Brevo (Formulare)",
+      "category": "newsletter",
+      "hosts": [
+        "sibforms.com"
+      ],
+      "keywords": [
+        "brevo",
+        "sendinblue"
+      ],
+      "provider": null
+    },
+    {
+      "name": "CleverReach",
+      "category": "newsletter",
+      "hosts": [
+        "cleverreach.com"
+      ],
+      "keywords": [
+        "cleverreach"
+      ],
+      "provider": {
+        "entity": "CleverReach GmbH & Co. KG",
+        "country": "Deutschland",
+        "source": "https://www.cleverreach.com/en/privacy-policy/"
+      }
+    },
+    {
+      "name": "Klaviyo",
+      "category": "newsletter",
+      "hosts": [
+        "klaviyo.com"
+      ],
+      "keywords": [
+        "klaviyo"
+      ],
+      "provider": null
+    },
+    {
+      "name": "MailerLite",
+      "category": "newsletter",
+      "hosts": [
+        "mailerlite.com"
+      ],
+      "keywords": [
+        "mailerlite"
+      ],
+      "provider": {
+        "entity": "MailerLite Limited",
+        "country": "Irland",
+        "source": "https://www.mailerlite.com/legal/privacy-policy"
+      }
+    },
+    {
+      "name": "GetResponse",
+      "category": "newsletter",
+      "hosts": [
+        "getresponse.com"
+      ],
+      "keywords": [
+        "getresponse"
+      ],
+      "provider": {
+        "entity": "GetResponse S.A.",
+        "country": "Polen",
+        "source": "https://www.getresponse.com/legal/privacy.html"
+      }
+    },
+    {
+      "name": "ActiveCampaign",
+      "category": "newsletter",
+      "hosts": [
+        "trackcmp.net"
+      ],
+      "keywords": [
+        "activecampaign",
+        "active campaign"
+      ],
+      "provider": {
+        "entity": "ActiveCampaign, LLC (EU-Vertreter EU-REP.Global GmbH)",
+        "country": "USA",
+        "source": "https://www.activecampaign.com/legal/privacy-policy"
+      }
+    },
+    {
+      "name": "Kit (ConvertKit)",
+      "category": "newsletter",
+      "hosts": [
+        "convertkit.com"
+      ],
+      "keywords": [
+        "convertkit",
+        "kit.com"
+      ],
+      "provider": {
+        "entity": "Kit, Inc.",
+        "country": "USA",
+        "source": "https://kit.com/privacy"
+      }
+    },
+    {
+      "name": "rapidmail",
+      "category": "newsletter",
+      "hosts": [
+        "rapidmail.de"
+      ],
+      "keywords": [
+        "rapidmail"
+      ],
+      "provider": {
+        "entity": "Positive Group Deutschland GmbH",
+        "country": "Deutschland",
+        "source": "https://www.rapidmail.de/impressum"
+      }
+    },
+    {
+      "name": "Klick-Tipp",
+      "category": "newsletter",
+      "hosts": [
+        "klicktipp.com"
+      ],
+      "keywords": [
+        "klick-tipp",
+        "klicktipp"
+      ],
+      "provider": {
+        "entity": "Klick-Tipp Limited",
+        "country": "Vereinigtes Königreich",
+        "source": "https://www.klicktipp.com/impressum/"
+      }
+    },
+    {
+      "name": "Jotform",
+      "category": "forms",
+      "hosts": [
+        "jotform.com",
+        "jotfor.ms"
+      ],
+      "keywords": [
+        "jotform"
+      ],
+      "provider": {
+        "entity": "Jotform Inc.",
+        "country": "USA",
+        "source": "https://www.jotform.com/privacy/"
+      }
+    },
+    {
+      "name": "Heyflow",
+      "category": "forms",
+      "hosts": [
+        "heyflow.com",
+        "heyflow.app"
+      ],
+      "keywords": [
+        "heyflow"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Google Forms",
+      "category": "forms",
+      "hosts": [
+        "docs.google.com"
+      ],
+      "paths": [
+        "/forms"
+      ],
+      "keywords": [
+        "google forms",
+        "google formulare"
+      ],
+      "provider": {
+        "entity": "Google Ireland Limited",
+        "country": "Irland",
+        "source": "https://policies.google.com/terms?hl=en-GB"
+      }
+    },
+    {
+      "name": "tawk.to",
+      "category": "chat",
+      "hosts": [
+        "tawk.to",
+        "tawk.link"
+      ],
+      "keywords": [
+        "tawk"
+      ],
+      "provider": {
+        "entity": "tawk.to",
+        "country": "USA",
+        "source": "https://www.tawk.to/privacy-policy/"
+      }
+    },
+    {
+      "name": "Userlike",
+      "category": "chat",
+      "hosts": [
+        "userlike.com",
+        "userlike-cdn-widgets.s3-eu-west-1.amazonaws.com"
+      ],
+      "keywords": [
+        "userlike"
+      ],
+      "provider": {
+        "entity": "Lime Connect (Userlike) GmbH",
+        "country": "Deutschland",
+        "source": "https://connect.lime-technologies.com/en/legal/imprint/"
+      }
+    },
+    {
+      "name": "Brevo Chat",
+      "category": "chat",
+      "hosts": [
+        "conversations-widget.brevo.com"
+      ],
+      "keywords": [
+        "brevo",
+        "sendinblue"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Zoho SalesIQ",
+      "category": "chat",
+      "hosts": [
+        "zohopublic.eu",
+        "zohopublic.com"
+      ],
+      "keywords": [
+        "salesiq",
+        "zoho"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Manychat",
+      "category": "chat",
+      "hosts": [
+        "manychat.com"
+      ],
+      "keywords": [
+        "manychat"
+      ],
+      "provider": null
+    },
+    {
+      "name": "OpenStreetMap",
+      "category": "maps",
+      "hosts": [
+        "tile.openstreetmap.org",
+        "vector.openstreetmap.org"
+      ],
+      "keywords": [
+        "openstreetmap"
+      ],
+      "provider": {
+        "entity": "OpenStreetMap Foundation",
+        "country": "Vereinigtes Königreich",
+        "source": "https://osmfoundation.org/wiki/Privacy_Policy"
+      }
+    },
+    {
+      "name": "Mapbox",
+      "category": "maps",
+      "hosts": [
+        "mapbox.com"
+      ],
+      "keywords": [
+        "mapbox"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Bing Maps",
+      "category": "maps",
+      "hosts": [
+        "sdk.virtualearth.net"
+      ],
+      "keywords": [
+        "bing maps",
+        "bing karten"
+      ],
+      "provider": {
+        "entity": "Microsoft Ireland Operations Limited",
+        "country": "Irland",
+        "source": "https://www.microsoft.com/en-us/privacy/privacystatement"
+      }
+    },
+    {
+      "name": "hCaptcha",
+      "category": "captcha",
+      "hosts": [
+        "hcaptcha.com"
+      ],
+      "keywords": [
+        "hcaptcha"
+      ],
+      "provider": {
+        "entity": "Intuition Machines, Inc.",
+        "country": "USA",
+        "source": "https://www.hcaptcha.com/privacy"
+      }
+    },
+    {
+      "name": "Friendly Captcha",
+      "category": "captcha",
+      "hosts": [
+        "frcapi.com",
+        "friendlycaptcha.com"
+      ],
+      "keywords": [
+        "friendly captcha",
+        "friendlycaptcha"
+      ],
+      "provider": {
+        "entity": "Friendly Captcha GmbH",
+        "country": "Deutschland",
+        "source": "https://friendlycaptcha.com/legal/privacy-end-users/"
+      }
+    },
+    {
+      "name": "Cloudflare Turnstile",
+      "category": "captcha",
+      "hosts": [
+        "challenges.cloudflare.com"
+      ],
+      "keywords": [
+        "turnstile"
+      ],
+      "provider": {
+        "entity": "Cloudflare, Inc.",
+        "country": "USA",
+        "source": "https://www.cloudflare.com/privacypolicy/"
+      }
+    },
+    {
+      "name": "CleanTalk",
+      "category": "captcha",
+      "hosts": [
+        "cleantalk.org"
+      ],
+      "keywords": [
+        "cleantalk"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Spotify",
+      "category": "audio",
+      "hosts": [
+        "open.spotify.com"
+      ],
+      "keywords": [
+        "spotify"
+      ],
+      "provider": {
+        "entity": "Spotify AB",
+        "country": "Schweden",
+        "source": "https://www.spotify.com/legal/privacy-policy/"
+      }
+    },
+    {
+      "name": "SoundCloud",
+      "category": "audio",
+      "hosts": [
+        "w.soundcloud.com",
+        "api.soundcloud.com"
+      ],
+      "keywords": [
+        "soundcloud"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Podigee",
+      "category": "audio",
+      "hosts": [
+        "podigee.com",
+        "podigee.io"
+      ],
+      "keywords": [
+        "podigee"
+      ],
+      "provider": {
+        "entity": "Podigee GmbH",
+        "country": "Deutschland",
+        "source": "https://podigee.com/en/about/imprint"
+      }
+    },
+    {
+      "name": "ProvenExpert",
+      "category": "reviews",
+      "hosts": [
+        "provenexpert.com",
+        "provenexpert.net"
+      ],
+      "keywords": [
+        "provenexpert"
+      ],
+      "provider": {
+        "entity": "Expert Systems AG",
+        "country": "Deutschland",
+        "source": "https://www.provenexpert.com/de-de/impressum/"
+      }
+    },
+    {
+      "name": "Jameda",
+      "category": "reviews",
+      "hosts": [
+        "jameda.de"
+      ],
+      "keywords": [
+        "jameda"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Site Search 360",
+      "category": "other",
+      "hosts": [
+        "sitesearch360.com"
+      ],
+      "keywords": [
+        "site search 360",
+        "sitesearch360"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Eye-Able",
+      "category": "other",
+      "hosts": [
+        "eye-able.com",
+        "eye-able-cdn.com"
+      ],
+      "keywords": [
+        "eye-able",
+        "eye able"
+      ],
+      "provider": {
+        "entity": "Web Inclusion GmbH",
+        "country": "Deutschland",
+        "source": "https://eye-able.com/impressum"
+      }
+    },
+    {
+      "name": "Gravatar",
+      "category": "other",
+      "hosts": [
+        "gravatar.com"
+      ],
+      "keywords": [
+        "gravatar"
+      ],
+      "provider": {
+        "entity": "Aut O'Mattic A8C Ireland Ltd.",
+        "country": "Irland",
+        "source": "https://automattic.com/privacy/"
+      }
+    },
+    {
+      "name": "MyFonts",
+      "category": "fonts",
+      "hosts": [
+        "myfonts.net"
+      ],
+      "keywords": [
+        "myfonts",
+        "monotype"
+      ],
+      "provider": {
+        "entity": "MyFonts Inc. (Monotype)",
+        "country": "USA",
+        "source": "https://www.monotype.com/legal/privacy-policy"
+      }
+    },
+    {
+      "name": "Bunny Fonts",
+      "category": "fonts",
+      "hosts": [
+        "fonts.bunny.net"
+      ],
+      "keywords": [
+        "bunny fonts",
+        "bunny.net",
+        "bunnyway"
+      ],
+      "provider": null
+    },
+    {
+      "name": "LinkedIn Plugins",
+      "category": "social",
+      "hosts": [
+        "platform.linkedin.com"
+      ],
+      "keywords": [
+        "linkedin"
+      ],
+      "provider": {
+        "entity": "LinkedIn Ireland Unlimited Company",
+        "country": "Irland",
+        "source": "https://www.linkedin.com/legal/privacy-policy"
+      }
+    },
+    {
+      "name": "XING",
+      "category": "social",
+      "hosts": [
+        "xing.com"
+      ],
+      "keywords": [
+        "xing"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Tumblr",
+      "category": "social",
+      "hosts": [
+        "assets.tumblr.com"
+      ],
+      "keywords": [
+        "tumblr"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Doctolib",
+      "category": "booking",
+      "hosts": [
+        "doctolib.de"
+      ],
+      "keywords": [
+        "doctolib"
+      ],
+      "provider": null
+    },
+    {
+      "name": "Acuity Scheduling",
+      "category": "booking",
+      "hosts": [
+        "acuityscheduling.com"
+      ],
+      "keywords": [
+        "acuity"
+      ],
+      "provider": null
+    }
   ]
 }

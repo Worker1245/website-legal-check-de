@@ -59,7 +59,7 @@ Scope of the scanner for all checks: "scanned pages" are the pages that loaded w
 - **Legal basis:** § 5 Abs. 1 Nr. 1–8 DDG.
 - **Applies to:** As IMP-01 (A-2).
 - **Scanner observation:** On the first page classified as imprint: `gap` if the text contains no e-mail pattern, „[at]“, „(at)“ or „@“; `hint` if no postcode + town is recognised (5-digit German, `A-dddd` or 4-digit plus capitalised word). No imprint page → no IMP-02 finding.
-- **How Claude verifies:** Read the imprint screenshot. False positives: e-mail shown as image or inserted by script, foreign address formats, imprint split over several pages. Also note visible gaps the scanner does not test: legal form without representative, GmbH/UG without register entry, P.O.-box-only address, contact form instead of e-mail, outdated reference „§ 5 TMG“ (Prio 3, cosmetic).
+- **How Claude verifies:** Read the imprint screenshot. False positives: e-mail shown as image or inserted by script, foreign address formats, imprint split over several pages. Also note visible gaps the scanner does not test: legal form without representative, GmbH/UG without register entry, P.O.-box-only address, contact form instead of e-mail. Legal form, representative, register, chamber and an outdated „§ 5 TMG“ reference are covered by IMP-04.
 - **Default priority:** 1 for missing e-mail or address; 3 for an outdated „§ 5 TMG“ reference.
 - **Common reason for a warning letter:** yes.
 - **Report:** Was fehlt: „Im Impressum fehlt eine E-Mail-Adresse.“ / „Im Impressum wurde keine vollständige Postanschrift erkannt.“ Vorschrift: „§ 5 Abs. 1 Nr. [1|2] DDG“.
@@ -80,6 +80,19 @@ Scope of the scanner for all checks: "scanned pages" are the pages that loaded w
 - **Help:** draft `impressum.md`; sources SRC-16.
 - **Confidence:** detection high; applicability unknown by design.
 
+### IMP-04 – Impressum: legal form, representative, register, chamber
+- **Obligation:** Legal persons state legal form and representative; registered providers state register and register number; members of chamber professions state chamber, statutory professional title with the state that awarded it, and the professional rules with where to find them.
+- **Legal basis:** § 5 Abs. 1 Nr. 1, 4, 5 DDG.
+- **Applies to:** As IMP-01 (A-2). Representative: juristische Personen only (GmbH, UG, AG, SE, KGaA, eG, e.V.), as worded in Nr. 1; whether partnerships (KG, OHG) must name one is UNVERIFIED. Register: forms entered in a register by law (also KG, OHG, PartG, e.K.); the GbR is left out because its registration is optional.
+- **Scanner observation:** On the first page classified as imprint, one `hint` each: a legal person's form without `geschäftsführ|vertreten durch|vertretungsberechtigt|vorstand` (evidence `missing: representative`); a registered form without `handelsregister|registergericht|registernummer|…register` or a number like `HRB 123` (`missing: register`); a chamber profession (Rechtsanwalt, Steuerberater, Wirtschaftsprüfer, Notar, Patentanwalt, Arzt, Zahnarzt, Tierarzt, Apotheker, Architekt, Psychotherapeut, beratender Ingenieur) without the word „Kammer“ (`missing: chamber`); a reference to „§ 5 TMG“ or „Telemediengesetz“ (`outdated: § 5 TMG`). „AG“ right after „Registergericht“ or „Amtsgericht“ counts as the court, not as a legal form. No imprint page → no IMP-04 finding.
+- **How Claude verifies:** Read the imprint screenshot and text. False positives: a legal form named for another company (e.g. host, agency credit), a profession mentioned outside the provider's own data, register data on a linked page, the chamber named only by its abbreviation. For a chamber profession also check title, state and professional rules (Nr. 5 b, c), which the scanner does not test.
+- **Default priority:** 2 for representative, register and chamber; 3 for the outdated „§ 5 TMG“ reference (cosmetic: the duty itself has not changed).
+- **Common reason for a warning letter:** yes (as part of the Impressum duty); the outdated reference alone: uncertain.
+- **Report:** Was fehlt: „Im Impressum fehlt bei der Rechtsform [GmbH] der Vertretungsberechtigte.“ / „Im Impressum fehlen Registergericht und Registernummer.“ / „Im Impressum wird ein Kammerberuf genannt, aber keine Kammer.“ / „Das Impressum verweist noch auf § 5 TMG; die Pflicht steht heute in § 5 DDG.“ Vorschrift: „§ 5 Abs. 1 Nr. [1|4|5] DDG“.
+- **Fix steps:** Add the representative (e.g. „Geschäftsführer: …“), the register court and number, or the chamber with professional title, state and rules; replace „§ 5 TMG“ with „§ 5 DDG“.
+- **Help:** draft `impressum.md`; no mock-up; sources SRC-16.
+- **Confidence:** detection medium (keyword match); legal basis verified.
+
 ### DSE-01 – Privacy policy link on every page
 - **Obligation:** Provide the Art. 13 GDPR information when data is collected, in an easily accessible form; server logs with IP addresses alone are personal data processing (DSK OH Rz. 138).
 - **Legal basis:** Art. 12, 13 DSGVO; § 25 Abs. 1 S. 2 TDDDG for cookie processes (DSK OH Rz. 139–140).
@@ -97,22 +110,35 @@ Scope of the scanner for all checks: "scanned pages" are the pages that loaded w
 - **Obligation:** Name recipients, purposes, legal bases, third-country transfers and safeguards, storage period for each processing.
 - **Legal basis:** Art. 13 Abs. 1 lit. c, e, f DSGVO.
 - **Applies to:** Sites embedding third-party services.
-- **Scanner observation:** Privacy page = first page classified as privacy, else a page whose URL or title matches `datenschutz|privacy`. Every third-party request matched to a service in `data/third-parties.json` (consent tools excluded) whose keywords do not appear in the policy text → one `hint` listing the services. Requests of the accept run (fresh browser, click on accept) are included; `evidence.loaded` says per service „before consent“ or „after accept“. No policy page → no finding.
+- **Scanner observation:** Privacy page = first page classified as privacy, else a page whose URL or title matches `datenschutz|privacy`. Every third-party request matched to a service in `data/third-parties.json` (consent tools excluded) whose keywords do not appear in the policy text → one `hint` listing the services. Requests of the accept run (fresh browser, click on accept) are included; `evidence.loaded` says per service „before consent“ or „after accept“; `evidence.providers` gives per service the provider's legal entity and country where verified (decision 58a). No policy page → no finding.
 - **How Claude verifies:** Search the policy text in `scan.json` for the provider under other names (parent company, product name); policies split into sub-pages or PDFs; policy on another host not scanned.
 - **Default priority:** 2. Move to 1 if tracking or advertising services are loaded and the policy names no third party at all.
 - **Common reason for a warning letter:** uncertain.
 - **Report:** Was fehlt: „Die Datenschutzerklärung nennt [Dienste] nicht, obwohl sie beim Seitenaufruf geladen werden.“ Vorschrift: „Art. 13 Abs. 1 DSGVO“.
-- **Fix steps:** Add one paragraph per service (provider, purpose, legal basis, data, recipient, third country plus safeguard, storage period, withdrawal/objection).
-- **Help:** draft `datenschutz-bausteine.md`; no mock-up; sources SRC-04, SRC-05.
+- **Fix steps:** Add one paragraph per service (provider, purpose, legal basis, data, recipient, third country plus safeguard, storage period, withdrawal/objection). In the draft (Baustein 3), fill „Anbieter“ with the entity and country from `evidence.providers`; the street address stays a placeholder. If the country is outside the EEA, keep the third-country paragraph and leave the transfer basis as a question (MAN-02); never state a DPF certification. Without a provider entry, leave the placeholder.
+- **Help:** draft `datenschutz-bausteine.md`; no mock-up; sources SRC-04, SRC-05; provider data per service: `provider.source` in `data/third-parties.json`.
 - **Confidence:** detection medium (keyword match); legal basis verified.
+
+### DSE-03 – Privacy policy content: Art. 13 elements and consent tool
+- **Obligation:** The policy states the controller, purposes and legal basis, storage period, the data subject rights, the right to lodge a complaint with a supervisory authority and, where processing relies on consent, the right to withdraw it. A consent tool processes visitor data (consent records) and is named like any other recipient.
+- **Legal basis:** Art. 13 Abs. 1 lit. a, c; Abs. 2 lit. a–d DSGVO.
+- **Applies to:** As DSE-01. The withdrawal notice only where processing relies on consent.
+- **Scanner observation:** On the privacy page (as DSE-02), one `hint` listing the elements whose keywords are missing, German or English (`missing`: `controller`, `legalBasis`, `storagePeriod`, `rights`, `complaint`, `withdrawal`); one `hint` per consent tool from `data/third-parties.json` that loads but is not named in the policy (`consentTools`). Legal pages are read up to 200,000 characters (other pages 30,000). No policy page → no DSE-03 finding.
+- **How Claude verifies:** Search the policy text in `scan.json` for other wordings (e.g. „Dauer der Aufbewahrung“, „Ihre Rechte“). Policies split into sub-pages or PDFs, or longer than the read limit, may hold the missing parts. A missing withdrawal notice matters only if the site relies on consent (consent dialog, tracking, newsletter).
+- **Default priority:** 2. Move to 3 if only `withdrawal` is missing and no consent-based processing is visible, and for an unnamed consent tool.
+- **Common reason for a warning letter:** uncertain.
+- **Report:** Was fehlt: „In der Datenschutzerklärung wurden keine Angaben zu [Speicherdauer, Beschwerderecht …] gefunden.“ / „Die Datenschutzerklärung nennt das Einwilligungs-Tool [Name] nicht.“ Vorschrift: „Art. 13 DSGVO“.
+- **Fix steps:** Add the missing sections; one paragraph for the consent tool (provider, purpose, legal basis, stored consent data, storage period).
+- **Help:** draft `datenschutz-bausteine.md`; no mock-up; sources SRC-04.
+- **Confidence:** detection medium (keyword match, false alarms possible); legal basis verified.
 
 ### TDD-01 – Tracking and third-party content loaded before consent
 - **Obligation:** No storing on or reading from the device without consent unless strictly necessary; no loading of consent-requiring third-party content while the banner is unanswered. Pixels, tracking URLs and identifiers are covered, not only cookies.
 - **Legal basis:** § 25 Abs. 1 TDDDG; Art. 6 Abs. 1 DSGVO for the IP transfer; joint controllership for embeds (Art. 26 DSGVO, CJEU C-40/17).
 - **Applies to:** All websites; no size exemption.
-- **Scanner observation:** One `gap` per known service of category analytics, ads, tagmanager, social, video, maps, chat or captcha contacted before consent, with pages and up to 3 request URLs.
-- **How Claude verifies:** Read the request URLs. Typical false positives: request caused by the consent tool itself, a click-to-load placeholder whose preview is self-hosted (then no request appears). CAPTCHA and chat may be argued as needed for a requested function; the DSK says storage may begin only when the function is used (Rz. 95) → for captcha/chat keep the gap but at Prio 2.
-- **Default priority:** 1 (analytics, ads, tag manager, social, video, maps); 2 (captcha, chat).
+- **Scanner observation:** One `gap` per known service of category analytics, ads, tagmanager, social, video, audio, maps, chat, captcha, booking, forms, newsletter or reviews contacted before consent, with pages, up to 3 request URLs, `service`, `category` and `provider` (legal entity and country where verified, decision 58a).
+- **How Claude verifies:** Read the request URLs. Typical false positives: request caused by the consent tool itself, a click-to-load placeholder whose preview is self-hosted (then no request appears). CAPTCHA, chat and embedded widgets (booking, forms, newsletter, reviews) may be argued as needed for a requested function; the DSK says storage may begin only when the function is used (Rz. 95) → keep the gap but at Prio 2.
+- **Default priority:** 1 (analytics, ads, tag manager, social, video, audio, maps); 2 (captcha, chat, booking, forms, newsletter, reviews).
 - **Common reason for a warning letter:** uncertain.
 - **Report:** Was fehlt: „[Dienst] wird geladen, bevor eine Einwilligung erteilt wurde.“ Vorschrift: „§ 25 Abs. 1 TDDDG“.
 - **Fix steps:** Configure the consent tool so tags fire only after opt-in; remove hard-coded snippets; load the tag manager only after consent; two-click placeholders for video, maps, social embeds.
@@ -162,8 +188,8 @@ Scope of the scanner for all checks: "scanned pages" are the pages that loaded w
 - **Obligation:** As TDD-01 for hosts of unknown purpose.
 - **Legal basis:** § 25 Abs. 1 TDDDG; Art. 6 Abs. 1 DSGVO.
 - **Applies to:** All websites.
-- **Scanner observation:** One `hint` listing up to 30 third-party host names not in `data/third-parties.json`.
-- **How Claude verifies:** Classify by host name. Typical false positives: own CDN or asset domains of the same operator, the consent tool. Payment-provider scripts on checkout: necessity UNVERIFIED → keep as „Bitte prüfen“. A host that is clearly a tracker becomes a TDD-01 finding.
+- **Scanner observation:** One `hint` listing up to 30 third-party host names not in `data/third-parties.json` (`hosts`), plus known services of the categories payment, monitoring and other with provider and request URLs (`services`, e.g. Stripe, Sentry, Gravatar).
+- **How Claude verifies:** Classify by host name; known services in `services` are already named. Typical false positives: own CDN or asset domains of the same operator, the consent tool. Payment-provider scripts on checkout: necessity UNVERIFIED → keep as „Bitte prüfen“. A host that is clearly a tracker becomes a TDD-01 finding.
 - **Default priority:** 3; reclassified trackers take TDD-01 priority.
 - **Common reason for a warning letter:** uncertain.
 - **Report:** Was fehlt: „Vor der Einwilligung werden Verbindungen zu [Hosts] aufgebaut; Zweck unbekannt.“ Vorschrift: „§ 25 Abs. 1 TDDDG“.

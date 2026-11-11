@@ -84,6 +84,8 @@ Read `findings.json` fully; read `scan.json` only in the parts you need (it can 
 - **With a reused scan (token saving):** read the earlier `daten/report.json`. A finding whose check ID, status, title and affected pages are unchanged and that concerns only unchanged pages is taken over as verified, including its texts, figures (rewrite their paths to the earlier folder, `../../<earlier run>/daten/belege/…`) and sources; do not open its screenshots again. Sources fetched on the same day may be reused; older ones are fetched again (step 5). Verify only new or changed findings and open only photos of changed pages. Note the takeover in `scanNotes`.
 - Drop false positives and note why in one line (`dropped` in `report.json`). Keep `gap` only when the evidence supports it; otherwise downgrade to "Bitte prüfen".
 - Consent runs: TDD-06 and TDD-07 come from the reject run, DSE-02 also lists services seen only after accept (`evidence.loaded`). If the run clicked a wrong control (check `consentRuns.reject.button`) or the banner stayed (`bannerGone: false`), downgrade its findings to „Bitte prüfen“.
+- Providers (decision 58a): TDD-01, TDD-05 and DSE-02 carry the provider's legal entity and country where verified (`provider`, `providers`). Use them in the privacy draft (Baustein 3: „des Anbieters …“) and to decide whether the third-country paragraph applies; leave the address and, without a provider, the whole placeholder for the owner. Never state a DPF certification.
+- IMP-04 and DSE-03 are keyword checks: confirm each in the imprint or policy text before reporting (checklist).
 - TDD-08 (Shopify script tags): pick the „Was fehlt“ wording by `evidence.afterCutoff`; the consent case goes to priority 1 only after checking that this tool really shows the dialog (checklist).
 - `ok` findings go briefly into `okChecks`.
 - Detected system: `findings.json` → `siteProfile.platform` (name, evidence, add-ons such as WooCommerce, Divi, Elementor). Copy it to `report.json` → `platform`. Write fix steps for that system using only the verified click paths in `references/platforms.md`; where a task is not documented there, give generic steps and say that menu names may differ. With an unknown system, give generic steps.
@@ -141,7 +143,7 @@ Per website: first paragraph with the number of gaps and the most important one,
 | `scripts/build-reports.mjs` | `report.json` → requested PDFs and prompt text file |
 | `scripts/translation.mjs` | Translation template for other document languages and completeness check of the translated file |
 | `scripts/lib/` | Crawl, page facts, sitemap, checks, platform detection (`platform.mjs`), report texts in German and English (`report/i18n.mjs`) |
-| `data/third-parties.json` | Known third-party services (names, hosts, privacy-policy keywords) |
+| `data/third-parties.json` | Known third-party services (names, hosts, privacy-policy keywords, provider entity and country with source) |
 | `references/checklist.md` | Duties, check IDs, verification, fix help, wording rules, manual checks |
 | `references/sources.md` | Official sources with retrieval date |
 | `references/mockup-components.md` | Neutral mock-up components per finding |

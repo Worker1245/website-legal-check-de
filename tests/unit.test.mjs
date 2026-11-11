@@ -8,6 +8,8 @@ import { PATTERNS } from '../scripts/lib/checks/helpers.mjs';
 import { consentRunUrls, matchesChoice } from '../scripts/lib/consent-runs.mjs';
 import { checkConsentChoice, consentModeState } from '../scripts/lib/checks/consent-choice.mjs';
 import { checkScriptTags, parseScriptTagUrls } from '../scripts/lib/checks/script-tags.mjs';
+import { checkImprintDetails, checkPolicyContent } from '../scripts/lib/checks/legal-content.mjs';
+import { checkConsent } from '../scripts/lib/checks/consent.mjs';
 
 test('normalizeStartUrl adds https and rejects unsafe input', () => {
   assert.equal(normalizeStartUrl('www.xyz.de').toString(), 'https://www.xyz.de/');
@@ -150,4 +152,77 @@ test('Shopify script tags: a consent tool is reported separately; wording depend
   assert.deepEqual(before[1].evidence.scriptTags, ['https://cdn.example-reviews.com/w.js?shop=x']);
   assert.equal(checkScriptTags(scan('2027-03-01T08:00:00.000Z'))[0].evidence.afterCutoff, true);
   assert.deepEqual(checkScriptTags(scan('2026-11-09T10:00:00.000Z', null)), []);
+});
+
+const legalScan = (pageType, bodyText, requests = []) => ({
+  pages: [{ url: `https://x.de/${pageType}`, pageType, facts: { bodyText, links: [], buttons: [], prices: [] } }],
+  requests,
+});
+
+test('IMP-04: legal form without representative or register, chamber professions, outdated TMG reference (decision 59a)', () => {
+  const ids = (text) => checkImprintDetails(legalScan('imprint', text)).map((f) => [f.evidence.missing ?? f.evidence.outdated, f.status]);
+  assert.deepEqual(ids('Muster GmbH, Hauptstr. 1, 12345 Berlin. E-Mail: a@x.de'), [['representative', 'hint'], ['register', 'hint']]);
+  assert.deepEqual(ids('Muster GmbH, vertreten durch den Geschäftsführer Max Muster. Registergericht: AG Berlin, HRB 123'), []);
+  // "AG" as the register court abbreviation is no legal form; a KG needs a register entry but no representative (§ 5 Abs. 1 Nr. 1: juristische Personen).
+  assert.deepEqual(ids('Muster KG, Registergericht: AG Hamburg'), []);
+  assert.deepEqual(ids('Muster KG, Hauptstr. 1'), [['register', 'hint']]);
+  assert.deepEqual(ids('Max Muster, Einzelunternehmer, Hauptstr. 1'), []);
+  assert.deepEqual(ids('Dr. Anna Muster, Rechtsanwältin, Hauptstr. 1'), [['chamber', 'hint']]);
+  assert.deepEqual(ids('Dr. Anna Muster, Rechtsanwältin. Zuständige Kammer: Rechtsanwaltskammer Berlin'), []);
+  assert.deepEqual(ids('Angaben gemäß § 5 TMG: Max Muster'), [['§ 5 TMG', 'hint']]);
+  assert.deepEqual(checkImprintDetails({ pages: [], requests: [] }), []);
+});
+
+test('DSE-03: missing Art. 13 elements and an unnamed consent tool (decision 60a)', () => {
+  const full = 'Verantwortliche Stelle: X. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Speicherdauer: bis zur Löschung. '
+    + 'Sie haben ein Recht auf Auskunft. Beschwerderecht bei der Aufsichtsbehörde. Sie können Ihre Einwilligung widerrufen.';
+  assert.deepEqual(checkPolicyContent(legalScan('privacy', full)), []);
+  const gaps = checkPolicyContent(legalScan('privacy', 'Wir nehmen Datenschutz ernst. Verantwortlich ist X.'));
+  assert.deepEqual(gaps.map((f) => [f.check, f.status]), [['DSE-03', 'hint']]);
+  assert.deepEqual(gaps[0].evidence.missing, ['legalBasis', 'storagePeriod', 'rights', 'complaint', 'withdrawal']);
+  const english = 'Controller: X. Legal basis: Art. 6(1)(a) GDPR. Retention period: 6 months. Right of access. '
+    + 'You may lodge a complaint with a supervisory authority. You may withdraw your consent.';
+  assert.deepEqual(checkPolicyContent(legalScan('privacy', english)), []);
+  const cmp = checkPolicyContent(legalScan('privacy', full, [{ url: 'https://consent.cookiebot.com/uc.js', thirdParty: true }]));
+  assert.deepEqual(cmp.map((f) => [f.check, f.evidence.consentTools]), [['DSE-03', ['Cookiebot']]]);
+  assert.deepEqual(checkPolicyContent(legalScan('privacy', `${full} Wir nutzen Cookiebot.`, [{ url: 'https://consent.cookiebot.com/uc.js', thirdParty: true }])), []);
+  assert.deepEqual(checkPolicyContent({ pages: [], requests: [] }), []);
+});
+
+test('known services: embeds are TDD-01 findings, other known services are named in TDD-05, providers come along (decisions 57a, 58a)', () => {
+  const request = (url, service, category) => ({ url, page: 0, thirdParty: true, service, category });
+  const scan = {
+    pages: [{ index: 0, url: 'https://x.de/', finalUrl: 'https://x.de/', facts: { banner: null, links: [], buttons: [], prices: [] } }],
+    cookies: [],
+    requests: [
+      request('https://www.google-analytics.com/g/collect', 'Google Analytics', 'analytics'),
+      request('https://assets.calendly.com/assets/external/widget.js', 'Calendly', 'booking'),
+      request('https://js.stripe.com/v3/', 'Stripe', 'payment'),
+      request('https://unknown.example/a.js', null, null),
+    ],
+  };
+  const findings = checkConsent(scan);
+  const tdd01 = findings.filter((f) => f.check === 'TDD-01');
+  assert.deepEqual(tdd01.map((f) => [f.evidence.service, f.evidence.category]), [['Google Analytics', 'analytics'], ['Calendly', 'booking']]);
+  assert.ok(tdd01[1].evidence.provider?.entity, 'provider entity of Calendly is passed on');
+  const tdd05 = findings.find((f) => f.check === 'TDD-05');
+  assert.deepEqual(tdd05.evidence.hosts, ['unknown.example']);
+  assert.deepEqual(tdd05.evidence.services.map((s) => [s.name, s.category]), [['Stripe', 'payment']]);
+});
+
+test('third-party list: valid categories, unique hosts, providers with an https source or null', async () => {
+  const { SERVICES } = await import('../scripts/lib/third-parties.mjs');
+  const categories = new Set(['fonts', 'analytics', 'ads', 'tagmanager', 'video', 'audio', 'maps', 'social', 'chat', 'captcha',
+    'booking', 'forms', 'newsletter', 'reviews', 'payment', 'monitoring', 'cdn', 'consent', 'other']);
+  const hosts = new Set();
+  for (const s of SERVICES) {
+    assert.ok(categories.has(s.category), `${s.name}: category ${s.category}`);
+    assert.ok(s.hosts.length > 0 && s.keywords.length > 0, `${s.name}: hosts and keywords`);
+    for (const h of s.hosts) {
+      assert.ok(!hosts.has(h), `${h} listed twice`);
+      hosts.add(h);
+    }
+    if (s.provider !== null) assert.match(s.provider.source, /^https:\/\//, `${s.name}: provider source`);
+    assert.ok(s.provider === null || (s.provider.entity && s.provider.country), `${s.name}: provider fields`);
+  }
 });

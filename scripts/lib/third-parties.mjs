@@ -4,8 +4,17 @@ import { readFileSync } from 'node:fs';
 
 const DATA_URL = new URL('../../data/third-parties.json', import.meta.url);
 
-/** @type {{name: string, category: string, hosts: string[], paths?: string[], keywords: string[]}[]} */
+/**
+ * provider: legal entity and country from the vendor's own imprint or privacy page (decision 58a);
+ * null where it was not verified.
+ * @type {{name: string, category: string, hosts: string[], paths?: string[], keywords: string[],
+ *   provider?: {entity: string, country: string, source: string} | null}[]}
+ */
 export const SERVICES = JSON.parse(readFileSync(DATA_URL, 'utf8')).services;
+const BY_NAME = new Map(SERVICES.map((s) => [s.name, s]));
+
+/** @param {string} name */
+export const serviceByName = (name) => BY_NAME.get(name) ?? null;
 
 /**
  * @param {string} requestUrl

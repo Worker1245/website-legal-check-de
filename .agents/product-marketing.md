@@ -1,7 +1,7 @@
 # Product Marketing Context
 
-**Document version:** v21
-**Last updated:** 2026-11-10
+**Document version:** v22
+**Last updated:** 2026-11-11
 
 Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(Annahme)“ markierte Punkte sind nicht durch Nutzerbefragungen belegt.
 
@@ -53,11 +53,12 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 - Prüft, was die Website wirklich lädt (Anfragen, Cookies, Speicher) – vor jeder Einwilligung.
 - Jede Lücke mit Beleg, Vorschrift, Priorität und ⚠ bei häufigen Abmahngründen.
 - Behebung inklusive: Textentwürfe, Mock-ups, amtliche Quellen, KI-Prompt für Claude Code oder Codex.
-- Nur tatsächlich abgerufene, amtliche Quellen; monatliche Aktualitätsprüfung; Kapitel zu kommenden Regeln.
+- Nur tatsächlich abgerufene, amtliche Quellen; monatliche Aktualitätsprüfung, dazu ein Selbst-Update zum Ende jedes Quartals; Kapitel zu kommenden Regeln.
+- Erkennt über 100 Drittdienste beim Namen, bei 80 mit Anbieter und Land aus dessen eigener Seite.
 - Erkennt das System der Website (z. B. WordPress, Shopify, Wix) und schreibt Anleitungen für Laien; jeder Befund ist zusätzlich in einfachen Worten erklärt.
 - Berichte auf Deutsch oder Englisch; mehrere Websites in einem Aufruf; wiederholte Prüfungen übernehmen unveränderte Seiten aus dem letzten Scan.
 - Lokal, Open Source, kostenlos.
-**How we do it differently:** Technische Messung plus gepflegte Prüfliste mit 32 automatischen und 22 manuellen Prüfpunkten, 95 Quellen und 14 beobachteten kommenden Regeln.
+**How we do it differently:** Technische Messung plus gepflegte Prüfliste mit 34 automatischen und 22 manuellen Prüfpunkten, 96 Quellen und 14 beobachteten kommenden Regeln.
 **Why that's better:** Belegte Befunde statt Vermutungen und direkt umsetzbare Hilfe.
 **Why customers choose us:** Schnell, gratis, nachvollziehbar, und das Ergebnis lässt sich direkt weitergeben (Annahme).
 
@@ -113,7 +114,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 **Never use (and why):** „rechtssicher“, „abmahnsicher“ – nicht einlösbar und RDG-heikel.
 
 ## Proof Points
-**Metrics:** 32 automatische und 22 manuelle Prüfpunkte, Klickwege für 8 Website-Systeme aus deren offizieller Hilfe, 95 Quellen (abgerufen), 14 kommende Regeln, 12 Textentwürfe, automatische Tests auf lokalen Testseiten.
+**Metrics:** 34 automatische und 22 manuelle Prüfpunkte, 109 erkannte Drittdienste (80 mit Anbieter und Land), Klickwege für 8 Website-Systeme aus deren offizieller Hilfe, 96 Quellen (abgerufen), 14 kommende Regeln, 12 Textentwürfe, automatische Tests auf lokalen Testseiten.
 **Customers:** —
 **Testimonials:** —
 **Value themes:**
@@ -140,6 +141,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v22 (2026-11-11) — v1.12.0: 109 known services (was 32) with provider and country for 80, IMP-04 (imprint details) and DSE-03 (Art. 13 elements); quarterly self-update. Description now leads with service recognition and the quarterly update; the Shopify sentence dropped for length (350 limit). Topics unchanged (20 is the maximum).
 - v21 (2026-11-10) — v1.11.1: all intake questions follow one answer pattern, (Y/N), (Y/N, U = unbekannt) for the AI questions and (G/E, …) for languages. No positioning change, description and topics unchanged.
 - v20 (2026-11-09) — v1.11.0 after a reader hint: TDD-08 Shopify script tags (no longer injected from 1 March 2027), consent tool loaded that way at priority 1; 32 automatic checks, 95 sources; GitHub description gains one sentence, topics unchanged (20 is the maximum).
 - v19 (2026-11-09) — v1.10.2: PDF intros mention mock-ups, prompt and long report only when present; AI question shortened to "(U = unbekannt)". No positioning change, description and topics unchanged.
