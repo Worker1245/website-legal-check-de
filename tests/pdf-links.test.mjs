@@ -9,7 +9,7 @@ import { test } from 'node:test';
 import { PDFArray, PDFDocument, PDFName } from 'pdf-lib';
 import { buildReports } from '../scripts/build-reports.mjs';
 
-const REPO = 'https://github.com/Worker1245/website-legal-check-de';
+const REPO = 'https://github.com/Dario-Lanz/website-legal-check-de';
 const data = {
   site: 'example.de', date: '07.11.2026', pagesScanned: 3, checklistStatus: '07.11.2026',
   findings: [{ prio: 1, kind: 'gap', title: 'T', what: 'W', where: '/x/', law: '§ 25 TDDDG', fix: 'F', evidence: 'E' }],

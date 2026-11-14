@@ -1,9 +1,10 @@
 {
   "name": "website-legal-check-de",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "private": true,
   "description": "Claude skill: technical check of a website against core German and EU legal duties, with fix help.",
   "license": "GPL-3.0-or-later",
+  "author": "Dario Lanz",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -18,9 +19,9 @@
     "pdf-lib": "^1.17.1",
     "playwright": "^1.65.0"
   },
-  "homepage": "https://github.com/Worker1245/website-legal-check-de",
+  "homepage": "https://github.com/Dario-Lanz/website-legal-check-de",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Worker1245/website-legal-check-de"
+    "url": "https://github.com/Dario-Lanz/website-legal-check-de"
   }
 }

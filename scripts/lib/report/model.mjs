@@ -9,6 +9,12 @@ const PACKAGE = JSON.parse(readFileSync(new URL('../../../package.json', import.
 /** Name, version and repository of this skill, shown at the top of both PDFs. */
 export const TOOL = { name: PACKAGE.name, version: PACKAGE.version, url: PACKAGE.homepage };
 
+/** Year the skill was first published, for the copyright notice. */
+const COPYRIGHT_YEAR = 2026;
+
+/** Copyright of the skill and its repository (not of the report), named next to the repository link. */
+export const COPYRIGHT = `© ${COPYRIGHT_YEAR} ${PACKAGE.author} · ${PACKAGE.license}`;
+
 const PRIORITIES = [1, 2, 3];
 const KINDS = new Set(['gap', 'check']);
 const SAFE_URL = /^https?:\/\//i;
@@ -83,9 +89,9 @@ export function collectSources(model) {
 export const ABMAHN_ICON = '<svg class="warn" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 2 1 21h22L12 2z" fill="#b45309"/><path d="M11 9h2v6h-2zM11 17h2v2h-2z" fill="#fff"/></svg>';
 
 
-/** One line naming the skill with a clickable link to its repository. */
+/** One line naming the skill with a clickable link to its repository and the repository's copyright. */
 export function toolLine(t) {
-  return t.tool(esc(TOOL.name), esc(TOOL.version), link(TOOL.url, TOOL.url.replace(/^https:\/\//, '')));
+  return `${t.tool(esc(TOOL.name), esc(TOOL.version), link(TOOL.url, TOOL.url.replace(/^https:\/\//, '')))} · ${esc(COPYRIGHT)}`;
 }
 
 /** Detected system as one line, e.g. "Erkanntes System: WordPress (WooCommerce, Divi)". */

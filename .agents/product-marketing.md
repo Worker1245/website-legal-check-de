@@ -155,7 +155,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 - v11 (2026-11-08) — No positioning change; v1.9.3 puts the revision at the end of folder names (…_Ref2).
 - v10 (2026-11-08) — Customer language: the PDFs say "Rechtsstand" (legal status) instead of "Stand der Prüfliste" and explain it on page 1.
 - v9 (2026-11-08) — No positioning change; v1.9.1 fixes folder names for .app domains and clarifies the prompt question.
-- v8 (2026-11-08) — Business model: licence changed to GPL-3.0-or-later from version 1.9.0 (copyright Worker1245).
+- v8 (2026-11-08) — Business model: licence changed to GPL-3.0-or-later from version 1.9.0 (copyright Dario Lanz).
 - v7 (2026-11-08) — Proof points: PDFs follow researched formatting rules (captions, DIN 5008 typography, legibility) and open with a fixed explanation of their contents.
 - v6 (2026-11-08) — Repeated checks: revisions named Ref2, Ref3; evidence photos and verified findings of unchanged pages are taken over without copying or re-reading.
 - v5 (2026-11-08) — Differentiation: repeated checks reuse an earlier scan and only re-scan changed pages; prompt text file optional.

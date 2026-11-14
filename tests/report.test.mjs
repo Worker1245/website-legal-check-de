@@ -206,3 +206,11 @@ test('legal status is named "Rechtsstand" and explained on page 1', () => {
   const en = buildModel({ ...data([finding({})]), language: 'en' });
   assert.match(renderKurzbericht(en), /Legal status: 07\.11\.2026[\s\S]*The legal status states up to which date/);
 });
+
+test('both reports name the repository copyright next to the repository link, not in the page footer', () => {
+  const model = buildModel(data([finding()]));
+  for (const html of [renderKurzbericht(model), renderLangfassung(model)]) {
+    assert.match(html, /github\.com\/[^<]+<\/a> · © 2026 Dario Lanz · GPL-3\.0-or-later<\/p>/);
+    assert.ok(!html.includes('@bottom-left'), 'no copyright in the page footer');
+  }
+});

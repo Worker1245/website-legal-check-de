@@ -16,7 +16,7 @@
 Voraussetzungen: Claude Code und Node.js 22 oder neuer.
 
 ```bash
-git clone https://github.com/Worker1245/website-legal-check-de.git
+git clone https://github.com/Dario-Lanz/website-legal-check-de.git
 cd website-legal-check-de
 npm ci
 npx playwright install chromium
@@ -62,7 +62,7 @@ Jede Prüfung erhält einen eigenen Ordner im aktuellen Verzeichnis, `JJJJMMTT_<
 | `JJJJMMTT_<projekt>_KI-Prompt_<SPRACHE>.txt` | Nur auf Wunsch bei KI-erstellten Websites: Auftrag für Claude Code oder Codex, der alle Befunde ohne Rückfragen im Code behebt; Unbekanntes wird als sichtbarer Platzhalter gesetzt |
 | `daten/` | Rohdaten und Belege (Bildschirmfotos, Messwerte), damit sich Befunde nachvollziehen lassen |
 
-Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und `…_AI-Prompt.txt`. Beide PDFs beginnen mit einer festen Kurzerklärung, was im Dokument steht (Sätze zu abgewählten Teilen wie Mock-ups, Prompt oder Langfassung entfallen), und folgen recherchierten Formatierungsregeln (Tabellenüberschrift oben, Abbildungsunterschrift unten, 11 pt mit 1,5-fachem Zeilenabstand, Flattersatz, Schreibweisen nach DIN 5008). Sie nennen das erkannte System, Skill, Version und dieses Repository, nutzen nur die frei lizenzierte Schrift Source Sans 3 und betten Bildschirmfotos verkleinert ein.
+Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und `…_AI-Prompt.txt`. Beide PDFs beginnen mit einer festen Kurzerklärung, was im Dokument steht (Sätze zu abgewählten Teilen wie Mock-ups, Prompt oder Langfassung entfallen), und folgen recherchierten Formatierungsregeln (Tabellenüberschrift oben, Abbildungsunterschrift unten, 11 pt mit 1,5-fachem Zeilenabstand, Flattersatz, Schreibweisen nach DIN 5008). Sie nennen das erkannte System, Skill, Version, dieses Repository und dessen Copyright, nutzen nur die frei lizenzierte Schrift Source Sans 3 und betten Bildschirmfotos verkleinert ein.
 
 ## Wie er arbeitet
 
@@ -98,7 +98,7 @@ Dazu kommen 22 Punkte, die sich von außen nicht prüfen lassen (z. B. Verträge
 
 ## Mitmachen
 
-Fehlalarme, übersehene Lücken oder geänderte Rechtslage bitte als [Issue](https://github.com/Worker1245/website-legal-check-de/issues) melden, am besten mit Prüf-ID, betroffener Seite und Quelle.
+Fehlalarme, übersehene Lücken oder geänderte Rechtslage bitte als [Issue](https://github.com/Dario-Lanz/website-legal-check-de/issues) melden, am besten mit Prüf-ID, betroffener Seite und Quelle.
 
 ## Entwicklung
 
@@ -110,7 +110,7 @@ Die Tests prüfen lokale Testseiten (eine mit eingebauten Lücken, eine ohne) un
 
 ## Lizenz
 
-Copyright (C) 2026 Worker1245
+Copyright (C) 2026 Dario Lanz
 
 Dieses Programm ist freie Software: Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder verändern, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Wahl) jeder späteren Version (GPL-3.0-or-later). Es wird ohne jede Gewährleistung bereitgestellt. Den vollständigen Lizenztext enthält [LICENSE](LICENSE).
 
