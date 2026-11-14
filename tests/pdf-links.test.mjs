@@ -48,3 +48,20 @@ test('both PDFs name the skill with a clickable GitHub link; long report links a
     await rm(dir, { recursive: true, force: true });
   }
 });
+
+test('both PDFs carry a machine-readable AI marking in their document properties', async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'wlc-ai-'));
+  try {
+    const file = path.join(dir, 'report.json');
+    await writeFile(file, JSON.stringify(data));
+    const result = await buildReports(file, '20261107_example', { short: true, long: true });
+    for (const name of ['Kurzbericht', 'Langfassung']) {
+      const doc = await PDFDocument.load(await readFile(result[name].pdf), { updateMetadata: false });
+      assert.match(doc.getKeywords() ?? '', /AI-generated/, `${name}: keywords`);
+      assert.match(doc.getKeywords() ?? '', /KI-generiert/, `${name}: keywords (German)`);
+      assert.match(doc.getCreator() ?? '', /website-legal-check-de .* Claude \(AI\)/, `${name}: creator`);
+    }
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});

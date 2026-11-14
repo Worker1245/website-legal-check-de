@@ -222,3 +222,12 @@ test('both reports show a small clickable LinkedIn QR code with caption next to 
     assert.equal(html.match(/class="qr"/g).length, 1, 'QR code appears once');
   }
 });
+
+test('both reports say visibly on the first page that AI (Claude) assisted, in German and English', () => {
+  for (const [language, phrase] of [['de', 'mit KI-Unterstützung (Claude)'], ['en', 'with AI assistance (Claude)']]) {
+    const model = buildModel({ ...data([finding()]), language });
+    for (const html of [renderKurzbericht(model), renderLangfassung(model)]) {
+      assert.ok(html.includes(phrase), `${language}: ${phrase}`);
+    }
+  }
+});

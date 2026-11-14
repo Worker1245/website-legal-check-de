@@ -10,6 +10,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import { chromium } from 'playwright';
+import { markAiAssisted } from './lib/pdf-ai-marking.mjs';
 import { resolveNamedDestinations } from './lib/pdf-links.mjs';
 
 const require = createRequire(import.meta.url);
@@ -53,7 +54,7 @@ export async function renderPdf(htmlFile, pdfFile, { paged = false } = {}) {
       : { format: 'A4', printBackground: true, margin: { top: '14mm', bottom: '16mm', left: '14mm', right: '14mm' } });
     const pages = (raw.toString('latin1').match(/\/Type\s*\/Page[^s]/g) ?? []).length;
     const { bytes } = await resolveNamedDestinations(raw);
-    await writeFile(pdfFile, bytes);
+    await writeFile(pdfFile, await markAiAssisted(bytes));
     return pages;
   } finally {
     await browser.close();
