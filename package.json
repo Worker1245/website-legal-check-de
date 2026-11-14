@@ -1,6 +1,6 @@
 {
   "name": "website-legal-check-de",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "private": true,
   "description": "Claude skill: technical check of a website against core German and EU legal duties, with fix help.",
   "license": "GPL-3.0-or-later",

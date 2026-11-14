@@ -112,6 +112,8 @@ Die Tests prüfen lokale Testseiten (eine mit eingebauten Lücken, eine ohne) un
 
 Copyright (C) 2026 Dario Lanz
 
+Code und Texte dieses Projekts entstehen mit Unterstützung von Claude (KI); der Autor prüft und verantwortet sie.
+
 Dieses Programm ist freie Software: Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder verändern, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Wahl) jeder späteren Version (GPL-3.0-or-later). Es wird ohne jede Gewährleistung bereitgestellt. Den vollständigen Lizenztext enthält [LICENSE](LICENSE).
 
 Die erzeugten Berichte und PDFs sind keine Bearbeitung des Programms; für sie gilt die GPL nicht. Mitgenutzte Bausteine behalten ihre eigenen Lizenzen (u. a. Playwright: Apache-2.0, axe-core: MPL-2.0, Paged.js und pdf-lib: MIT, Schrift Source Sans 3: SIL Open Font License 1.1).
