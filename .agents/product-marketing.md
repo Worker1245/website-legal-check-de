@@ -1,7 +1,7 @@
 # Product Marketing Context
 
-**Document version:** v22
-**Last updated:** 2026-11-11
+**Document version:** v23
+**Last updated:** 2026-11-14
 
 Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(Annahme)“ markierte Punkte sind nicht durch Nutzerbefragungen belegt.
 
@@ -141,6 +141,7 @@ Entwurf aus README, SKILL.md, Prüfliste und Quellenliste abgeleitet. Mit „(An
 
 ## Changelog
 *Newest first. One line per revision: what changed and why.*
+- v23 (2026-11-14) — v1.15.1: README names the SkillSpector (NVIDIA) security check of every release; the AI note says the author is responsible for code and texts. No positioning change, description and topics unchanged.
 - v22 (2026-11-11) — v1.12.0: 109 known services (was 32) with provider and country for 80, IMP-04 (imprint details) and DSE-03 (Art. 13 elements); quarterly self-update. Description now leads with service recognition and the quarterly update; the Shopify sentence dropped for length (350 limit). Topics unchanged (20 is the maximum).
 - v21 (2026-11-10) — v1.11.1: all intake questions follow one answer pattern, (Y/N), (Y/N, U = unbekannt) for the AI questions and (G/E, …) for languages. No positioning change, description and topics unchanged.
 - v20 (2026-11-09) — v1.11.0 after a reader hint: TDD-08 Shopify script tags (no longer injected from 1 March 2027), consent tool loaded that way at priority 1; 32 automatic checks, 95 sources; GitHub description gains one sentence, topics unchanged (20 is the maximum).

@@ -106,13 +106,13 @@ Fehlalarme, übersehene Lücken oder geänderte Rechtslage bitte als [Issue](htt
 npm test
 ```
 
-Die Tests prüfen lokale Testseiten (eine mit eingebauten Lücken, eine ohne) und greifen nie auf das Internet zu. Die Prüfliste (`references/checklist.md`), die Quellen (`references/sources.md`) und die kommenden Regeln (`references/upcoming.md`) tragen ein Stand-Datum; Änderungen werden nach `references/update.md` eingepflegt. Zum Ende jedes Quartals aktualisiert sich der Skill selbst: neue Gesetze und Leitlinien, Prüfung der Quellen, Fehlersuche. Neue Funktionen schlägt er nur vor, veröffentlicht wird nur, wenn alle Tests und Sicherheitsprüfungen bestehen. Die Dateien des Skills selbst sind auf Englisch, alle Ausgaben für Nutzer auf Deutsch.
+Die Tests prüfen lokale Testseiten (eine mit eingebauten Lücken, eine ohne) und greifen nie auf das Internet zu. Die Prüfliste (`references/checklist.md`), die Quellen (`references/sources.md`) und die kommenden Regeln (`references/upcoming.md`) tragen ein Stand-Datum; Änderungen werden nach `references/update.md` eingepflegt. Zum Ende jedes Quartals aktualisiert sich der Skill selbst: neue Gesetze und Leitlinien, Prüfung der Quellen, Fehlersuche. Neue Funktionen schlägt er nur vor, veröffentlicht wird nur, wenn alle Tests und Sicherheitsprüfungen bestehen. Jede veröffentlichte Version wird vor der Installation mit [SkillSpector](https://github.com/NVIDIA/skillspector) von NVIDIA auf Sicherheitsrisiken geprüft (statische Prüfung ohne KI-Analyse); jede Meldung wird einzeln bewertet. Die Dateien des Skills selbst sind auf Englisch, alle Ausgaben für Nutzer auf Deutsch.
 
 ## Lizenz
 
 Copyright (C) 2026 Dario Lanz
 
-Code und Texte dieses Projekts entstehen mit Unterstützung von Claude (KI); der Autor prüft und verantwortet sie.
+Code und Texte dieses Projekts entstehen mit Unterstützung von Claude (KI); der Autor verantwortet sie.
 
 Dieses Programm ist freie Software: Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder verändern, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Wahl) jeder späteren Version (GPL-3.0-or-later). Es wird ohne jede Gewährleistung bereitgestellt. Den vollständigen Lizenztext enthält [LICENSE](LICENSE).
 
