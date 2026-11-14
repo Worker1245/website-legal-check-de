@@ -1,6 +1,6 @@
 // Short report (forwardable PDF): findings grouped by priority, one row each.
 
-import { ABMAHN_ICON, esc, platformLine, toolLine } from './model.mjs';
+import { ABMAHN_ICON, esc, platformLine, TOOL_ROW_CSS, toolRow } from './model.mjs';
 
 const css = (t) => `
   @page { size: A4; margin: 20mm 20mm 20mm 25mm;
@@ -13,7 +13,7 @@ const css = (t) => `
   .lead { margin: 0 0 2mm; color: #444; }
   .meta { color: #444; margin: 0 0 3mm; }
   .tool { font-size: 10pt; margin-top: -2mm; }
-  a { color: #1d4ed8; }
+${TOOL_ROW_CSS}  a { color: #1d4ed8; }
   .notice { border: 1px solid #b45309; background: #fff7ed; padding: 2.5mm 3mm; font-size: 10pt; margin: 3mm 0; }
   .summary { display: flex; gap: 4mm; margin: 3mm 0; }
   .summary div { border: 1px solid #ccc; padding: 2mm 3mm; min-width: 30mm; }
@@ -59,7 +59,7 @@ export function renderKurzbericht(model, { withLong = true } = {}) {
 <h1>${esc(t.short.title(model.site))}</h1>
 <p class="meta">${esc(t.meta(model.date, model.time, model.pagesScanned, model.checklistStatus))}</p>
 <p class="meta">${esc(platformLine(model))}</p>
-<p class="meta tool">${toolLine(t)}</p>
+${toolRow(t, 'meta tool')}
 <div class="notice">${t.short.notice}</div>${t.translated ? `<div class="notice">${esc(t.translatedNote)}</div>` : ''}
 <p class="intro">${esc([t.short.intro, withLong ? t.short.introLong : '', t.short.introStatus].filter(Boolean).join(' ')).replace('⚠', ABMAHN_ICON)}</p>
 <div class="summary"><div><strong>${gaps}</strong>${t.short.gaps}</div><div><strong>${checks}</strong>${t.short.checks}</div></div>

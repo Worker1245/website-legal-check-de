@@ -62,7 +62,7 @@ Jede Prüfung erhält einen eigenen Ordner im aktuellen Verzeichnis, `JJJJMMTT_<
 | `JJJJMMTT_<projekt>_KI-Prompt_<SPRACHE>.txt` | Nur auf Wunsch bei KI-erstellten Websites: Auftrag für Claude Code oder Codex, der alle Befunde ohne Rückfragen im Code behebt; Unbekanntes wird als sichtbarer Platzhalter gesetzt |
 | `daten/` | Rohdaten und Belege (Bildschirmfotos, Messwerte), damit sich Befunde nachvollziehen lassen |
 
-Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und `…_AI-Prompt.txt`. Beide PDFs beginnen mit einer festen Kurzerklärung, was im Dokument steht (Sätze zu abgewählten Teilen wie Mock-ups, Prompt oder Langfassung entfallen), und folgen recherchierten Formatierungsregeln (Tabellenüberschrift oben, Abbildungsunterschrift unten, 11 pt mit 1,5-fachem Zeilenabstand, Flattersatz, Schreibweisen nach DIN 5008). Sie nennen das erkannte System, Skill, Version, dieses Repository und dessen Copyright, nutzen nur die frei lizenzierte Schrift Source Sans 3 und betten Bildschirmfotos verkleinert ein.
+Auf Englisch heißen die Dateien `…_ShortReport.pdf`, `…_LongReport.pdf` und `…_AI-Prompt.txt`. Beide PDFs beginnen mit einer festen Kurzerklärung, was im Dokument steht (Sätze zu abgewählten Teilen wie Mock-ups, Prompt oder Langfassung entfallen), und folgen recherchierten Formatierungsregeln (Tabellenüberschrift oben, Abbildungsunterschrift unten, 11 pt mit 1,5-fachem Zeilenabstand, Flattersatz, Schreibweisen nach DIN 5008). Sie nennen das erkannte System, Skill, Version, dieses Repository und dessen Copyright, zeigen daneben einen kleinen QR-Code zum LinkedIn-Profil des Autors, nutzen nur die frei lizenzierte Schrift Source Sans 3 und betten Bildschirmfotos verkleinert ein.
 
 ## Wie er arbeitet
 

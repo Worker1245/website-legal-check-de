@@ -39,6 +39,7 @@ test('both PDFs name the skill with a clickable GitHub link; long report links a
     for (const name of ['Kurzbericht', 'Langfassung']) {
       const all = await links(result[name].pdf);
       assert.ok(all.some((l) => l.uri === REPO), `${name}: GitHub link`);
+      assert.ok(all.some((l) => l.uri === 'https://www.linkedin.com/in/dario-lanz-30731a154/'), `${name}: LinkedIn QR link`);
     }
     const internal = (await links(result.Langfassung.pdf)).filter((l) => l.dest);
     assert.ok(internal.length >= 8, 'table of contents and lists have links');

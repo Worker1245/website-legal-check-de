@@ -214,3 +214,11 @@ test('both reports name the repository copyright next to the repository link, no
     assert.ok(!html.includes('@bottom-left'), 'no copyright in the page footer');
   }
 });
+
+test('both reports show a small clickable LinkedIn QR code with caption next to the repository line', () => {
+  const model = buildModel(data([finding()]));
+  for (const html of [renderKurzbericht(model), renderLangfassung(model)]) {
+    assert.match(html, /<a class="qr" href="https:\/\/www\.linkedin\.com\/in\/dario-lanz-30731a154\/"><svg[^>]*>[\s\S]*?<\/svg><span>LinkedIn<\/span><\/a>/);
+    assert.equal(html.match(/class="qr"/g).length, 1, 'QR code appears once');
+  }
+});

@@ -4,7 +4,7 @@
 
 import { readFileSync } from 'node:fs';
 import { renderKiPrompt } from './ki-prompt.mjs';
-import { ABMAHN_ICON, collectSources, esc, link, platformLine, toolLine } from './model.mjs';
+import { ABMAHN_ICON, collectSources, esc, link, platformLine, TOOL_ROW_CSS, toolRow } from './model.mjs';
 
 const ABBREVIATIONS = JSON.parse(readFileSync(new URL('../../../data/abbreviations.json', import.meta.url), 'utf8')).entries;
 const longOf = (a, t) => t.abbreviations?.[a.short] ?? (t.lang === 'en' && a.longEn ? a.longEn : a.long);
@@ -23,7 +23,7 @@ const css = (t, site) => `
   h3 { font-size: 12pt; margin: 4mm 0 1.5mm; }
   .cover h1 { font-size: 24pt; margin-top: 40mm; }
   .meta, .lead { color: #444; }
-  .intro { margin: 0 0 5mm; }
+${TOOL_ROW_CSS}  .intro { margin: 0 0 5mm; }
   .notice { border: 1px solid #b45309; background: #fff7ed; padding: 3mm; font-size: 10pt; margin: 6mm 0; }
   .toc ol { list-style: none; padding: 0; margin: 0; }
   .toc ol ol { padding-left: 6mm; }
@@ -217,7 +217,7 @@ export function renderLangfassung(model, { promptChapter: withPrompt = false, pr
 <section class="cover"><h1>${esc(t.long.title(model.site))}</h1>
 <p class="meta">${esc(t.meta(model.date, model.time, model.pagesScanned, model.checklistStatus))}</p>
 <p class="meta">${esc(platformLine(model))}</p>
-<p class="meta">${toolLine(t)}</p>
+${toolRow(t, 'meta')}
 <div class="notice">${t.long.notice}</div>${t.translated ? `<div class="notice">${esc(t.translatedNote)}</div>` : ''}
 <p class="intro">${esc(introText(model, showPrompt)).replace('⚠', ABMAHN_ICON)}</p>
 <section class="toc" id="inhalt"><h2>${t.long.toc}</h2>${tocEntries(model, showPrompt)}</section></section>

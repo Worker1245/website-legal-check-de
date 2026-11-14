@@ -15,6 +15,20 @@ const COPYRIGHT_YEAR = 2026;
 /** Copyright of the skill and its repository (not of the report), named next to the repository link. */
 export const COPYRIGHT = `© ${COPYRIGHT_YEAR} ${PACKAGE.author} · ${PACKAGE.license}`;
 
+/** LinkedIn profile of the copyright holder, reached through the QR code on the first page. */
+const AUTHOR_PROFILE = 'https://www.linkedin.com/in/dario-lanz-30731a154/';
+
+/** LinkedIn's own profile QR code (links to AUTHOR_PROFILE with ?fromQR=1), redrawn as SVG module by module and checked by decoding (static file, no runtime dependency). */
+const AUTHOR_QR_SVG = readFileSync(new URL('../../../data/linkedin-qr.svg', import.meta.url), 'utf8');
+
+/** Styles for the repository line with the small QR code on its right. */
+export const TOOL_ROW_CSS = `
+  .tool-row { display: flex; align-items: flex-start; gap: 4mm; }
+  .tool-row p { flex: 1; }
+  .qr { display: block; width: 15mm; text-align: center; color: #888; font-size: 7pt; line-height: 1.2; text-decoration: none; }
+  .qr svg { display: block; width: 15mm; height: 15mm; }
+`;
+
 const PRIORITIES = [1, 2, 3];
 const KINDS = new Set(['gap', 'check']);
 const SAFE_URL = /^https?:\/\//i;
@@ -92,6 +106,11 @@ export const ABMAHN_ICON = '<svg class="warn" viewBox="0 0 24 24" width="12" hei
 /** One line naming the skill with a clickable link to its repository and the repository's copyright. */
 export function toolLine(t) {
   return `${t.tool(esc(TOOL.name), esc(TOOL.version), link(TOOL.url, TOOL.url.replace(/^https:\/\//, '')))} · ${esc(COPYRIGHT)}`;
+}
+
+/** Repository line with the QR code to the copyright holder's LinkedIn profile on its right. */
+export function toolRow(t, className) {
+  return `<div class="tool-row"><p class="${className}">${toolLine(t)}</p><a class="qr" href="${AUTHOR_PROFILE}">${AUTHOR_QR_SVG.trim()}<span>LinkedIn</span></a></div>`;
 }
 
 /** Detected system as one line, e.g. "Erkanntes System: WordPress (WooCommerce, Divi)". */
